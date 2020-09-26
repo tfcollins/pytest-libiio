@@ -1,0 +1,54 @@
+# FMC and Eval
+fmcomms2:
+  - ad7291
+  - ad9361-phy
+  - cf-ad9361-lpc,4
+fmcomms4:
+  - ad7291
+  - ad9361-phy
+  - cf-ad9361-lpc,2
+fmcomms5:
+  - ad9361-phy
+  - ad9361-phy-b
+  - cf-ad9361-lpc,8
+pluto:
+  - adm1177
+  - ad9361-phy
+  - cf-ad9361-lpc,2
+daq2:
+  - axi-ad9144-hpc,4
+  - axi-ad9680-hpc,2
+daq3:
+  - axi-ad9152-hpc,2
+  - axi-ad9680-hpc,2
+
+# SOMS
+adrv9361:
+  - ad9517
+  - ad9361-phy
+  - cf-ad9361-lpc,4
+adrv9364:
+  - ad7291-bob
+  - ad9361-phy
+  - cf-ad9361-lpc,2
+packrf:
+  - ad7291-ccbox
+  - ad9361-phy
+  - cf-ad9361-lpc,4
+
+# Generics
+ad9361:
+  - ad9361-phy
+  - cf-ad9361-lpc,4
+ad9364:
+  - ad9361-phy
+  - cf-ad9361-lpc,2
+adrv9002:
+  - adrv9002-phy
+adrv9009:
+  - adrv9009-phy
+adrv9009-dual:
+  - adrv9009-phy
+  - adrv9009-phy-b
+adrv9371:
+  - ad9371-phy

@@ -1,0 +1,10 @@
+site_name: pytest-libiio
+site_description: A pytest plugin to manage interfacing with libiio contexts
+site_author: Travis F. Collins
+
+theme: readthedocs
+
+repo_url: https://github.com/tfcollins/pytest-libiio
+
+pages:
+- Home: index.md

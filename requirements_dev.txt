@@ -1,0 +1,7 @@
+black
+codespell
+flake8
+pre-commit
+isort
+pytest>=4.6
+pylibiio>=0.21
