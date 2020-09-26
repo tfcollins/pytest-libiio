@@ -42,9 +42,7 @@ def test_context_fixture_uri(testdir):
     result = testdir.runpytest("--uri=ip:192.168.86.35", "-v", "-s")
 
     # fnmatch_lines does an assertion internally
-    result.stdout.fnmatch_lines(
-        ["*::test_sth PASSED*",]
-    )
+    result.stdout.fnmatch_lines(["*::test_sth PASSED*"])
 
     # make sure that that we get a '0' exit code for the testsuite
     assert result.ret == 0
@@ -53,9 +51,7 @@ def test_context_fixture_uri(testdir):
 def test_help_message(testdir):
     result = testdir.runpytest("--help",)
     # fnmatch_lines does an assertion internally
-    result.stdout.fnmatch_lines(
-        ["libiio:", "*--uri=URI*Set libiio URI to utilize",]
-    )
+    result.stdout.fnmatch_lines(["libiio:", "*--uri=URI*Set libiio URI to utilize"])
 
 
 # def test_print_scan_message(testdir):

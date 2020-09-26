@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import iio
+
 import pytest
 
 
@@ -31,7 +32,7 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope="session")
 def contexts(request):
-    """ Contexts fixture which provides a list of dictionaries of found boards 
+    """ Contexts fixture which provides a list of dictionaries of found boards
     """
     uri = request.config.getoption("--uri")
     if uri:
@@ -99,22 +100,19 @@ class device:
 
 def check_config(ctx, devices):
     found = 0
-    try:
-        for dev in ctx.devices:
-            for fdev in devices:
-                if not dev.name:
-                    continue
-                if dev.name.lower() == fdev.name.lower():
-                    if fdev.channels:
-                        chans = 0
-                        for chan in dev.channels:
-                            chans = chans + chan.scan_element
-                        found = found + (chans == fdev.channels)
-                    else:
-                        found = found + 1
-        return found == len(devices)
-    except:
-        return False
+    for dev in ctx.devices:
+        for fdev in devices:
+            if not dev.name:
+                continue
+            if dev.name.lower() == fdev.name.lower():
+                if fdev.channels:
+                    chans = 0
+                    for chan in dev.channels:
+                        chans = chans + chan.scan_element
+                    found = found + (chans == fdev.channels)
+                else:
+                    found = found + 1
+    return found == len(devices)
 
 
 def check_board_other(ctx):
@@ -137,7 +135,7 @@ def check_board_other(ctx):
     ):
         return "fmcomms2"
     if check_config(
-        ctx, [device("ad7291"), device("ad9361-phy"), device("cf-ad9361-lpc", 2),],
+        ctx, [device("ad7291"), device("ad9361-phy"), device("cf-ad9361-lpc", 2)]
     ):
         return "fmcomms4"
     if check_config(ctx, [device("ad9361-phy"), device("ad9361-phy-b")]):

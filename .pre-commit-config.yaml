@@ -12,17 +12,18 @@ repos:
     rev: v2.3.0
     hooks:
     -   id: check-yaml
+        exclude: appveyor.yml
     -   id: end-of-file-fixer
     -   id: trailing-whitespace
     -   id: check-merge-conflict
     -   id: debug-statements
     -   id: check-docstring-first
     -   id: flake8
+        exclude: setup.py
 -   repo: https://github.com/psf/black
     rev: 19.10b0
     hooks:
     - id: black
-      language_version: python3.6
 -   repo: https://github.com/asottile/blacken-docs
     rev: v1.3.0
     hooks:
