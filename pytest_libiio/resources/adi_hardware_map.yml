@@ -24,7 +24,8 @@ daq3:
 
 # SOMS
 adrv9361:
-  - ad9517
+  - ad7291
+  - ad9517-3
   - ad9361-phy
   - cf-ad9361-lpc,4
 adrv9364:
