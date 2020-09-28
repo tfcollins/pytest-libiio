@@ -39,18 +39,63 @@ def pytest_addoption(parser):
         default=None,
         help="Path to custom hardware map for drivers",
     )
+    group.addoption(
+        "--device",
+        action="store",
+        dest="device",
+        default=None,
+        help="Use only tests with this hardware name. If URI is set that device is assumed to have that uri",
+    )
+
+
+def pytest_configure(config):
+    config.addinivalue_line(
+        "markers",
+        "hw(list_of_hardware): Marker for tests that require specific hardware.",
+    )
+
+
+def common_member(a, b):
+    a_set = set(a)
+    b_set = set(b)
+    if a_set & b_set:
+        return True
+    else:
+        return False
+
+
+def pytest_collection_modifyitems(config, items):
+    # Go out and determine the hardware available
+    contexts = search_contexts(config)
+    hws = [ctx["hw"] for ctx in contexts]
+
+    skip = pytest.mark.skip(reason="Skipping since hardware not found")
+    # Filter tests based on hardware
+    for item in items:
+        skip_test = False
+        # hwnames = [mark.args[0] for mark in item.iter_markers(name='hw')]
+        for mark in item.iter_markers(name="iio"):
+            print(mark)
+            if "hardware" in mark.kwargs:
+                if not common_member(mark.kwargs["hardware"], hws):
+                    skip_test = True
+        if skip_test:
+            item.add_marker(skip)
 
 
 @pytest.fixture(scope="session")
 def contexts(request):
     """ Contexts fixture which provides a list of dictionaries of found boards
     """
+    return search_contexts(request.config)
 
-    if request.config.getoption("--adi-hw-map"):
+
+def search_contexts(config):
+    if config.getoption("--adi-hw-map"):
         path = pathlib.Path(__file__).parent.absolute()
         filename = os.path.join(path, "resources", "adi_hardware_map.yml")
-    elif request.config.getoption("--custom-hw-map"):
-        filename = request.config.getoption("--custom-hw-map")
+    elif config.getoption("--custom-hw-map"):
+        filename = config.getoption("--custom-hw-map")
     else:
         filename = None
 
@@ -59,7 +104,8 @@ def contexts(request):
     else:
         map = None
 
-    uri = request.config.getoption("--uri")
+    uri = config.getoption("--uri")
+    in_device_name = config.getoption("--device")
     if uri:
         try:
             ctx = iio.Context(uri)
@@ -77,11 +123,11 @@ def contexts(request):
             "uri": uri,
             "type": ctx.attrs["uri"].split(":")[0],
             "devices": devices,
-            "hw": lookup_hw_from_map(ctx, map),
+            "hw": lookup_hw_from_map(ctx, map, in_device_name),
         }
         return [ctx_plus_hw]
 
-    return find_contexts(request.config, map)
+    return find_contexts(config, map)
 
 
 def import_hw_map(filename):
@@ -93,9 +139,9 @@ def import_hw_map(filename):
     return map
 
 
-def lookup_hw_from_map(ctx, map):
+def lookup_hw_from_map(ctx, map, in_device_name):
     if not map:
-        return "Unknown"
+        return in_device_name if in_device_name else "Unknown"
     hw = []
     for device in ctx.devices:
         chans = 0
