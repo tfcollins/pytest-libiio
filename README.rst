@@ -59,9 +59,9 @@ Accessing contexts
   import iio
 
 
-  def test_libiio_device(contexts):
+  def test_libiio_device(context_desc):
       hardware = ["pluto", "adrv9361", "fmcomms2"]
-      for ctx_desc in contexts:
+      for ctx_desc in context_desc:
           if ctx_desc["hw"] in hardware:
               ctx = iio.Context(ctx_desc["uri"])
       if not ctx:
