@@ -41,8 +41,38 @@ def pytest_addoption(parser):
     )
 
 
+def pytest_configure(config):
+    # register an additional markers
+    config.addinivalue_line(
+        "markers", "iio_hardware(hardware): Provide list of hardware applicable to test"
+    )
+
+
+@pytest.fixture(scope="function")
+def context_desc(request, _contexts):
+    """ Contexts description fixture which provides a list of dictionaries of
+        found board filtered by iio_hardware marker. If no hardware matching
+        the required hardware if found, the test is skipped
+    """
+    marker = request.node.get_closest_marker("iio_hardware")
+    if not marker or not marker.args:
+        return _contexts
+    hardware = marker.args[0]
+    hardware = hardware if isinstance(hardware, list) else [hardware]
+    if not marker:
+        return _contexts
+    else:
+        desc = []
+        for dec in _contexts:
+            if dec["hw"] in marker.args[0]:
+                desc.append(dec)
+        if not desc:
+            pytest.skip("No required hardware found")
+    return desc
+
+
 @pytest.fixture(scope="session")
-def contexts(request):
+def _contexts(request):
     """ Contexts fixture which provides a list of dictionaries of found boards
     """
 

@@ -9,8 +9,8 @@ def test_context_fixture(testdir):
     # create a temporary pytest test module
     testdir.makepyfile(
         """
-        def test_sth(contexts):
-            assert isinstance(contexts,list)
+        def test_sth(context_desc):
+            assert isinstance(context_desc,list)
 
     """
     )
@@ -30,10 +30,10 @@ def test_context_fixture_uri(testdir):
     # create a temporary pytest test module
     testdir.makepyfile(
         """
-        def test_sth(contexts):
-            assert contexts
+        def test_sth(context_desc):
+            assert context_desc
             found = False
-            for ctx in contexts:
+            for ctx in context_desc:
                 if ctx['hw'] == 'Unknown':
                     found = True
             assert found
@@ -56,10 +56,39 @@ def test_context_fixture_uri_adi_map(testdir):
     # create a temporary pytest test module
     testdir.makepyfile(
         """
-        def test_sth(contexts):
-            assert contexts
+        def test_sth(context_desc):
+            assert context_desc
             found = False
-            for ctx in contexts:
+            for ctx in context_desc:
+                if ctx['hw'] == 'adrv9361':
+                    found = True
+            assert found
+    """
+    )
+
+    # run pytest with the following cmd args
+    result = testdir.runpytest("--adi-hw-map", "--uri=" + uri, "-v", "-s")
+
+    # fnmatch_lines does an assertion internally
+    result.stdout.fnmatch_lines(["*::test_sth PASSED*"])
+
+    # make sure that that we get a '0' exit code for the testsuite
+    assert result.ret == 0
+
+
+def test_context_desc_fixture_uri_adi_map(testdir):
+    """Make sure that pytest accepts our fixture."""
+
+    # create a temporary pytest test module
+    testdir.makepyfile(
+        """
+        import pytest
+
+        @pytest.mark.iio_hardware("adrv9361")
+        def test_sth(context_desc):
+            assert context_desc
+            found = False
+            for ctx in context_desc:
                 if ctx['hw'] == 'adrv9361':
                     found = True
             assert found
