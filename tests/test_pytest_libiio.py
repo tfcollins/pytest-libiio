@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+uri = "ip:192.168.86.35"
+
 
 def test_context_fixture(testdir):
     """Make sure that pytest accepts our fixture."""
@@ -39,7 +41,7 @@ def test_context_fixture_uri(testdir):
     )
 
     # run pytest with the following cmd args
-    result = testdir.runpytest("--uri=ip:192.168.86.35", "-v", "-s")
+    result = testdir.runpytest("--uri=" + uri, "-v", "-s")
 
     # fnmatch_lines does an assertion internally
     result.stdout.fnmatch_lines(["*::test_sth PASSED*"])
@@ -65,7 +67,7 @@ def test_context_fixture_uri_adi_map(testdir):
     )
 
     # run pytest with the following cmd args
-    result = testdir.runpytest("--adi-hw-map", "--uri=ip:192.168.86.35", "-v", "-s")
+    result = testdir.runpytest("--adi-hw-map", "--uri=" + uri, "-v", "-s")
 
     # fnmatch_lines does an assertion internally
     result.stdout.fnmatch_lines(["*::test_sth PASSED*"])

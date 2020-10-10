@@ -50,6 +50,23 @@ Usage
 
 * TODO
 
+Accessing contexts
+------------------
+
+.. code-block:: python
+
+  import pytest
+  import iio
+
+
+  def test_libiio_device(contexts):
+      hardware = ["pluto", "adrv9361", "fmcomms2"]
+      for ctx_desc in contexts:
+          if ctx_desc["hw"] in hardware:
+              ctx = iio.Context(ctx_desc["uri"])
+      if not ctx:
+          pytest.skip("No required hardware found")
+
 Contributing
 ------------
 Contributions are very welcome. Tests can be run with `tox`_, please ensure
