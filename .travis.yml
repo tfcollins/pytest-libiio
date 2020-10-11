@@ -25,6 +25,7 @@ install:
   - sudo make install
   - cd ..
   - pip install tox
+  - pip install coveralls
 
 script:
   - tox -e $TOX_ENV
