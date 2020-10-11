@@ -14,6 +14,10 @@ pytest-libiio
     :target: https://travis-ci.org/tfcollins/pytest-libiio
     :alt: See Build Status on Travis CI
 
+.. image:: https://coveralls.io/repos/github/tfcollins/pytest-libiio/badge.svg?branch=master
+    :target: https://coveralls.io/github/tfcollins/pytest-libiio?branch=master
+    :alt: See Coverage Status on Coveralls
+
 A pytest plugin to manage interfacing with libiio contexts
 
 ----
