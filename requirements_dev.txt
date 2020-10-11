@@ -5,3 +5,5 @@ pre-commit
 isort
 pytest>=4.6
 pylibiio>=0.21
+pytest-mock
+pyyaml
