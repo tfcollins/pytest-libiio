@@ -29,6 +29,9 @@ install:
 script:
   - tox -e $TOX_ENV
 
+after_success:
+  - coveralls
+
 before_cache:
   - rm -rf $HOME/.cache/pip/log
 
