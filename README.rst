@@ -67,6 +67,19 @@ Accessing contexts
       if not ctx:
           pytest.skip("No required hardware found")
 
+Require certain hardware through marks
+
+.. code-block:: python
+
+  import pytest
+
+  @pytest.mark.iio_hardware("adrv9361")
+  def test_libiio_device(context_desc):
+      for ctx_desc in context_desc:
+          ctx = iio.Context(ctx_desc["uri"])
+          ...
+
+
 Contributing
 ------------
 Contributions are very welcome. Tests can be run with `tox`_, please ensure
