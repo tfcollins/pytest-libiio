@@ -1,0 +1,4 @@
+[run]
+omit =
+    */tests/*
+    */pytest_libiio/__init__.py

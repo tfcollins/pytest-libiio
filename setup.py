@@ -23,7 +23,7 @@ setup(
     url="https://github.com/tfcollins/pytest-libiio",
     description="A pytest plugin to manage interfacing with libiio contexts",
     long_description=read("README.rst"),
-    packages=["pytest_libiio"],  # py_modules=["pytest_pytest_libiio"],
+    packages=["pytest_libiio"],
     package_data={"pytest_libiio": ["resources/*"]},
     python_requires=">=3.5",
     install_requires=["pytest>=3.5.0", "pylibiio>=0.21", "pyyaml"],

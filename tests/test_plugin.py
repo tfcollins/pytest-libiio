@@ -46,6 +46,13 @@ def mock_scan_contexts():
 
 
 # Tests
+def test_check_version():
+    from pytest_libiio import __version__ as v
+    import re
+    matched = re.match("[0-9].[0-9].[0-9]", v)
+    assert bool(matched)
+
+
 def test_context_fixture_smoke(testdir, use_mocking, mocker):
     """Make sure that pytest accepts our fixture."""
     if use_mocking:
