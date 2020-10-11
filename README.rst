@@ -14,10 +14,6 @@ pytest-libiio
     :target: https://travis-ci.org/tfcollins/pytest-libiio
     :alt: See Build Status on Travis CI
 
-.. image:: https://ci.appveyor.com/api/projects/status/github/tfcollins/pytest-libiio?branch=master
-    :target: https://ci.appveyor.com/project/tfcollins/pytest-libiio/branch/master
-    :alt: See Build Status on AppVeyor
-
 A pytest plugin to manage interfacing with libiio contexts
 
 ----
@@ -25,16 +21,23 @@ A pytest plugin to manage interfacing with libiio contexts
 This `pytest`_ plugin was generated with `Cookiecutter`_ along with `@hackebrot`_'s `cookiecutter-pytest-plugin`_ template.
 
 
-Features
---------
-
-* TODO
-
 
 Requirements
 ------------
 
-* TODO
+* libiio and pylibiio
+* pytest
+* pyyaml
+
+For development the following are also needed:
+
+* tox
+* pytest-mock
+* pre-commit
+* isort
+* flake8
+* codespell
+* black
 
 
 Installation
@@ -48,10 +51,12 @@ You can install "pytest-libiio" via `pip`_ from `PyPI`_::
 Usage
 -----
 
-* TODO
+This plugin is used to make access libiio contexts easier and provide a unified API through fixtures.
 
 Accessing contexts
-------------------
+^^^^^^^^^^^^^^^^^^
+
+Get list of context descriptions of all found contained
 
 .. code-block:: python
 
@@ -79,6 +84,9 @@ Require certain hardware through marks
           ctx = iio.Context(ctx_desc["uri"])
           ...
 
+Future ideas
+------------
+Mock testing is common with libiio's python library since hardware is needed otherwise. In future releases we hope to extend features in pytest-mock through this plugin to make mocking libiio more streamlined.
 
 Contributing
 ------------
