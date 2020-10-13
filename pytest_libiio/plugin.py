@@ -4,7 +4,6 @@ import os
 import pathlib
 
 import iio
-
 import pytest
 import yaml
 
@@ -46,6 +45,28 @@ def pytest_configure(config):
     config.addinivalue_line(
         "markers", "iio_hardware(hardware): Provide list of hardware applicable to test"
     )
+
+
+@pytest.fixture(scope="function")
+def single_ctx_desc(request, _contexts):
+    """ Contexts description fixture which provides a single dictionary of
+        found board filtered by iio_hardware marker. If no hardware matching
+        the required hardware is found, the test is skipped. If no iio_hardware
+        marker is applied, first context is returned. If list of hardware markers
+        are provided. First matching is returned.
+    """
+    marker = request.node.get_closest_marker("iio_hardware")
+    if not marker or not marker.args:
+        return _contexts[0]
+    hardware = marker.args[0]
+    hardware = hardware if isinstance(hardware, list) else [hardware]
+    if not marker:
+        return _contexts[0]
+    else:
+        for dec in _contexts:
+            if dec["hw"] in marker.args[0]:
+                return dec
+    pytest.skip("No required hardware found")
 
 
 @pytest.fixture(scope="function")

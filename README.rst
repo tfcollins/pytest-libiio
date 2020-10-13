@@ -83,6 +83,7 @@ Require certain hardware through marks
   import pytest
   import iio
 
+
   @pytest.mark.iio_hardware("adrv9361")
   def test_libiio_device(context_desc):
       for ctx_desc in context_desc:
