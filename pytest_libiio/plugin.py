@@ -4,6 +4,7 @@ import os
 import pathlib
 
 import iio
+
 import pytest
 import yaml
 
@@ -56,16 +57,17 @@ def single_ctx_desc(request, _contexts):
         are provided. First matching is returned.
     """
     marker = request.node.get_closest_marker("iio_hardware")
-    if not marker or not marker.args:
-        return _contexts[0]
-    hardware = marker.args[0]
-    hardware = hardware if isinstance(hardware, list) else [hardware]
-    if not marker:
-        return _contexts[0]
-    else:
-        for dec in _contexts:
-            if dec["hw"] in marker.args[0]:
-                return dec
+    if _contexts:
+        if not marker or not marker.args:
+            return _contexts[0]
+        hardware = marker.args[0]
+        hardware = hardware if isinstance(hardware, list) else [hardware]
+        if not marker:
+            return _contexts[0]
+        else:
+            for dec in _contexts:
+                if dec["hw"] in marker.args[0]:
+                    return dec
     pytest.skip("No required hardware found")
 
 
@@ -76,20 +78,21 @@ def context_desc(request, _contexts):
         the required hardware if found, the test is skipped
     """
     marker = request.node.get_closest_marker("iio_hardware")
-    if not marker or not marker.args:
-        return _contexts
-    hardware = marker.args[0]
-    hardware = hardware if isinstance(hardware, list) else [hardware]
-    if not marker:
-        return _contexts
-    else:
-        desc = []
-        for dec in _contexts:
-            if dec["hw"] in marker.args[0]:
-                desc.append(dec)
-        if not desc:
-            pytest.skip("No required hardware found")
-    return desc
+    if _contexts:
+        if not marker or not marker.args:
+            return _contexts
+        hardware = marker.args[0]
+        hardware = hardware if isinstance(hardware, list) else [hardware]
+        if not marker:
+            return _contexts
+        else:
+            desc = []
+            for dec in _contexts:
+                if dec["hw"] in marker.args[0]:
+                    desc.append(dec)
+            if desc:
+                return desc
+    pytest.skip("No required hardware found")
 
 
 @pytest.fixture(scope="session")
