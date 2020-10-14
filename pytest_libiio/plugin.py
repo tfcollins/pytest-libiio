@@ -86,10 +86,7 @@ def context_desc(request, _contexts):
         if not marker:
             return _contexts
         else:
-            desc = []
-            for dec in _contexts:
-                if dec["hw"] in marker.args[0]:
-                    desc.append(dec)
+            desc = [dec for dec in _contexts if dec["hw"] in marker.args[0]]
             if desc:
                 return desc
     pytest.skip("No required hardware found")
@@ -108,11 +105,7 @@ def _contexts(request):
     else:
         filename = None
 
-    if filename:
-        map = import_hw_map(filename)
-    else:
-        map = None
-
+    map = import_hw_map(filename) if filename else None
     uri = request.config.getoption("--uri")
     if uri:
         try:
@@ -141,9 +134,8 @@ def _contexts(request):
 def import_hw_map(filename):
     if not os.path.exists(filename):
         raise Exception("Hardware map file not found")
-    stream = open(filename, "r")
-    map = yaml.safe_load(stream)
-    stream.close()
+    with open(filename, "r") as stream:
+        map = yaml.safe_load(stream)
     return map
 
 

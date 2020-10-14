@@ -40,9 +40,7 @@ def mock_scan_contexts():
     info = uri[2:] + " "
     uri_s = "ip:" + info
     info += "(" + ",".join(devs) + ")"
-    ctxs = {uri_s: info}
-
-    return ctxs
+    return {uri_s: info}
 
 
 # Tests
