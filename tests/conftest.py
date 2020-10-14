@@ -25,10 +25,7 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope="session")
 def use_mocking(request):
-    if request.config.getoption("--disable_mock"):
-        return False
-    else:
-        return True
+    return not request.config.getoption("--disable_mock")
 
 
 @pytest.fixture(scope="session")
