@@ -42,10 +42,24 @@ def pytest_addoption(parser):
 
 
 def pytest_configure(config):
-    # register an additional markers
+    # register an additional marker
     config.addinivalue_line(
         "markers", "iio_hardware(hardware): Provide list of hardware applicable to test"
     )
+
+
+@pytest.fixture(scope="function")
+def uri(single_ctx_desc):
+    """ URI fixture which provides a string of the target uri of the
+        found board filtered by iio_hardware marker. If no hardware matching
+        the required hardware is found, the test is skipped. If no iio_hardware
+        marker is applied, first context uri is returned. If list of hardware
+        markers are provided, the first matching is returned.
+    """
+    if isinstance(single_ctx_desc, dict):
+        return single_ctx_desc["uri"]
+    else:
+        return False
 
 
 @pytest.fixture(scope="function")
@@ -96,7 +110,6 @@ def context_desc(request, _contexts):
 def _contexts(request):
     """ Contexts fixture which provides a list of dictionaries of found boards
     """
-
     if request.config.getoption("--adi-hw-map"):
         path = pathlib.Path(__file__).parent.absolute()
         filename = os.path.join(path, "resources", "adi_hardware_map.yml")
@@ -144,9 +157,7 @@ def lookup_hw_from_map(ctx, map):
         return "Unknown"
     hw = []
     for device in ctx.devices:
-        chans = 0
-        for chan in device.channels:
-            chans = chans + chan.scan_element
+        chans = sum(chan.scan_element for chan in device.channels)
         dev = {"name": device.name, "num_channels": chans}
         hw.append(dev)
 
@@ -166,10 +177,8 @@ def lookup_hw_from_map(ctx, map):
                     found += 1
                 else:
                     continue
-                if len(d) > 1:
-                    if h["num_channels"] == int(d[1]):
-                        found += 1
-        # print("---------",device,"found",found)
+                if len(d) > 1 and h["num_channels"] == int(d[1]):
+                    found += 1
 
         map_tally[device] = found
         if found > best:
@@ -182,7 +191,7 @@ def lookup_hw_from_map(ctx, map):
 def find_contexts(config, map):
     ctxs = iio.scan_contexts()
     if not ctxs:
-        print("No libiio contexts found")
+        print("\nNo libiio contexts found")
         return False
     ctxs_plus_hw = []
     for uri in ctxs:
@@ -204,4 +213,8 @@ def find_contexts(config, map):
             "hw": lookup_hw_from_map(iio.Context(uri), map),
         }
         ctxs_plus_hw.append(ctx_plus_hw)
+    else:
+        if config.getoption("--scan-verbose"):
+            print("\nNo libiio contexts found")
+
     return ctxs_plus_hw
