@@ -19,8 +19,7 @@
 </a>
 </p>
 
-## A pytest plugin to manage interfacing with libiio contexts
-
+pytest-libiio is pytest plugin to manage interfacing with libiio contexts. This plugin a handy for leveraging the (new) zeroconf features of libiio to find, filter, and map libiio contexts to tests. It was originally created for [pyadi-iio](https://pypi.org/project/pyadi-iio/) testing but is used in other applications which need an organized way to handle libiio contexts without hardcoding URIs or lots of boilerplate code.
 
 ### Requirements
 
