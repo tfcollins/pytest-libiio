@@ -101,7 +101,7 @@ def test_context_fixture_uri_unknown(testdir, use_mocking, uri_select, mocker):
     )
 
     # run pytest with the following cmd args
-    result = testdir.runpytest("--uri=" + uri_select, "--scan-verbose", "-v", "-s")
+    result = testdir.runpytest("--uri=" + uri_select, "-v", "-s")
 
     # fnmatch_lines does an assertion internally
     result.stdout.fnmatch_lines(["*::test_sth PASSED*"])
