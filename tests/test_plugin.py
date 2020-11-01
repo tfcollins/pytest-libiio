@@ -37,9 +37,9 @@ def mock_Context(uri):
 
 
 def mock_scan_contexts():
-    info = uri[2:] + " "
+    info = uri[3:]
     uri_s = "ip:" + info
-    info += "(" + ",".join(devs) + ")"
+    info += " (" + ",".join(devs) + ")"
     return {uri_s: info}
 
 
@@ -130,6 +130,68 @@ def test_context_fixture_scan_adi_map(testdir, use_mocking, hw_select, mocker):
         + """':
                     found = True
             assert found
+    """
+    )
+
+    # run pytest with the following cmd args
+    result = testdir.runpytest("--adi-hw-map", "-v", "-s")
+
+    # fnmatch_lines does an assertion internally
+    result.stdout.fnmatch_lines(["*::test_sth PASSED*"])
+
+    # make sure that that we get a '0' exit code for the testsuite
+    assert result.ret == 0
+
+
+def test_context_fixture_scan_adi_map_single(testdir, use_mocking, hw_select, mocker):
+    """Make sure that pytest accepts our fixture."""
+    if use_mocking:
+        mocker.patch("iio.scan_contexts", mock_scan_contexts)
+        mocker.patch("iio.Context", mock_Context)
+
+    time.sleep(sleep)
+
+    # create a temporary pytest test module
+    testdir.makepyfile(
+        """
+        def test_sth(single_ctx_desc):
+            assert single_ctx_desc
+            found = False
+            assert single_ctx_desc["hw"] == '"""
+        + hw_select
+        + """'
+    """
+    )
+
+    # run pytest with the following cmd args
+    result = testdir.runpytest("--adi-hw-map", "-v", "-s")
+
+    # fnmatch_lines does an assertion internally
+    result.stdout.fnmatch_lines(["*::test_sth PASSED*"])
+
+    # make sure that that we get a '0' exit code for the testsuite
+    assert result.ret == 0
+
+
+def test_context_fixture_scan_adi_map_single_uri(
+    testdir, use_mocking, hw_select, mocker
+):
+    """Make sure that pytest accepts our fixture."""
+    if use_mocking:
+        mocker.patch("iio.scan_contexts", mock_scan_contexts)
+        mocker.patch("iio.Context", mock_Context)
+
+    time.sleep(sleep)
+
+    # create a temporary pytest test module
+    testdir.makepyfile(
+        """
+        def test_sth(iio_uri):
+            assert iio_uri
+            found = False
+            assert iio_uri == '"""
+        + uri
+        + """'
     """
     )
 
