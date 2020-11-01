@@ -1,0 +1,56 @@
+# Command Line Parameters
+
+The pytest-libiio plugin extends the pytest cli with a few options to help with debugging tests, accessing specific hardware, and adding hardware maps between drivers and tests.
+
+
+### Available CLI options
+
+```
+$ pytest -h
+...
+libiio:
+  --uri=URI             Set libiio URI to utilize
+  --scan-verbose        Print info of found contexts when scanning
+  --adi-hw-map          Use ADI hardware map to determine hardware names based on context drivers
+  --custom-hw-map=HW_MAP
+                        Path to custom hardware map for drivers
+...
+```
+
+### URI
+
+When **--uri=<input uri\>** is used, scanning is skipped and that URI is checked for contexts. The URI can be in any form supported by the installed version of libiio:
+
+- **Network:** ip:192.168.2.1
+- **USB:** usb:1.2.3 or usb:
+- **Local:** local:
+- **Serial:** serial:/dev/ttyUSB0,115200
+
+### Hardware maps
+
+pytest-libiio allows tests to be filtered based on markers with specific hardware maps. These maps are essentially a list of IIO device names which make up a specific platform or board. These are defined in a yaml file which have contents similar to the one below:
+
+``` yaml
+pluto:
+  - adm1177
+  - ad9361-phy
+  - cf-ad9361-lpc,2
+fmcomms5:
+  - ad9361-phy
+  - ad9361-phy-b
+  - cf-ad9361-lpc,8
+```
+
+These are arranged in the form:
+``` yaml
+<platform name>:
+  - <driver 1>,<number of channels of driver 1 (optional)>
+  - <driver 2>,<number of channels of driver 2 (optional)>
+...
+```
+
+When the decorator **@pytest.mark.iio_hardware(hardware)** is used, any tests using this decorator will be used where **hardware** is a string or list of strings that match anything in the hardware map. Otherwise the test is filtered.
+
+By default all devices are labeled as unknown if no map exists or they are not found in the current map. If the decorator is not used, the test will not be filtered based on this criteria.
+
+When the flag **--adi-hw-map** is used the provided map from [plugin itself is used](https://github.com/tfcollins/pytest-libiio/blob/master/pytest_libiio/resources/adi_hardware_map.yml). Alternatively, a custom map can be used by supply the path with **--custom-hw-map=<path to yaml\>**.
