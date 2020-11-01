@@ -18,12 +18,15 @@ pytest-libiio
     :target: https://coveralls.io/github/tfcollins/pytest-libiio?branch=master
     :alt: See Coverage Status on Coveralls
 
+.. image:: https://readthedocs.org/projects/pytest-libiio/badge/?version=latest
+    :target: https://pytest-libiio.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
+
 A pytest plugin to manage interfacing with libiio contexts
 
 ----
 
-This `pytest`_ plugin was generated with `Cookiecutter`_ along with `@hackebrot`_'s `cookiecutter-pytest-plugin`_ template.
-
+pytest-libiio is pytest plugin to manage interfacing with libiio contexts. This plugin is handy for leveraging the (new) zeroconf features of libiio to find, filter, and map libiio contexts to tests. It was originally created for pyadi-iio testing but is used in other applications which need an organized way to handle libiio contexts without hardcoding URIs or lots of boilerplate code.
 
 
 Requirements
