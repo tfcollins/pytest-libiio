@@ -4,7 +4,7 @@ pytest-libiio provides a set of fixtures that can be used to find and utilize li
 
 ### Accessing contexts
 
-Get list of context descriptions of all found contained
+Pass a list of context descriptions of all found during scan
 
 ``` python
   import pytest
