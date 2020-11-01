@@ -24,11 +24,12 @@
 
 ### Requirements
 
-* libiio and pylibiio
+* [libiio](https://github.com/analogdevicesinc/libiio) and [pylibiio](https://pypi.org/project/pylibiio/)
+    - Install with [zeroconf support](https://github.com/analogdevicesinc/libiio/blob/master/README_BUILD.md) to enable scanning
 * pytest
 * pyyaml
 
-For development the following are also needed:
+For [development the following are also needed](https://github.com/tfcollins/pytest-libiio/blob/master/requirements_dev.txt):
 
 * tox
 * pytest-mock
