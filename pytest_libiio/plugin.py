@@ -49,7 +49,7 @@ def pytest_configure(config):
 
 
 @pytest.fixture(scope="function")
-def uri(single_ctx_desc):
+def iio_uri(single_ctx_desc):
     """ URI fixture which provides a string of the target uri of the
         found board filtered by iio_hardware marker. If no hardware matching
         the required hardware is found, the test is skipped. If no iio_hardware
@@ -139,6 +139,8 @@ def _contexts(request):
             "devices": devices,
             "hw": lookup_hw_from_map(ctx, map),
         }
+        if request.config.getoption("--scan-verbose"):
+            print("\nHardware found at specified uri:", ctx_plus_hw["hw"])
         return [ctx_plus_hw]
 
     return find_contexts(request.config, map)
