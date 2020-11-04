@@ -1,0 +1,69 @@
+name: CI Pushes
+
+on: [push]
+
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.6, 3.7, 3.8, 3.9]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          bash ./.github/scripts/install_libiio.sh
+          sudo apt-get install -y python3-pip python3-setuptools
+          pip install -r requirements.txt
+          pip install -r requirements_dev.txt
+          pip install pylibiio
+          pip install tox
+          pip install coveralls
+
+      - name: Test
+        run: tox -e py
+
+      - name: Coveralls Parallel
+        uses: coverallsapp/github-action@master
+        with:
+          path-to-lcov: .coverage
+          github-token: ${{ secrets.github_token }}
+          flag-name: run-${{ matrix.python-version }}
+          parallel: true
+
+  finish:
+    needs: Test
+    runs-on: ubuntu-latest
+    steps:
+    - name: Coveralls Finished
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.github_token }}
+        parallel-finished: true
+
+#   Lint:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: Set up Python 3.6
+#         uses: actions/setup-python@v2
+#         with:
+#           python-version: 3.6
+#       - name: Install dependencies
+#         run: |
+#           bash ./.github/scripts/install_libiio.sh
+#           sudo apt-get install -y python3-pip python3-setuptools
+#           pip install -r requirements.txt
+#           pip install -r requirements_dev.txt
+#           pip install pylibiio
+
+#       - name: Lint
+#         run: |
+#           pre-commit run --all-files
+#           git diff -U0 > log.txt && cat log.txt
