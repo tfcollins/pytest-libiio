@@ -30,25 +30,21 @@ jobs:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
         run: coveralls
 
+  Lint:
+    runs-on: ubuntu-latest
 
-#   Lint:
-#     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.6
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.6
+      - name: Install dependencies
+        run: |
+          bash ./.github/scripts/install_libiio.sh
+          sudo apt-get install -y python3-pip python3-setuptools
+          pip install -r requirements_dev.txt
 
-#     steps:
-#       - uses: actions/checkout@v2
-#       - name: Set up Python 3.6
-#         uses: actions/setup-python@v2
-#         with:
-#           python-version: 3.6
-#       - name: Install dependencies
-#         run: |
-#           bash ./.github/scripts/install_libiio.sh
-#           sudo apt-get install -y python3-pip python3-setuptools
-#           pip install -r requirements.txt
-#           pip install -r requirements_dev.txt
-#           pip install pylibiio
+      - name: Test
+        run: tox -e flake8
 
-#       - name: Lint
-#         run: |
-#           pre-commit run --all-files
-#           git diff -U0 > log.txt && cat log.txt
