@@ -8,3 +8,4 @@ pylibiio>=0.21
 pytest-mock
 pyyaml
 coveralls
+tox
