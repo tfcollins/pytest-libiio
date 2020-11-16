@@ -30,13 +30,18 @@ When a URI is not supplied a scan is performed and all found contexts are used t
 
 ### Hardware maps
 
-pytest-libiio allows tests to be filtered based on markers with specific hardware maps. These maps are essentially a list of IIO device names which make up a specific platform or board. These are defined in a yaml file which will have contents similar to the one below:
+pytest-libiio allows tests to be filtered based on markers with specific hardware maps. These maps are essentially a list of IIO device names and attributes which make up or identify a specific platform or board. These are defined in a yaml file which will have contents similar to the one below:
 
 ``` yaml
 pluto:
   - adm1177
   - ad9361-phy
   - cf-ad9361-lpc,2
+pluto_rev_c:
+  - ad9361-phy
+  - cf-ad9361-lpc,2
+  - ctx_attr:
+    - hw_model: Analog Devices PlutoSDR Rev.C
 fmcomms5:
   - ad9361-phy
   - ad9361-phy-b
@@ -48,6 +53,8 @@ These are arranged in the form:
 <platform name>:
   - <driver 1>,<number of channels of driver 1 (optional)>
   - <driver 2>,<number of channels of driver 2 (optional)>
+  - ctx_attr:
+    - <context attribute name>: <value>
 ...
 ```
 

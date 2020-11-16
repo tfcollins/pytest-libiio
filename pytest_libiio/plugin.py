@@ -39,6 +39,13 @@ def pytest_addoption(parser):
         default=None,
         help="Path to custom hardware map for drivers",
     )
+    group.addoption(
+        "--hw",
+        action="store",
+        dest="hw_select",
+        default=None,
+        help="Define hardware name of provided URI. Will ignore scan information and requires input URI argument",
+    )
 
 
 def pytest_configure(config):
@@ -99,10 +106,9 @@ def context_desc(request, _contexts):
         hardware = hardware if isinstance(hardware, list) else [hardware]
         if not marker:
             return _contexts
-        else:
-            desc = [dec for dec in _contexts if dec["hw"] in marker.args[0]]
-            if desc:
-                return desc
+        desc = [dec for dec in _contexts if dec["hw"] in marker.args[0]]
+        if desc:
+            return desc
     pytest.skip("No required hardware found")
 
 
@@ -133,11 +139,13 @@ def _contexts(request):
                 devices.append(name)
         devices = ",".join(devices)
 
+        hw = request.config.getoption("--hw") or lookup_hw_from_map(ctx, map)
+
         ctx_plus_hw = {
             "uri": uri,
             "type": ctx.attrs["uri"].split(":")[0],
             "devices": devices,
-            "hw": lookup_hw_from_map(ctx, map),
+            "hw": hw,
         }
         if request.config.getoption("--scan-verbose"):
             print("\nHardware found at specified uri:", ctx_plus_hw["hw"])
@@ -163,17 +171,38 @@ def lookup_hw_from_map(ctx, map):
         dev = {"name": device.name, "num_channels": chans}
         hw.append(dev)
 
+    ctx_attrs = {attr: ctx.attrs[attr] for attr in ctx.attrs}
+
     map_tally = {}
     best = 0
     bestDev = "Unknown"
     # Loop over devices
     for device in map:
-        drivers = map[device]
+        drivers_and_attrs = map[device]
         found = 0
-        for driver in drivers:
+        for driver_or_attr in drivers_and_attrs:
+            # Check attributes
+            if isinstance(driver_or_attr, dict):
+                for attr_type in driver_or_attr:
+                    # Compare context attrs
+                    if attr_type == "ctx_attr":
+                        for attr_dict in driver_or_attr["ctx_attr"]:
+                            for attr_name in attr_dict:
+                                # loop over found and compare to
+                                for hw_ctx_attr in ctx_attrs:
+                                    if (
+                                        hw_ctx_attr == attr_name
+                                        and attr_dict[attr_name]
+                                        in ctx_attrs[hw_ctx_attr]
+                                    ):
+                                        found += 1
+                    # Compare other attribute types ...
+                    if attr_type == "dev_attr":
+                        pass
+                continue
             # Loop over drivers
             for h in hw:
-                d = driver.split(",")
+                d = driver_or_attr.split(",")
                 name = d[0]
                 if h["name"] == name:
                     found += 1

@@ -8,7 +8,7 @@ def pytest_addoption(parser):
         "--disable_mock", action="store_true", help="Disable mocking",
     )
     parser.addoption(
-        "--hw",
+        "--hw-manual",
         action="store",
         dest="hw_map",
         default=None,
@@ -30,7 +30,7 @@ def use_mocking(request):
 
 @pytest.fixture(scope="session")
 def hw_select(request):
-    val = request.config.getoption("--hw")
+    val = request.config.getoption("--hw-manual")
     if not val:
         return "adrv9361"
     else:
