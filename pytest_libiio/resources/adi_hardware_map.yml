@@ -15,6 +15,11 @@ pluto:
   - adm1177
   - ad9361-phy
   - cf-ad9361-lpc,2
+pluto_rev_c:
+  - ad9361-phy
+  - cf-ad9361-lpc,2
+  - ctx_attr:
+    - hw_model: Analog Devices PlutoSDR Rev.C
 daq2:
   - axi-ad9144-hpc,4
   - axi-ad9680-hpc,2
