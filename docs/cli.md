@@ -14,6 +14,8 @@ libiio:
   --adi-hw-map          Use ADI hardware map to determine hardware names based on context drivers
   --custom-hw-map=HW_MAP
                         Path to custom hardware map for drivers
+  --hw=HW_SELECT        Define hardware name of provided URI. Will ignore scan information and requires input URI
+                        argument
 ...
 ```
 
@@ -63,3 +65,5 @@ When the decorator **@pytest.mark.iio_hardware(hardware)** is used, any tests us
 By default, all devices are labeled as unknown if no map exists or they are not found in the current map. If the decorator is not used, the test will not be filtered based on these criteria.
 
 When the flag **--adi-hw-map** is used the provided map from [plugin itself is used](https://github.com/tfcollins/pytest-libiio/blob/master/pytest_libiio/resources/adi_hardware_map.yml). Alternatively, a custom map can be used by supply the path with **--custom-hw-map=<path to yaml\>**.
+
+If the flag **--hw=<hardware name>** is used the hardware map is ignored and the provided URI is defined as that hardware. This is handy if you do not want to create a custom map or are debugging. Note that **--hw** is only applicable when **--uri** is also used.
