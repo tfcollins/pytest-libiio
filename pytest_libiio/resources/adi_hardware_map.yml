@@ -26,6 +26,9 @@ daq2:
 daq3:
   - axi-ad9152-hpc,2
   - axi-ad9680-hpc,2
+ad9081:
+  - axi-ad9081-tx-hpc
+  - axi-ad9081-rx-hpc
 
 # SOMS
 adrv9361:
