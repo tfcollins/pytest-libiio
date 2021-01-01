@@ -48,6 +48,22 @@ jobs:
       - name: Test
         run: tox -e flake8
 
+  DocLint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: |
+          sudo apt install -y nodejs npm
+          sudo npm install write-good -g
+          sudo npm install markdown-spellcheck -g
+
+      - name: Test
+        run: |
+          mdspell -r -n -a --en-us docs/**/*.md
+          write-good docs/**/*.md
+
   Deploy:
     runs-on: ubuntu-latest
     needs: [Test,Lint]
