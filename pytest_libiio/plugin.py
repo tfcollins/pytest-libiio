@@ -140,10 +140,14 @@ def _contexts(request):
         devices = ",".join(devices)
 
         hw = request.config.getoption("--hw") or lookup_hw_from_map(ctx, map)
+        if "uri" in ctx.attrs:
+            uri_type = ctx.attrs["uri"].split(":")[0]
+        else:
+            uri_type = uri.split(":")[0]
 
         ctx_plus_hw = {
             "uri": uri,
-            "type": ctx.attrs["uri"].split(":")[0],
+            "type": uri_type,
             "devices": devices,
             "hw": hw,
         }
