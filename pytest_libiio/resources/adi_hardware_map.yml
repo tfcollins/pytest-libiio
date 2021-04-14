@@ -10,7 +10,8 @@ fmcomms4:
 fmcomms5:
   - ad9361-phy
   - ad9361-phy-b
-  - cf-ad9361-lpc,8
+  - cf-ad9361-A,8
+  - cf-ad9361-B,4
 pluto:
   - adm1177
   - ad9361-phy
