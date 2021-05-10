@@ -29,7 +29,7 @@ def pytest_addoption(parser):
         "--adi-hw-map",
         action="store_true",
         dest="adi_hw_map",
-        default=False,
+        default=True,
         help="Use ADI hardware map to determine hardware names based on context drivers",
     )
     group.addoption(
