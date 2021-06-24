@@ -55,6 +55,17 @@ ad9364:
   - cf-ad9361-lpc,2
 adrv9002:
   - adrv9002-phy
+  - axi-adrv9002-rx-lpc
+  - axi-adrv9002-rx2-lpc
+  - axi-adrv9002-core-tdd1-lpc
+  - axi-adrv9002-core-tdd2-lpc
+  - axi-adrv9002-tx-lpc
+  - axi-adrv9002-tx2-lpc
+adrv9002-rx2tx2:
+  - adrv9002-phy
+  - axi-adrv9002-rx-lpc
+  - axi-adrv9002-core-tdd-lpc
+  - axi-adrv9002-tx-lpc
 adrv9009:
   - adrv9009-phy
 adrv9009-dual:
