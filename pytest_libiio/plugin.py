@@ -46,6 +46,13 @@ def pytest_addoption(parser):
         default=None,
         help="Define hardware name of provided URI. Will ignore scan information and requires input URI argument",
     )
+    group.addoption(
+        "--skip-scan",
+        action="store_true",
+        dest="skip_scan",
+        default=False,
+        help="Skip avahi scan. This is usually used within CI.",
+    )
 
 
 def pytest_configure(config):
@@ -155,7 +162,7 @@ def _contexts(request):
             print("\nHardware found at specified uri:", ctx_plus_hw["hw"])
         return [ctx_plus_hw]
 
-    return find_contexts(request.config, map)
+    return find_contexts(request.config, map, request)
 
 
 def import_hw_map(filename):
@@ -223,8 +230,11 @@ def lookup_hw_from_map(ctx, map):
     return bestDev
 
 
-def find_contexts(config, map):
-    ctxs = iio.scan_contexts()
+def find_contexts(config, map, request):
+    if request.config.getoption("--skip-scan"):
+        ctxs = None
+    else:
+        ctxs = iio.scan_contexts()
     if not ctxs:
         print("\nNo libiio contexts found")
         return False
