@@ -53,6 +53,8 @@ ad9361:
 ad9364:
   - ad9361-phy
   - cf-ad9361-lpc,2
+adrv9002:
+  - adrv9002-phy
 adrv9009:
   - adrv9009-phy
 adrv9009-dual:
@@ -60,12 +62,3 @@ adrv9009-dual:
   - adrv9009-phy-b
 adrv9371:
   - ad9371-phy
-
-# ADRV9002 Variants
-adrv9002-rx1tx1:
-  - adrv9002-phy
-  - axi-adrv9002-rx-lpc,4
-adrv9002-rx2tx2:
-  - adrv9002-phy
-  - axi-adrv9002-rx-lpc
-  - axi-adrv9002-rx2-lpc
