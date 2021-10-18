@@ -2,11 +2,48 @@
 
 import os
 import pathlib
+import subprocess
+from shutil import which
+import signal
+import socket
+import time
 
 import iio
 
 import pytest
 import yaml
+
+
+class iio_emu_manager:
+    def __init__(self, xml_path: str, rx_dev: str = None, tx_dev: str = None):
+        self.xml_path = xml_path
+        self.rx_dev = rx_dev
+        self.tx_dev = tx_dev
+
+        iio_emu = which("iio-emu") is None
+        if iio_emu:
+            raise Exception("iio-emu not found on path")
+
+        hostname = socket.gethostname()
+        self.local_ip = socket.gethostbyname(hostname)
+        self.uri = f"ip:{hostname}"
+
+    def start(self):
+        with open("data.bin", "w") as f:
+            pass
+        self.p = subprocess.Popen(
+            [
+                "iio-emu",
+                "generic",
+                self.xml_path,
+                "iio:device2@data.bin",
+                "iio:device3@data.bin",
+            ]
+        )
+        time.sleep(3)  # wait for server to boot
+
+    def stop(self):
+        self.p.send_signal(signal.SIGINT)
 
 
 def pytest_addoption(parser):
@@ -53,6 +90,20 @@ def pytest_addoption(parser):
         default=False,
         help="Skip avahi scan. This is usually used within CI.",
     )
+    group.addoption(
+        "--emu",
+        action="store_true",
+        dest="skip_scan",
+        default=False,
+        help="Enable context emulation with iio-emu.",
+    )
+    group.addoption(
+        "--emu-xml",
+        action="store",
+        dest="emu_xml",
+        default=False,
+        help="Path or name of built-in XML for back-end context",
+    )
 
 
 def pytest_configure(config):
@@ -64,11 +115,11 @@ def pytest_configure(config):
 
 @pytest.fixture(scope="function")
 def iio_uri(single_ctx_desc):
-    """ URI fixture which provides a string of the target uri of the
-        found board filtered by iio_hardware marker. If no hardware matching
-        the required hardware is found, the test is skipped. If no iio_hardware
-        marker is applied, first context uri is returned. If list of hardware
-        markers are provided, the first matching is returned.
+    """URI fixture which provides a string of the target uri of the
+    found board filtered by iio_hardware marker. If no hardware matching
+    the required hardware is found, the test is skipped. If no iio_hardware
+    marker is applied, first context uri is returned. If list of hardware
+    markers are provided, the first matching is returned.
     """
     if isinstance(single_ctx_desc, dict):
         return single_ctx_desc["uri"]
@@ -78,11 +129,11 @@ def iio_uri(single_ctx_desc):
 
 @pytest.fixture(scope="function")
 def single_ctx_desc(request, _contexts):
-    """ Contexts description fixture which provides a single dictionary of
-        found board filtered by iio_hardware marker. If no hardware matching
-        the required hardware is found, the test is skipped. If no iio_hardware
-        marker is applied, first context is returned. If list of hardware markers
-        are provided. First matching is returned.
+    """Contexts description fixture which provides a single dictionary of
+    found board filtered by iio_hardware marker. If no hardware matching
+    the required hardware is found, the test is skipped. If no iio_hardware
+    marker is applied, first context is returned. If list of hardware markers
+    are provided. First matching is returned.
     """
     marker = request.node.get_closest_marker("iio_hardware")
     if _contexts:
@@ -101,9 +152,9 @@ def single_ctx_desc(request, _contexts):
 
 @pytest.fixture(scope="function")
 def context_desc(request, _contexts):
-    """ Contexts description fixture which provides a list of dictionaries of
-        found board filtered by iio_hardware marker. If no hardware matching
-        the required hardware if found, the test is skipped
+    """Contexts description fixture which provides a list of dictionaries of
+    found board filtered by iio_hardware marker. If no hardware matching
+    the required hardware if found, the test is skipped
     """
     marker = request.node.get_closest_marker("iio_hardware")
     if _contexts:
@@ -119,10 +170,31 @@ def context_desc(request, _contexts):
     pytest.skip("No required hardware found")
 
 
+@pytest.fixture(scope="session", autouse=True)
+def _iio_emu(request):
+    if request.config.getoption("--emu"):
+        exml = request.config.getoption("--emu-xml")
+        if not exml:
+            raise Exception("--emu-xml must be specificied when using --emu flag")
+        print("Start iio-emu")
+        oexml = exml
+        if not os.path.exists(exml):
+            path = pathlib.Path(__file__).parent.absolute()
+            exml = os.path.join(path, "resources", "devices", exml)
+        if not os.path.exists(exml):
+            raise Exception(f"Unable to find xml file {oexml}")
+        emu = iio_emu_manager(xml_path=exml)
+        emu.start()
+        yield emu
+        print("Stopping iio-emu")
+        emu.stop()
+    else:
+        return None
+
+
 @pytest.fixture(scope="session")
-def _contexts(request):
-    """ Contexts fixture which provides a list of dictionaries of found boards
-    """
+def _contexts(request, _iio_emu):
+    """Contexts fixture which provides a list of dictionaries of found boards"""
     if request.config.getoption("--adi-hw-map"):
         path = pathlib.Path(__file__).parent.absolute()
         filename = os.path.join(path, "resources", "adi_hardware_map.yml")
@@ -133,6 +205,8 @@ def _contexts(request):
 
     map = import_hw_map(filename) if filename else None
     uri = request.config.getoption("--uri")
+    if _iio_emu:
+        uri = _iio_emu.uri
     if uri:
         try:
             ctx = iio.Context(uri)
