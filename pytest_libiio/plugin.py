@@ -176,7 +176,6 @@ def _iio_emu(request):
         exml = request.config.getoption("--emu-xml")
         if not exml:
             raise Exception("--emu-xml must be specificied when using --emu flag")
-        print("Start iio-emu")
         oexml = exml
         if not os.path.exists(exml):
             path = pathlib.Path(__file__).parent.absolute()
@@ -184,6 +183,7 @@ def _iio_emu(request):
         if not os.path.exists(exml):
             raise Exception(f"Unable to find xml file {oexml}")
         emu = iio_emu_manager(xml_path=exml)
+        print(f"Start iio-emu on {emu.uri}")
         emu.start()
         yield emu
         print("Stopping iio-emu")
