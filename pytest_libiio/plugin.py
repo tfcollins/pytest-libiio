@@ -29,7 +29,7 @@ class iio_emu_manager:
         self.uri = f"ip:{hostname}"
 
     def start(self):
-        with open("data.bin", "w") as f:
+        with open("data.bin", "w"):
             pass
         self.p = subprocess.Popen(
             [
@@ -189,7 +189,7 @@ def _iio_emu(request):
         print("Stopping iio-emu")
         emu.stop()
     else:
-        return None
+        yield None
 
 
 @pytest.fixture(scope="session")
