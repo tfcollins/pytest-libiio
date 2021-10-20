@@ -28,8 +28,8 @@ class iio_emu_manager:
         hostname = socket.gethostname()
         self.local_ip = socket.gethostbyname(hostname)
         self.uri = f"ip:{self.local_ip}"
-        if os.getenv('IIO_EMU_URI'):
-            self.uri = os.getenv('IIO_EMU_URI') 
+        if os.getenv("IIO_EMU_URI"):
+            self.uri = os.getenv("IIO_EMU_URI")
 
     def start(self):
         with open("data.bin", "w"):
@@ -44,6 +44,9 @@ class iio_emu_manager:
             ]
         )
         time.sleep(3)  # wait for server to boot
+        if self.p.poll():
+            self.p.send_signal(signal.SIGINT)
+            raise Exception("iio-emu failed to start... exiting")
 
     def stop(self):
         self.p.send_signal(signal.SIGINT)
@@ -186,10 +189,10 @@ def _iio_emu(request):
         if not os.path.exists(exml):
             raise Exception(f"Unable to find xml file {oexml}")
         emu = iio_emu_manager(xml_path=exml)
-        print(f"Start iio-emu on {emu.uri}")
+        print(f"\n\nStart iio-emu on {emu.uri}\n")
         emu.start()
         yield emu
-        print("Stopping iio-emu")
+        print("\nStopping iio-emu\n")
         emu.stop()
     else:
         yield None
