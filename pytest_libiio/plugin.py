@@ -34,6 +34,7 @@ class iio_emu_manager:
     def start(self):
         with open("data.bin", "w"):
             pass
+        print(self.xml_path)
         self.p = subprocess.Popen(
             [
                 "iio-emu",
