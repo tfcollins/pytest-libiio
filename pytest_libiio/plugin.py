@@ -7,6 +7,7 @@ from shutil import which
 import signal
 import socket
 import time
+import os
 
 import iio
 
@@ -26,7 +27,9 @@ class iio_emu_manager:
 
         hostname = socket.gethostname()
         self.local_ip = socket.gethostbyname(hostname)
-        self.uri = f"ip:{hostname}"
+        self.uri = f"ip:{self.local_ip}"
+        if os.getenv('IIO_EMU_URI'):
+            self.uri = os.getenv('IIO_EMU_URI') 
 
     def start(self):
         with open("data.bin", "w"):
