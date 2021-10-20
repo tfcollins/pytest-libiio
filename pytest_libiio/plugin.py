@@ -44,7 +44,11 @@ class iio_emu_manager:
             ]
         )
         time.sleep(3)  # wait for server to boot
-        if self.p.poll():
+        poll = self.p.poll()
+        if poll:
+            print(poll)
+            o = self.p.communicate()
+            print(o)
             self.p.send_signal(signal.SIGINT)
             raise Exception("iio-emu failed to start... exiting")
 
