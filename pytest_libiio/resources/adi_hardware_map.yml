@@ -18,6 +18,9 @@ pluto:
   - cf-ad9361-lpc,2
   - emulate:
     - filename: pluto.xml
+    - data_devices:
+        - device2
+        - device3
 pluto_rev_c:
   - ad9361-phy
   - cf-ad9361-lpc,2
@@ -25,6 +28,9 @@ pluto_rev_c:
     - hw_model: Analog Devices PlutoSDR Rev.C
   - emulate:
     - filename: pluto.xml
+    - data_devices:
+        - device2
+        - device3
 daq2:
   - axi-ad9144-hpc,4
   - axi-ad9680-hpc,2
@@ -36,6 +42,9 @@ ad9081:
   - axi-ad9081-rx-hpc
   - emulate:
     - filename: ad9081.xml
+    - data_devices:
+        - device1
+        - device2
 
 # SOMS
 adrv9361:
