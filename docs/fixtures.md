@@ -48,3 +48,16 @@ Pass the first URI of the first matching context found with the desired hardware
         ctx = iio.Context(iio_uri)
           ...
 ```
+
+Disable during emulation
+
+``` python
+  import pytest
+  import iio
+
+
+  @pytest.mark.iio_hardware("pluto", True)
+  def test_libiio_device(iio_uri):
+        ctx = iio.Context(iio_uri)
+          ...
+```

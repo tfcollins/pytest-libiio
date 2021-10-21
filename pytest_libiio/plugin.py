@@ -15,10 +15,14 @@ import yaml
 
 
 class iio_emu_manager:
-    def __init__(self, xml_path: str, rx_dev: str = None, tx_dev: str = None):
+    def __init__(
+        self, xml_path: str, auto: bool = True, rx_dev: str = None, tx_dev: str = None
+    ):
         self.xml_path = xml_path
         self.rx_dev = rx_dev
         self.tx_dev = tx_dev
+        self.current_device = None
+        self.auto = auto
 
         iio_emu = which("iio-emu") is None
         if iio_emu:
@@ -26,7 +30,14 @@ class iio_emu_manager:
 
         hostname = socket.gethostname()
         self.local_ip = socket.gethostbyname(hostname)
-        self.uri = f"ip:{hostname}"
+        self.uri = f"ip:{self.local_ip}"
+        self.p = None
+        if os.getenv("IIO_EMU_URI"):
+            self.uri = os.getenv("IIO_EMU_URI")
+
+    def __del__(self):
+        if self.p:
+            self.stop()
 
     def start(self):
         with open("data.bin", "w"):
@@ -41,9 +52,59 @@ class iio_emu_manager:
             ]
         )
         time.sleep(3)  # wait for server to boot
+        if self.p.poll():
+            self.p.send_signal(signal.SIGINT)
+            raise Exception("iio-emu failed to start... exiting")
 
     def stop(self):
-        self.p.send_signal(signal.SIGINT)
+        if self.p:
+            self.p.send_signal(signal.SIGINT)
+        self.p = None
+
+
+def get_hw_map(request):
+    if request.config.getoption("--adi-hw-map"):
+        path = pathlib.Path(__file__).parent.absolute()
+        filename = os.path.join(path, "resources", "adi_hardware_map.yml")
+    elif request.config.getoption("--custom-hw-map"):
+        filename = request.config.getoption("--custom-hw-map")
+    else:
+        filename = None
+
+    return import_hw_map(filename) if filename else None
+
+
+def get_filename(map, hw):
+    hw = map[hw]
+    for f in hw:
+        if isinstance(f, dict) and "emulate" in f.keys():
+            emu = f["emulate"]
+            for e in emu:
+                if "filename" in e:
+                    return e["filename"]
+    return None
+
+
+def handle_iio_emu(ctx, request, _iio_emu):
+    if "hw" in ctx and _iio_emu.auto:
+        if _iio_emu.current_device != ctx["hw"]:
+            # restart with new hw
+            if _iio_emu.p:
+                print("Stopping iio-emu")
+                _iio_emu.stop()
+            else:
+                print("Using same hardware not restarting iio-emu")
+            map = get_hw_map(request)
+            fn = get_filename(map, ctx["hw"])
+            if not fn:
+                return ctx
+            path = pathlib.Path(__file__).parent.absolute()
+            exml = os.path.join(path, "resources", "devices", fn)
+            _iio_emu.xml_path = exml
+            _iio_emu.current_device = ctx["hw"]
+            print("Starting iio-emu")
+            _iio_emu.start()
+    return ctx
 
 
 def pytest_addoption(parser):
@@ -114,15 +175,15 @@ def pytest_configure(config):
 
 
 @pytest.fixture(scope="function")
-def iio_uri(single_ctx_desc):
+def iio_uri(_iio_emu_func):
     """URI fixture which provides a string of the target uri of the
     found board filtered by iio_hardware marker. If no hardware matching
     the required hardware is found, the test is skipped. If no iio_hardware
     marker is applied, first context uri is returned. If list of hardware
     markers are provided, the first matching is returned.
     """
-    if isinstance(single_ctx_desc, dict):
-        return single_ctx_desc["uri"]
+    if isinstance(_iio_emu_func, dict):
+        return _iio_emu_func["uri"]
     else:
         return False
 
@@ -170,23 +231,61 @@ def context_desc(request, _contexts):
     pytest.skip("No required hardware found")
 
 
+@pytest.fixture(scope="function")
+def _iio_emu_func(request, _contexts, _iio_emu):
+    marker = request.node.get_closest_marker("iio_hardware")
+    if _contexts:
+        if not marker or not marker.args:
+            return _contexts[0]
+        hardware = marker.args[0]
+        eskip = marker.args[1] if len(marker.args) > 1 else False
+
+        if eskip:
+            pytest.skip("Test not valid in emulation mode")
+            return
+
+        hardware = hardware if isinstance(hardware, list) else [hardware]
+        if not marker:
+            return _contexts[0]
+        else:
+            for dec in _contexts:
+                if dec["hw"] in marker.args[0]:
+                    return handle_iio_emu(dec, request, _iio_emu)
+    pytest.skip("No required hardware found")
+
+
 @pytest.fixture(scope="session", autouse=True)
 def _iio_emu(request):
+    """Initialization emulation fixture"""
     if request.config.getoption("--emu"):
         exml = request.config.getoption("--emu-xml")
-        if not exml:
-            raise Exception("--emu-xml must be specificied when using --emu flag")
-        oexml = exml
-        if not os.path.exists(exml):
-            path = pathlib.Path(__file__).parent.absolute()
-            exml = os.path.join(path, "resources", "devices", exml)
-        if not os.path.exists(exml):
-            raise Exception(f"Unable to find xml file {oexml}")
-        emu = iio_emu_manager(xml_path=exml)
-        print(f"Start iio-emu on {emu.uri}")
-        emu.start()
+        if exml:
+            if not os.path.exists(exml):
+                raise Exception(f"{exml} not found")
+            emu = iio_emu_manager(xml_path=exml, auto=False)
+            emu.start()
+            yield emu
+            emu.stop()
+            return
+
+        # Get list of all devices available to emulate
+        map = get_hw_map(request)
+        hw_w_emulation = {}
+        for hw in map:
+            for field in map[hw]:
+                if isinstance(field, dict) and "emulate" in field:
+                    hw_w_emulation[hw] = field
+            if hw in hw_w_emulation:
+                devices = []
+                for field in map[hw]:
+                    if isinstance(field, str):
+                        devices.append(field)
+                hw_w_emulation[hw]["devices"] = devices
+
+        emu = iio_emu_manager(xml_path="auto", auto=True)
+        emu.hw = hw_w_emulation
+
         yield emu
-        print("Stopping iio-emu")
         emu.stop()
     else:
         yield None
@@ -195,18 +294,25 @@ def _iio_emu(request):
 @pytest.fixture(scope="session")
 def _contexts(request, _iio_emu):
     """Contexts fixture which provides a list of dictionaries of found boards"""
-    if request.config.getoption("--adi-hw-map"):
-        path = pathlib.Path(__file__).parent.absolute()
-        filename = os.path.join(path, "resources", "adi_hardware_map.yml")
-    elif request.config.getoption("--custom-hw-map"):
-        filename = request.config.getoption("--custom-hw-map")
-    else:
-        filename = None
-
-    map = import_hw_map(filename) if filename else None
+    map = get_hw_map(request)
     uri = request.config.getoption("--uri")
+
     if _iio_emu:
-        uri = _iio_emu.uri
+        if _iio_emu.auto:
+            ctx_plus_hw = []
+            for hw in _iio_emu.hw:
+                ctx_plus_hw.append(
+                    {
+                        "uri": _iio_emu.uri,
+                        "type": "emu",
+                        "devices": _iio_emu.hw[hw]["devices"],
+                        "hw": hw,
+                    }
+                )
+            return ctx_plus_hw
+        else:
+            uri = _iio_emu.uri
+
     if uri:
         try:
             ctx = iio.Context(uri)
