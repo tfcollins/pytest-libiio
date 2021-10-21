@@ -58,7 +58,8 @@ class iio_emu_manager:
             raise Exception("iio-emu failed to start... exiting")
 
     def stop(self):
-        self.p.send_signal(signal.SIGINT)
+        if self.p:
+            self.p.send_signal(signal.SIGINT)
         self.p = None
 
 
@@ -238,6 +239,12 @@ def _iio_emu_func(request, _contexts, _iio_emu):
         if not marker or not marker.args:
             return _contexts[0]
         hardware = marker.args[0]
+        eskip =  marker.args[1] if len(marker.args)>1 else False
+
+        if eskip:
+            pytest.skip("Test not valid in emulation mode")
+            return
+
         hardware = hardware if isinstance(hardware, list) else [hardware]
         if not marker:
             return _contexts[0]
