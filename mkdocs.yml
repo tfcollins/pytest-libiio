@@ -14,6 +14,7 @@ pages:
 nav:
     - Home: index.md
     - Fixtures: fixtures.md
+    - Emulation: emulation.md
     - CLI: cli.md
 
 markdown_extensions:
