@@ -284,6 +284,7 @@ def _iio_emu(request):
 
         emu = iio_emu_manager(xml_path="auto", auto=True)
         emu.hw = hw_w_emulation
+
         yield emu
         emu.stop()
     else:
