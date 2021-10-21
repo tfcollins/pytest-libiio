@@ -7,7 +7,6 @@ from shutil import which
 import signal
 import socket
 import time
-import os
 
 import iio
 
@@ -239,7 +238,7 @@ def _iio_emu_func(request, _contexts, _iio_emu):
         if not marker or not marker.args:
             return _contexts[0]
         hardware = marker.args[0]
-        eskip =  marker.args[1] if len(marker.args)>1 else False
+        eskip = marker.args[1] if len(marker.args) > 1 else False
 
         if eskip:
             pytest.skip("Test not valid in emulation mode")
@@ -269,7 +268,6 @@ def _iio_emu(request):
             emu.stop()
             return
 
-        path = pathlib.Path(__file__).parent.absolute()
         # Get list of all devices available to emulate
         map = get_hw_map(request)
         hw_w_emulation = {}
