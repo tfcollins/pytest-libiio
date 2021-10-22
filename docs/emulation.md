@@ -51,16 +51,16 @@ pluto_rev_c:
   - emulate:
     - filename: pluto.xml
     - data_devices:
-        - device2
-        - device3
+        - iio:device2
+        - iio:device3
 ad9081:
   - axi-ad9081-tx-hpc
   - axi-ad9081-rx-hpc
   - emulate:
     - filename: ad9081.xml
     - data_devices:
-        - device1
-        - device2
+        - iio:device1
+        - iio:device2
 ```
 
 Note that the *data_devices* with names device* are the generic IIO driver names of the DMA drivers for TX and RX.

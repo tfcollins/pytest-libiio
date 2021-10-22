@@ -23,6 +23,7 @@ class iio_emu_manager:
         self.tx_dev = tx_dev
         self.current_device = None
         self.auto = auto
+        self.data_devices = None
 
         iio_emu = which("iio-emu") is None
         if iio_emu:
@@ -42,15 +43,11 @@ class iio_emu_manager:
     def start(self):
         with open("data.bin", "w"):
             pass
-        self.p = subprocess.Popen(
-            [
-                "iio-emu",
-                "generic",
-                self.xml_path,
-                "iio:device2@data.bin",
-                "iio:device3@data.bin",
-            ]
-        )
+        cmd = ["iio-emu", "generic", self.xml_path]
+        if self.data_devices:
+            for dev in self.data_devices:
+                cmd.append(f"{dev}@data.bin")
+        self.p = subprocess.Popen(cmd)
         time.sleep(3)  # wait for server to boot
         if self.p.poll():
             self.p.send_signal(signal.SIGINT)
@@ -76,13 +73,17 @@ def get_hw_map(request):
 
 def get_filename(map, hw):
     hw = map[hw]
+    fn = None
+    dd = None
     for f in hw:
         if isinstance(f, dict) and "emulate" in f.keys():
             emu = f["emulate"]
             for e in emu:
                 if "filename" in e:
-                    return e["filename"]
-    return None
+                    fn = e["filename"]
+                if "data_devices" in e:
+                    dd = e["data_devices"]
+    return fn, dd
 
 
 def handle_iio_emu(ctx, request, _iio_emu):
@@ -95,13 +96,14 @@ def handle_iio_emu(ctx, request, _iio_emu):
             else:
                 print("Using same hardware not restarting iio-emu")
             map = get_hw_map(request)
-            fn = get_filename(map, ctx["hw"])
+            fn, dd = get_filename(map, ctx["hw"])
             if not fn:
                 return ctx
             path = pathlib.Path(__file__).parent.absolute()
             exml = os.path.join(path, "resources", "devices", fn)
             _iio_emu.xml_path = exml
             _iio_emu.current_device = ctx["hw"]
+            _iio_emu.data_devices = dd
             print("Starting iio-emu")
             _iio_emu.start()
     return ctx
@@ -270,6 +272,8 @@ def _iio_emu(request):
 
         # Get list of all devices available to emulate
         map = get_hw_map(request)
+        if not map:
+            raise Exception("No hardware map selected (ex: --adi-hw-map)")
         hw_w_emulation = {}
         for hw in map:
             for field in map[hw]:
