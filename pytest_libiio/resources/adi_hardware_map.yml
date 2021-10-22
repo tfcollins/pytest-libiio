@@ -19,8 +19,8 @@ pluto:
   - emulate:
     - filename: pluto.xml
     - data_devices:
-        - device2
-        - device3
+        - iio:device2
+        - iio:device3
 pluto_rev_c:
   - ad9361-phy
   - cf-ad9361-lpc,2
@@ -29,8 +29,8 @@ pluto_rev_c:
   - emulate:
     - filename: pluto.xml
     - data_devices:
-        - device2
-        - device3
+        - iio:device2
+        - iio:device3
 daq2:
   - axi-ad9144-hpc,4
   - axi-ad9680-hpc,2
@@ -43,8 +43,8 @@ ad9081:
   - emulate:
     - filename: ad9081.xml
     - data_devices:
-        - device1
-        - device2
+        - iio:device2
+        - iio:device3
 
 # SOMS
 adrv9361:
