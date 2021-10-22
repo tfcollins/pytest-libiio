@@ -87,25 +87,24 @@ def get_filename(map, hw):
 
 
 def handle_iio_emu(ctx, request, _iio_emu):
-    if "hw" in ctx and _iio_emu.auto:
-        if _iio_emu.current_device != ctx["hw"]:
-            # restart with new hw
-            if _iio_emu.p:
-                print("Stopping iio-emu")
-                _iio_emu.stop()
-            else:
-                print("Using same hardware not restarting iio-emu")
-            map = get_hw_map(request)
-            fn, dd = get_filename(map, ctx["hw"])
-            if not fn:
-                return ctx
-            path = pathlib.Path(__file__).parent.absolute()
-            exml = os.path.join(path, "resources", "devices", fn)
-            _iio_emu.xml_path = exml
-            _iio_emu.current_device = ctx["hw"]
-            _iio_emu.data_devices = dd
-            print("Starting iio-emu")
-            _iio_emu.start()
+    if "hw" in ctx and _iio_emu.auto and _iio_emu.current_device != ctx["hw"]:
+        # restart with new hw
+        if _iio_emu.p:
+            print("Stopping iio-emu")
+            _iio_emu.stop()
+        else:
+            print("Using same hardware not restarting iio-emu")
+        map = get_hw_map(request)
+        fn, dd = get_filename(map, ctx["hw"])
+        if not fn:
+            return ctx
+        path = pathlib.Path(__file__).parent.absolute()
+        exml = os.path.join(path, "resources", "devices", fn)
+        _iio_emu.xml_path = exml
+        _iio_emu.current_device = ctx["hw"]
+        _iio_emu.data_devices = dd
+        print("Starting iio-emu")
+        _iio_emu.start()
     return ctx
 
 
@@ -206,10 +205,9 @@ def single_ctx_desc(request, _contexts):
         hardware = hardware if isinstance(hardware, list) else [hardware]
         if not marker:
             return _contexts[0]
-        else:
-            for dec in _contexts:
-                if dec["hw"] in marker.args[0]:
-                    return dec
+        for dec in _contexts:
+            if dec["hw"] in marker.args[0]:
+                return dec
     pytest.skip("No required hardware found")
 
 
@@ -249,10 +247,9 @@ def _iio_emu_func(request, _contexts, _iio_emu):
         hardware = hardware if isinstance(hardware, list) else [hardware]
         if not marker:
             return _contexts[0]
-        else:
-            for dec in _contexts:
-                if dec["hw"] in marker.args[0]:
-                    return handle_iio_emu(dec, request, _iio_emu)
+        for dec in _contexts:
+            if dec["hw"] in marker.args[0]:
+                return handle_iio_emu(dec, request, _iio_emu)
     pytest.skip("No required hardware found")
 
 
@@ -280,10 +277,7 @@ def _iio_emu(request):
                 if isinstance(field, dict) and "emulate" in field:
                     hw_w_emulation[hw] = field
             if hw in hw_w_emulation:
-                devices = []
-                for field in map[hw]:
-                    if isinstance(field, str):
-                        devices.append(field)
+                devices = [field for field in map[hw] if isinstance(field, str)]
                 hw_w_emulation[hw]["devices"] = devices
 
         emu = iio_emu_manager(xml_path="auto", auto=True)
@@ -303,16 +297,12 @@ def _contexts(request, _iio_emu):
 
     if _iio_emu:
         if _iio_emu.auto:
-            ctx_plus_hw = []
-            for hw in _iio_emu.hw:
-                ctx_plus_hw.append(
-                    {
+            ctx_plus_hw = [{
                         "uri": _iio_emu.uri,
                         "type": "emu",
                         "devices": _iio_emu.hw[hw]["devices"],
                         "hw": hw,
-                    }
-                )
+                    } for hw in _iio_emu.hw]
             return ctx_plus_hw
         else:
             uri = _iio_emu.uri
@@ -384,16 +374,12 @@ def lookup_hw_from_map(ctx, map):
                         for attr_dict in driver_or_attr["ctx_attr"]:
                             for attr_name in attr_dict:
                                 # loop over found and compare to
-                                for hw_ctx_attr in ctx_attrs:
+                                for hw_ctx_attr, value in ctx_attrs.items():
                                     if (
                                         hw_ctx_attr == attr_name
-                                        and attr_dict[attr_name]
-                                        in ctx_attrs[hw_ctx_attr]
+                                        and attr_dict[attr_name] in value
                                     ):
                                         found += 1
-                    # Compare other attribute types ...
-                    if attr_type == "dev_attr":
-                        pass
                 continue
             # Loop over drivers
             for h in hw:
@@ -415,10 +401,7 @@ def lookup_hw_from_map(ctx, map):
 
 
 def find_contexts(config, map, request):
-    if request.config.getoption("--skip-scan"):
-        ctxs = None
-    else:
-        ctxs = iio.scan_contexts()
+    ctxs = None if request.config.getoption("--skip-scan") else iio.scan_contexts()
     if not ctxs:
         print("\nNo libiio contexts found")
         return False
