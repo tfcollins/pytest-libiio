@@ -87,7 +87,7 @@ def get_filename(map, hw):
 
 
 def handle_iio_emu(ctx, request, _iio_emu):
-    if "hw" in ctx and _iio_emu.auto:
+    if "hw" in ctx and hasattr(_iio_emu, "auto") and _iio_emu.auto:
         if _iio_emu.current_device != ctx["hw"]:
             # restart with new hw
             if _iio_emu.p:
