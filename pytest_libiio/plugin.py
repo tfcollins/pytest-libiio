@@ -2,21 +2,20 @@
 
 import os
 import pathlib
-import subprocess
-from shutil import which
 import signal
 import socket
+import subprocess
 import time
+from shutil import which
 
 import iio
-
 import pytest
 import yaml
 
 
 class iio_emu_manager:
     def __init__(
-        self, xml_path: str, auto: bool = True, rx_dev: str = None, tx_dev: str = None
+        self, xml_path: str, auto: bool = True, rx_dev: str = None, tx_dev: str = None,
     ):
         self.xml_path = xml_path
         self.rx_dev = rx_dev
@@ -99,8 +98,15 @@ def handle_iio_emu(ctx, request, _iio_emu):
             fn, dd = get_filename(map, ctx["hw"])
             if not fn:
                 return ctx
-            path = pathlib.Path(__file__).parent.absolute()
-            exml = os.path.join(path, "resources", "devices", fn)
+            if request.config.getoption("--emu-xml-dir"):
+                path = request.config.getoption("--emu-xml-dir")
+                exml = os.path.join(path, fn)
+                print("exml", exml)
+            else:
+                path = pathlib.Path(__file__).parent.absolute()
+                exml = os.path.join(path, "resources", "devices", fn)
+            if not os.path.exists(exml):
+                pytest.skip("No XML file found for hardware")
             _iio_emu.xml_path = exml
             _iio_emu.current_device = ctx["hw"]
             _iio_emu.data_devices = dd
@@ -166,6 +172,13 @@ def pytest_addoption(parser):
         dest="emu_xml",
         default=False,
         help="Path or name of built-in XML for back-end context",
+    )
+    group.addoption(
+        "--emu-xml-dir",
+        action="store",
+        dest="emu_xml_dir",
+        default=False,
+        help="Path to folder with XML files for back-end context",
     )
 
 
