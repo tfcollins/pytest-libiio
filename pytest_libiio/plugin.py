@@ -255,7 +255,7 @@ def _iio_emu_func(request, _contexts, _iio_emu):
         hardware = marker.args[0]
         eskip = marker.args[1] if len(marker.args) > 1 else False
 
-        if eskip:
+        if eskip and request.config.getoption("--emu"):
             pytest.skip("Test not valid in emulation mode")
             return
 
