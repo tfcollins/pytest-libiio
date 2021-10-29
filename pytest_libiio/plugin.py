@@ -92,8 +92,9 @@ def handle_iio_emu(ctx, request, _iio_emu):
             if _iio_emu.p:
                 print("Stopping iio-emu")
                 _iio_emu.stop()
-            else:
+            elif _iio_emu.current_device:
                 print("Using same hardware not restarting iio-emu")
+
             map = get_hw_map(request)
             fn, dd = get_filename(map, ctx["hw"])
             if not fn:
@@ -106,7 +107,7 @@ def handle_iio_emu(ctx, request, _iio_emu):
                 path = pathlib.Path(__file__).parent.absolute()
                 exml = os.path.join(path, "resources", "devices", fn)
             if not os.path.exists(exml):
-                pytest.skip("No XML file found for hardware")
+                pytest.skip(f"No XML file found for hardware {ctx['hw']}")
             _iio_emu.xml_path = exml
             _iio_emu.current_device = ctx["hw"]
             _iio_emu.data_devices = dd
@@ -255,7 +256,7 @@ def _iio_emu_func(request, _contexts, _iio_emu):
         hardware = marker.args[0]
         eskip = marker.args[1] if len(marker.args) > 1 else False
 
-        if eskip:
+        if eskip and request.config.getoption("--emu"):
             pytest.skip("Test not valid in emulation mode")
             return
 

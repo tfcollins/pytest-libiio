@@ -21,6 +21,13 @@ def pytest_addoption(parser):
         default=None,
         help="Set uri to test against",
     )
+    parser.addoption(
+        "--resource-dir",
+        action="store",
+        dest="resource_dir",
+        default=None,
+        help="Set path of resource folder",
+    )
 
 
 @pytest.fixture(scope="session")
@@ -44,3 +51,8 @@ def uri_select(request):
         return "ip:192.168.86.56"
     else:
         return val
+
+
+@pytest.fixture(scope="session")
+def resource_folder(request):
+    return request.config.getoption("--resource-dir")

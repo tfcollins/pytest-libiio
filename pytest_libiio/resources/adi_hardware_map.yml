@@ -70,6 +70,11 @@ ad9364:
   - cf-ad9361-lpc,2
 adrv9002:
   - adrv9002-phy
+  - emulate:
+    - filename: adrv9002.xml
+    - data_devices:
+        - iio:device2
+        - iio:device4
 adrv9009:
   - adrv9009-phy
 adrv9009-dual:
@@ -77,3 +82,8 @@ adrv9009-dual:
   - adrv9009-phy-b
 adrv9371:
   - ad9371-phy
+  - emulate:
+    - filename: ad9371.xml
+    - data_devices:
+        - iio:device4
+        - iio:device6

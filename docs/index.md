@@ -30,7 +30,7 @@ pytest-libiio is pytest plugin to manage interfacing with libiio contexts. This 
 
 Optional for emulation support:
 
-* [libtinyiiod](https://github.com/analogdevicesinc/libtinyiiod) and [iio-emu](https://github.com/analogdevicesinc/iio-emu) 
+* [libtinyiiod](https://github.com/analogdevicesinc/libtinyiiod) and [iio-emu](https://github.com/analogdevicesinc/iio-emu)
 
 
 For [development the following are also needed](https://github.com/tfcollins/pytest-libiio/blob/master/requirements_dev.txt):
