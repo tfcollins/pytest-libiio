@@ -280,6 +280,74 @@ def test_context_desc_fixture_uri_adi_map(
     assert result.ret == 0
 
 
+@pytest.mark.parametrize("hw", ["pluto", "ad9081", "adrv9371", "adrv9002"])
+def test_iio_uri_fixture_emulation(testdir, hw):
+    """Make sure that pytest accepts our fixture."""
+    time.sleep(sleep)
+
+    # create a temporary pytest test module
+    testdir.makepyfile(
+        """
+        import pytest
+        import iio
+
+        @pytest.mark.iio_hardware('"""
+        + hw
+        + """')
+        def test_sth(iio_uri):
+            assert iio_uri
+            ctx = iio.Context(iio_uri)
+    """
+    )
+
+    # run pytest with the following cmd args
+    result = testdir.runpytest("--adi-hw-map", "--scan-verbose", "-vvv", "-s", "--emu")
+
+    # fnmatch_lines does an assertion internally
+    result.stdout.fnmatch_lines(["*PASSED*"])
+    result.stdout.fnmatch_lines(["*Starting iio-emu*"])
+
+    # make sure that that we get a '0' exit code for the testsuite
+    assert result.ret == 0
+
+
+@pytest.mark.parametrize("hw", ["pluto_rev_c"])
+def test_iio_uri_fixture_emulation_xml_path(testdir, resource_folder, hw):
+    """Make sure that pytest accepts our fixture."""
+    time.sleep(sleep)
+
+    # create a temporary pytest test module
+    testdir.makepyfile(
+        """
+        import pytest
+        import iio
+
+        @pytest.mark.iio_hardware('"""
+        + hw
+        + """')
+        def test_sth(iio_uri):
+            assert iio_uri
+            ctx = iio.Context(iio_uri)
+    """
+    )
+
+    # run pytest with the following cmd args
+    result = testdir.runpytest(
+        "--adi-hw-map",
+        "-v",
+        "-s",
+        "--scan-verbose",
+        "--emu",
+        f"--emu-xml={resource_folder}/pluto.xml",
+    )
+
+    # fnmatch_lines does an assertion internally
+    result.stdout.fnmatch_lines(["*PASSED*"])
+
+    # make sure that that we get a '0' exit code for the testsuite
+    assert result.ret == 0
+
+
 # def test_help_message(testdir):
 #     result = testdir.runpytest("--help",)
 #     # fnmatch_lines does an assertion internally
