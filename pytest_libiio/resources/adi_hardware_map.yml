@@ -13,7 +13,7 @@ fmcomms5:
   - cf-ad9361-A,8
   - cf-ad9361-B,4
 pluto:
-  - adm1177
+  - adm1177-iio
   - ad9361-phy
   - cf-ad9361-lpc,2
   - emulate:
