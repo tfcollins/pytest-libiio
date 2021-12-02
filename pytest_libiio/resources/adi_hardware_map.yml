@@ -13,6 +13,11 @@ fmcomms4:
   - ad7291
   - ad9361-phy
   - cf-ad9361-lpc,2
+  - emulate:
+    - filename: fmcomms4.xml
+    - data_devices:
+      - iio:device1
+      - iio:device5
 fmcomms5:
   - ad9361-phy
   - ad9361-phy-b
