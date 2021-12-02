@@ -23,6 +23,13 @@ fmcomms5:
   - ad9361-phy-b
   - cf-ad9361-A,8
   - cf-ad9361-B,4
+  - emulate:
+    - filename: fmcomms5.xml
+    - data_devices:
+      - iio:device1
+      - iio:device2
+      - iio:device4
+      - iio:device5
 pluto:
   - adm1177-iio
   - ad9361-phy
