@@ -34,6 +34,11 @@ pluto_rev_c:
 daq2:
   - axi-ad9144-hpc,4
   - axi-ad9680-hpc,2
+  - emulate:
+    - filename: daq2.xml
+    - data_devices:
+        - iio:device3
+        - iio:device4
 daq3:
   - axi-ad9152-hpc,2
   - axi-ad9680-hpc,2
