@@ -55,6 +55,13 @@ ad9081_tdd:
     - data_devices:
         - iio:device3
         - iio:device4
+ad9172:
+  - axi-ad9172-hpc,2
+  - hmc7044
+  - emulate:
+    - filename: ad9172.xml
+    - data_devices:
+      - iio:device2
 
 # SOMS
 adrv9361:
