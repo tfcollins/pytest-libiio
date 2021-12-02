@@ -42,6 +42,11 @@ daq2:
 daq3:
   - axi-ad9152-hpc,2
   - axi-ad9680-hpc,2
+  - emulate:
+    - filename: daq3.xml
+    - data_devices:
+        - iio:device3
+        - iio:device4
 ad9081:
   - axi-ad9081-tx-hpc
   - axi-ad9081-rx-hpc
