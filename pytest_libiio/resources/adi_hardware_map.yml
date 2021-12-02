@@ -78,6 +78,11 @@ adrv9364:
   - ad7291-bob
   - ad9361-phy
   - cf-ad9361-lpc,2
+  - emulate:
+    - filename: adrv9364-z7020.xml
+    - data_devices:
+      - iio:device2
+      - iio:device4
 packrf:
   - ad7291-ccbox
   - ad9361-phy
