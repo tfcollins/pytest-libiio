@@ -69,6 +69,11 @@ adrv9361:
   - ad9517-3
   - ad9361-phy
   - cf-ad9361-lpc,4
+  - emulate:
+    - filename: adrv9361-z7035.xml
+    - data_devices:
+      - iio:device1
+      - iio:device4
 adrv9364:
   - ad7291-bob
   - ad9361-phy
