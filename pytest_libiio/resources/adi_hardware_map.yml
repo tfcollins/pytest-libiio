@@ -3,15 +3,44 @@ fmcomms2:
   - ad7291
   - ad9361-phy
   - cf-ad9361-lpc,4
+  - emulate:
+    - filename: fmcomms2-3.xml
+    - data_devices:
+      - iio:device1
+      - iio:device5
+      - iio:device6
 fmcomms4:
   - ad7291
   - ad9361-phy
   - cf-ad9361-lpc,2
+  - emulate:
+    - filename: fmcomms4.xml
+    - data_devices:
+      - iio:device1
+      - iio:device5
 fmcomms5:
   - ad9361-phy
   - ad9361-phy-b
   - cf-ad9361-A,8
   - cf-ad9361-B,4
+  - emulate:
+    - filename: fmcomms5.xml
+    - data_devices:
+      - iio:device1
+      - iio:device2
+      - iio:device4
+      - iio:device5
+fmcomms11:
+  - ad7291
+  - adl5240
+  - hmc1119
+  - axi-ad9162-hpc
+  - axi-ad9625-hpc
+  - emulate:
+    - filename: fmcomms11.xml
+    - data_devices:
+      - iio:device5
+      - iio:device6
 pluto:
   - adm1177-iio
   - ad9361-phy
@@ -34,9 +63,19 @@ pluto_rev_c:
 daq2:
   - axi-ad9144-hpc,4
   - axi-ad9680-hpc,2
+  - emulate:
+    - filename: daq2.xml
+    - data_devices:
+        - iio:device3
+        - iio:device4
 daq3:
   - axi-ad9152-hpc,2
   - axi-ad9680-hpc,2
+  - emulate:
+    - filename: daq3.xml
+    - data_devices:
+        - iio:device3
+        - iio:device4
 ad9081:
   - axi-ad9081-tx-hpc
   - axi-ad9081-rx-hpc
@@ -55,6 +94,13 @@ ad9081_tdd:
     - data_devices:
         - iio:device3
         - iio:device4
+ad9172:
+  - axi-ad9172-hpc,2
+  - hmc7044
+  - emulate:
+    - filename: ad9172.xml
+    - data_devices:
+      - iio:device2
 
 # SOMS
 adrv9361:
@@ -62,10 +108,20 @@ adrv9361:
   - ad9517-3
   - ad9361-phy
   - cf-ad9361-lpc,4
+  - emulate:
+    - filename: adrv9361-z7035.xml
+    - data_devices:
+      - iio:device1
+      - iio:device4
 adrv9364:
   - ad7291-bob
   - ad9361-phy
   - cf-ad9361-lpc,2
+  - emulate:
+    - filename: adrv9364-z7020.xml
+    - data_devices:
+      - iio:device2
+      - iio:device4
 packrf:
   - ad7291-ccbox
   - ad9361-phy
