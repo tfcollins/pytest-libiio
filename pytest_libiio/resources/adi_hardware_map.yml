@@ -153,3 +153,7 @@ adrv9371:
     - data_devices:
         - iio:device4
         - iio:device6
+adxl355:
+  - adxl355
+  - emulate:
+    -filename:adxl355.xml
