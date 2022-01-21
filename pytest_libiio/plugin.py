@@ -15,7 +15,11 @@ import yaml
 
 class iio_emu_manager:
     def __init__(
-        self, xml_path: str, auto: bool = True, rx_dev: str = None, tx_dev: str = None,
+        self,
+        xml_path: str,
+        auto: bool = True,
+        rx_dev: str = None,
+        tx_dev: str = None,
     ):
         self.xml_path = xml_path
         self.rx_dev = rx_dev
@@ -449,11 +453,19 @@ def find_contexts(config, map, request):
             string += "\n\tDevices: {}".format(devices)
             print(string)
 
+        try:
+            ctx = iio.Context(uri)
+        except Exception as ex:
+            if ex.errno == 16:
+                print(f"\nContext {uri} is not reachable: {ex}")
+                continue
+            raise ex
+
         ctx_plus_hw = {
             "uri": uri,
             "type": type,
             "devices": devices,
-            "hw": lookup_hw_from_map(iio.Context(uri), map),
+            "hw": lookup_hw_from_map(ctx, map),
         }
         ctxs_plus_hw.append(ctx_plus_hw)
     else:
