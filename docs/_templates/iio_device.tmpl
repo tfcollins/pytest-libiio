@@ -1,0 +1,27 @@
+# {{ device.name }}
+
+{% if device['device_attributes']|length > 1 %}
+## Device Attributes
+
+| Name | Default value |
+| ---- | ------------- |
+{% for attr in device['device_attributes'] -%}
+| {{ attr }} | {{ device['device_attributes'][attr]['value'] }} |
+{% endfor %}
+
+{% endif %}
+
+## Channel Attributes
+
+{% for chan in device['channel_attributes'] -%}
+
+### {{ chan }}
+
+| Name | sysfs filename |
+| ---- | -------------- |
+{% for attr in device['channel_attributes'][chan] -%}
+| {{ attr }} | {{ device['channel_attributes'][chan][attr]['filename'] }} |
+{% endfor %}
+***
+{% endfor %}
+
