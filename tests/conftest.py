@@ -1,11 +1,18 @@
 import pytest
+import pathlib
+import os
 
 pytest_plugins = "pytester"
+
+path = pathlib.Path(__file__).parent.absolute()
+default_resource_dir = os.path.join(path, "..", "pytest_libiio", "resources", "devices")
 
 
 def pytest_addoption(parser):
     parser.addoption(
-        "--disable_mock", action="store_true", help="Disable mocking",
+        "--disable_mock",
+        action="store_true",
+        help="Disable mocking",
     )
     parser.addoption(
         "--hw-manual",
@@ -25,7 +32,7 @@ def pytest_addoption(parser):
         "--resource-dir",
         action="store",
         dest="resource_dir",
-        default=None,
+        default=default_resource_dir,
         help="Set path of resource folder",
     )
 
