@@ -1,0 +1,51 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+<div class="offcanvas-header">
+<h5 class="offcanvas-title" id="offcanvasLabel">Offcanvas</h5>
+<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+
+<div class="offcanvas-body">
+IIO-Tools example:
+<div id="channel_example_iio_attr">
+INSERT
+</div>
+
+Python bindings example:
+<div id="channel_example_iio_python">
+INSERT
+</div>
+
+</div>
+</div>
+
+# {{ device.name }}
+
+{% if device['device_attributes']|length > 1 %}
+## Device Attributes
+
+| Name | Default value |
+| ---- | ------------- |
+{% for attr in device['device_attributes'] -%}
+| {{ attr }} | {{ device['device_attributes'][attr]['value'] }} |
+{% endfor %}
+
+{% endif %}
+
+## Channel Attributes
+
+{% for chan in device['channel_attributes'] -%}
+
+### {{ chan }}
+
+| Name | sysfs filename | Examples |
+| ---- | -------------- | -------- |
+{% for attr in device['channel_attributes'][chan] -%}
+| {{ attr }} | {{ device['channel_attributes'][chan][attr]['filename'] }} | {% include 'iio_examples.tmpl' %} |
+{% endfor %}
+***
+{% endfor %}
+
