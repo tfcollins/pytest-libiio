@@ -30,12 +30,10 @@ def parse_hw_map(map_filename=None):
 
 
 def parse_device(dev: iio.Device):
-    device_info = {}
     dev_attributes = {}
     chan_attributes = {}
 
-    device_info["name"] = dev.name if dev.name else dev.id
-
+    device_info = {'name': dev.name or dev.id}
     for attr in dev.attrs:
         at = dev.attrs[attr]
         fn = at.filename
@@ -48,7 +46,7 @@ def parse_device(dev: iio.Device):
     device_info["device_attributes"] = dev_attributes
 
     for chan in dev.channels:
-        cn = chan.name if chan.name else chan.id
+        cn = chan.name or chan.id
         channel = {}
         for attr in chan.attrs:
             at = chan.attrs[attr]
