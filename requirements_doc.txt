@@ -1,1 +1,5 @@
+mkdocs
 mkdocs-material
+jinja2
+pyyaml
+pylibiio
