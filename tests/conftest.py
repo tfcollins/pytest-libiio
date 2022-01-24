@@ -45,19 +45,13 @@ def use_mocking(request):
 @pytest.fixture(scope="session")
 def hw_select(request):
     val = request.config.getoption("--hw-manual")
-    if not val:
-        return "adrv9361"
-    else:
-        return val
+    return "adrv9361" if not val else val
 
 
 @pytest.fixture(scope="session")
 def uri_select(request):
     val = request.config.getoption("--test-uri")
-    if not val:
-        return "ip:192.168.86.56"
-    else:
-        return val
+    return "ip:192.168.86.56" if not val else val
 
 
 @pytest.fixture(scope="session")
