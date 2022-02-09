@@ -82,8 +82,8 @@ ad9081:
   - emulate:
       - filename: ad9081.xml
       - data_devices:
-          - iio:device2
-          - iio:device3
+          - iio:device6
+          - iio:device7
 ad9081_tdd:
   - axi-ad9081-tx-hpc
   - axi-ad9081-rx-hpc
