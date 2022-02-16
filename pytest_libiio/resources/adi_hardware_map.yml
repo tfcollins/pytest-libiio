@@ -157,3 +157,12 @@ adxl355:
   - adxl355
   - emulate:
       - filename: adxl355.xml
+
+# Kits
+longspeak:
+  - adar3002_csb_0_0
+  - adar3002_csb_0_2
+  - adar3002_csb_0_3
+  - adar3002_csb_0_4
+  - emulate:
+      - filename: longspeak.xml
