@@ -136,6 +136,8 @@ ad9364:
   - cf-ad9361-lpc,2
 adrv9002:
   - adrv9002-phy
+  - axi-adrv9002-rx-lpc
+  - axi-adrv9002-tx-lpc
   - emulate:
       - filename: adrv9002.xml
       - data_devices:
