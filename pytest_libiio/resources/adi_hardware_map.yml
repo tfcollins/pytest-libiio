@@ -159,3 +159,10 @@ adxl355:
   - adxl355
   - emulate:
       - filename: adxl355.xml
+ad9434:
+  - axi-ad9434-core-lpc
+  - ad9517-4
+  - emulate:
+      - filename: ad9434.xml
+      - data_devices:
+          - iio:device2
