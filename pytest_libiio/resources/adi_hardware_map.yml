@@ -166,3 +166,11 @@ ad9434:
       - filename: ad9434.xml
       - data_devices:
           - iio:device2
+ad9265:
+  - axi-ad9265-core-lpc
+  - ad9517-4
+  - emulate:
+      - filename: ad9265.xml
+      - data_devices:
+          - iio:device2
+
