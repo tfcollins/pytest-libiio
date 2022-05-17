@@ -173,4 +173,15 @@ ad9265:
       - filename: ad9265.xml
       - data_devices:
           - iio:device2
-
+ad4020:
+  - ad4020
+  - emulate:
+      - filename: ad4020.xml
+      - data_devices:
+          - iio:device0
+ltc2387:
+  - ltc2387
+  - emulate:
+      - filename: ltc2387.xml
+      - data_devices:
+          - iio:device0
