@@ -101,6 +101,15 @@ ad9172:
       - filename: ad9172.xml
       - data_devices:
           - iio:device2
+cn0540:
+  - ad7768-1
+  - ltc2308
+  - ltc2606
+  - one-bit-adc-dac
+  - emulate:
+      - filename: cn0540.xml
+      - data_devices:
+          - iio:device0
 
 # SOMS
 adrv9361:
