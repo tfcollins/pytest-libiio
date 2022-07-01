@@ -101,6 +101,15 @@ ad9172:
       - filename: ad9172.xml
       - data_devices:
           - iio:device2
+cn0511:
+  - ad9166-amp
+  - adf4372
+  - ad5693r
+  - ad9166
+  - emulate:
+      - filename: cn0511.xml
+      - data_devices:
+          - iio:device3
 cn0540:
   - ad7768-1
   - ltc2308
