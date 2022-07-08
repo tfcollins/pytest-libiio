@@ -167,7 +167,7 @@ def pytest_addoption(parser):
     group.addoption(
         "--emu",
         action="store_true",
-        dest="skip_scan",
+        dest="emu",
         default=False,
         help="Enable context emulation with iio-emu.",
     )
