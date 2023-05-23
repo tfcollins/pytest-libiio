@@ -173,6 +173,10 @@ adrv9371:
       - data_devices:
           - iio:device4
           - iio:device6
+adt7420:
+  - adt7420
+  - emulate:
+      - filename: adt7420.xml
 adxl355:
   - adxl355
   - emulate:
