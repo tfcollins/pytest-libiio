@@ -24,6 +24,9 @@ repos:
     rev: 19.10b0
     hooks:
     - id: black
+      language_version: python3
+      additional_dependencies: ['click==8.0.4']
+      args: [--exclude=./docs]
 -   repo: https://github.com/asottile/blacken-docs
     rev: v1.3.0
     hooks:
