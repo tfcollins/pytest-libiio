@@ -10,9 +10,7 @@ default_resource_dir = os.path.join(path, "..", "pytest_libiio", "resources", "d
 
 def pytest_addoption(parser):
     parser.addoption(
-        "--disable_mock",
-        action="store_true",
-        help="Disable mocking",
+        "--disable_mock", action="store_true", help="Disable mocking",
     )
     parser.addoption(
         "--hw-manual",

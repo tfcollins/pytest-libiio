@@ -30,14 +30,14 @@ This will launch a server when testing is started with a device matching the pro
 However, since not all tests work with emulated hardware there is a input available to the test markers to mark tests to not run when in emulation mode. This would work as follows:
 
 ``` python
-  import pytest
-  import iio
+import pytest
+import iio
 
 
-  @pytest.mark.iio_hardware("pluto", True) # Set True disables test during emulation
-  def test_libiio_device(iio_uri):
-        ctx = iio.Context(iio_uri)
-          ...
+@pytest.mark.iio_hardware("pluto", True)  # Set True disables test during emulation
+def test_libiio_device(iio_uri):
+    ctx = iio.Context(iio_uri)
+    ...
 ```
 
 When adding new devices to the library itself, they must be defined in the hardware map. The default one is the *[adi_hardware_map.yml](https://github.com/tfcollins/pytest-libiio/blob/master/pytest_libiio/resources/adi_hardware_map.yml)*. To define the device the name of the XML file must be provided along with which drivers interface with data (TX or RX drivers). Here is an example:

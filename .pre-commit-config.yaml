@@ -28,6 +28,7 @@ repos:
       additional_dependencies: ['click==8.0.4']
       args: [--exclude=./docs]
 -   repo: https://github.com/asottile/blacken-docs
-    rev: v1.3.0
+    rev: v1.12.0
     hooks:
     -   id: blacken-docs
+        additional_dependencies: [black==19.10b0]

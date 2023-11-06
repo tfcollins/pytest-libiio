@@ -15,11 +15,7 @@ import yaml
 
 class iio_emu_manager:
     def __init__(
-        self,
-        xml_path: str,
-        auto: bool = True,
-        rx_dev: str = None,
-        tx_dev: str = None,
+        self, xml_path: str, auto: bool = True, rx_dev: str = None, tx_dev: str = None,
     ):
         self.xml_path = xml_path
         self.rx_dev = rx_dev
