@@ -1,6 +1,7 @@
-import pytest
-import pathlib
 import os
+import pathlib
+
+import pytest
 
 pytest_plugins = "pytester"
 
