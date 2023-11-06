@@ -30,12 +30,10 @@ def parse_hw_map(map_filename=None):
 
 
 def parse_device(dev: iio.Device):
-    device_info = {}
     dev_attributes = {}
     chan_attributes = {}
 
-    device_info["name"] = dev.name if dev.name else dev.id
-
+    device_info = {"name": dev.name if dev.name else dev.id}
     for attr in dev.attrs:
         at = dev.attrs[attr]
         fn = at.filename
@@ -81,7 +79,7 @@ def render_template(dev_info, output_filename):
     template = env.get_template(loc)
     output = template.render(device=dev_info)
 
-    output_filename = os.path.join("devices", output_filename + ".md")
+    output_filename = os.path.join("devices", f"{output_filename}.md")
     print("Rendering:", output_filename)
     with open(output_filename, "w") as f:
         f.write(output)
@@ -127,7 +125,7 @@ def parse_all_library_context(root=None):
         devices = {}
         for dev in ctx.devices:
             device_info = parse_device(dev)
-            path = render_template(device_info, cfg + "_" + device_info["name"])
+            path = render_template(device_info, f"{cfg}_" + device_info["name"])
             devices[device_info["name"]] = path
 
         xmls[cfg] = devices
