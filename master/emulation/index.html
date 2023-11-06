@@ -3908,14 +3908,14 @@
 <h3 id="device-library">Device library</h3>
 <p><strong>pytest-libiio</strong> does ship with a number of built-in XML files for different devices. When the flag <em>--emu</em> is used without <em>--emu-xml</em> these will be dynamically loaded based on different required hardware as defined by pytest markers.</p>
 <p>However, since not all tests work with emulated hardware there is a input available to the test markers to mark tests to not run when in emulation mode. This would work as follows:</p>
-<div class="highlight"><pre><span></span><code>  <span class="kn">import</span> <span class="nn">pytest</span>
-  <span class="kn">import</span> <span class="nn">iio</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pytest</span>
+<span class="kn">import</span> <span class="nn">iio</span>
 
 
-  <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">iio_hardware</span><span class="p">(</span><span class="s2">&quot;pluto&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span> <span class="c1"># Set True disables test during emulation</span>
-  <span class="k">def</span> <span class="nf">test_libiio_device</span><span class="p">(</span><span class="n">iio_uri</span><span class="p">):</span>
-        <span class="n">ctx</span> <span class="o">=</span> <span class="n">iio</span><span class="o">.</span><span class="n">Context</span><span class="p">(</span><span class="n">iio_uri</span><span class="p">)</span>
-          <span class="o">...</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">iio_hardware</span><span class="p">(</span><span class="s2">&quot;pluto&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># Set True disables test during emulation</span>
+<span class="k">def</span> <span class="nf">test_libiio_device</span><span class="p">(</span><span class="n">iio_uri</span><span class="p">):</span>
+    <span class="n">ctx</span> <span class="o">=</span> <span class="n">iio</span><span class="o">.</span><span class="n">Context</span><span class="p">(</span><span class="n">iio_uri</span><span class="p">)</span>
+    <span class="o">...</span>
 </code></pre></div>
 <p>When adding new devices to the library itself, they must be defined in the hardware map. The default one is the <em><a href="https://github.com/tfcollins/pytest-libiio/blob/master/pytest_libiio/resources/adi_hardware_map.yml">adi_hardware_map.yml</a></em>. To define the device the name of the XML file must be provided along with which drivers interface with data (TX or RX drivers). Here is an example:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">pluto_rev_c</span><span class="p">:</span>

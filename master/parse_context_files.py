@@ -1,9 +1,9 @@
-from glob import glob
-import iio
-from jinja2 import Environment, FileSystemLoader
 import os
-import glob
+from glob import glob
+
+import iio
 import yaml
+from jinja2 import Environment, FileSystemLoader
 
 
 def parse_hw_map(map_filename=None):
@@ -40,7 +40,8 @@ def parse_device(dev: iio.Device):
         at = dev.attrs[attr]
         fn = at.filename
         try:
-            v = print(at.value)
+            print(at.value)
+            v = str(at.value)
         except:
             v = ""
         dev_attributes[at.name] = {"filename": fn, "value": v}
@@ -54,7 +55,8 @@ def parse_device(dev: iio.Device):
             at = chan.attrs[attr]
             fn = at.filename
             try:
-                v = print(at.value)
+                print(at.value)
+                v = str(at.value)
             except:
                 v = ""
             channel[at.name] = {"filename": fn, "value": v}
