@@ -457,10 +457,20 @@ def find_contexts(config, map, request):
             raise ex
 
         if config.getoption("--scan-verbose"):
-            devices = [dev.name for dev in ctx.devices]
-            string = f"\tDevices: {', '.join(devices)}"
-            string += f"\n\tMapped to: {lookup_hw_from_map(ctx, map)}"
-            print(string)
+            devices = []
+            for dev in ctx.devices:
+                name = dev.name
+                if name:
+                    devices.append(name)
+                else:
+                    devices.append(dev.id)
+
+            if not devices:
+                print("\tNo devices found")
+            else:
+                string = f"\tDevices: {', '.join(devices)}"
+                string += f"\n\tMapped to: {lookup_hw_from_map(ctx, map)}"
+                print(string)
 
         ctx_plus_hw = {
             "uri": uri,
