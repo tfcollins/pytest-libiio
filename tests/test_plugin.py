@@ -18,6 +18,7 @@ devs = [
 
 # Mocks
 def mock_Context(uri):
+
     class Channel(object):
         scan_element = True
 
@@ -27,19 +28,21 @@ def mock_Context(uri):
         def __init__(self, name):
             self.name = name
 
+
+
     class Context(object):
         def __init__(self, uri, devs):
             self.attrs = {"uri": uri}
             self.devices = []
-            for dev in devs:
-                self.devices.append(Device(dev))
+            self.devices.extend(Device(dev) for dev in devs)
+
 
     return Context(uri, devs)
 
 
 def mock_scan_contexts():
     info = uri[3:]
-    uri_s = "ip:" + info
+    uri_s = f"ip:{info}"
     info += " (" + ",".join(devs) + ")"
     return {uri_s: info}
 
@@ -102,7 +105,7 @@ def test_context_fixture_uri_unknown(testdir, use_mocking, uri_select, mocker):
     )
 
     # run pytest with the following cmd args
-    result = testdir.runpytest("--uri=" + uri_select, "-v", "-s")
+    result = testdir.runpytest(f"--uri={uri_select}", "-v", "-s")
 
     # fnmatch_lines does an assertion internally
     result.stdout.fnmatch_lines(["*::test_sth PASSED*"])
@@ -232,7 +235,7 @@ def test_context_fixture_uri_adi_map(
     )
 
     # run pytest with the following cmd args
-    result = testdir.runpytest("--adi-hw-map", "--uri=" + uri_select, "-v", "-s")
+    result = testdir.runpytest("--adi-hw-map", f"--uri={uri_select}", "-v", "-s")
 
     # fnmatch_lines does an assertion internally
     result.stdout.fnmatch_lines(["*::test_sth PASSED*"])
@@ -272,7 +275,7 @@ def test_context_desc_fixture_uri_adi_map(
     )
 
     # run pytest with the following cmd args
-    result = testdir.runpytest("--adi-hw-map", "--uri=" + uri_select, "-v", "-s")
+    result = testdir.runpytest("--adi-hw-map", f"--uri={uri_select}", "-v", "-s")
 
     # fnmatch_lines does an assertion internally
     result.stdout.fnmatch_lines(["*::test_sth PASSED*"])

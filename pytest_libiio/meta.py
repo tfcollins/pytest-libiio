@@ -8,9 +8,7 @@ import xml.etree.ElementTree as ET
 
 
 def convert_to_xml_method1(data_str):
-    root = ET.fromstring(data_str)
-    # return ET.tostring(root, encoding='unicode')
-    return root
+    return ET.fromstring(data_str)
 
 
 def __get_value_from_hw(
@@ -18,36 +16,35 @@ def __get_value_from_hw(
 ):
     if "value" in attrib:
         value = attrib["value"]
+    elif ptype == "context":
+        value = ctx.attrs[attr_name].value
+    elif ptype == "device":
+        dev = ctx.find_device(str(dev_name))
+        try:
+            value = dev.attrs[attr_name].value
+        except OSError:
+            value = "ERROR"
+    elif ptype == "channel":
+        dev = ctx.find_device(str(dev_name))
+        ch = dev.find_channel(str(ch_name), is_output)
+        try:
+            value = ch.attrs[attr_name].value
+        except OSError:
+            value = "ERROR"
+    elif ptype == "debug":
+        dev = ctx.find_device(str(dev_name))
+        try:
+            value = dev.debug_attrs[attr_name].value
+        except OSError:
+            value = "ERROR"
+    elif ptype == "buffer":
+        dev = ctx.find_device(str(dev_name))
+        try:
+            value = dev.buffer_attrs[attr_name].value
+        except OSError:
+            value = "ERROR"
     else:
-        if ptype == "context":
-            value = ctx.attrs[attr_name].value
-        elif ptype == "device":
-            dev = ctx.find_device(str(dev_name))
-            try:
-                value = dev.attrs[attr_name].value
-            except OSError:
-                value = "ERROR"
-        elif ptype == "channel":
-            dev = ctx.find_device(str(dev_name))
-            ch = dev.find_channel(str(ch_name), is_output)
-            try:
-                value = ch.attrs[attr_name].value
-            except OSError:
-                value = "ERROR"
-        elif ptype == "debug":
-            dev = ctx.find_device(str(dev_name))
-            try:
-                value = dev.debug_attrs[attr_name].value
-            except OSError:
-                value = "ERROR"
-        elif ptype == "buffer":
-            dev = ctx.find_device(str(dev_name))
-            try:
-                value = dev.buffer_attrs[attr_name].value
-            except OSError:
-                value = "ERROR"
-        else:
-            raise Exception("Unknown property type")
+        raise Exception("Unknown property type")
 
     return value
 
@@ -140,9 +137,7 @@ def get_emulated_context(ctx: iio.Context):
         else:
             raise Exception("Unknown item")
 
-    xml_str = ET.tostring(root, encoding="unicode")
-
-    return xml_str
+    return ET.tostring(root, encoding="unicode")
 
 
 def get_ssh_session(ctx: iio.Context):
@@ -162,14 +157,8 @@ def get_ssh_session(ctx: iio.Context):
 
 def get_hardware_info(ctx: iio.Context, ssh: paramiko.SSHClient = None):
     """Get hardware information from the context"""
-    local = {}
-    remote = {}
-
-    local["libiio"] = iio.version
-
-    # Get context xml and values from HW
-    remote["iio_context"] = get_emulated_context(ctx)
-
+    local = {"libiio": iio.version}
+    remote = {"iio_context": get_emulated_context(ctx)}
     # Get telemetry data from remote linux system
     uri = ctx.attrs["uri"].split(":")
     if uri[0] == "ip" and ssh is not None:
@@ -195,11 +184,7 @@ def get_hardware_info(ctx: iio.Context, ssh: paramiko.SSHClient = None):
         remote["iio_info"] = stdout.read().decode()
         # ssh.close()
 
-    metadata = {}
-    metadata["local"] = local
-    metadata["remote"] = remote
-
-    return metadata
+    return {"local": local, "remote": remote}
 
 
 if __name__ == "__main__":

@@ -51,8 +51,7 @@ class iio_emu_manager:
             pass
         cmd = ["iio-emu", "generic", self.xml_path]
         if self.data_devices:
-            for dev in self.data_devices:
-                cmd.append(f"{dev}@data.bin")
+            cmd.extend(f"{dev}@data.bin" for dev in self.data_devices)
         self.p = subprocess.Popen(cmd)
         time.sleep(3)  # wait for server to boot
         if self.p.poll():
@@ -242,12 +241,9 @@ def single_ctx_desc(request, _contexts):
             return _contexts[0]
         hardware = marker.args[0]
         hardware = hardware if isinstance(hardware, list) else [hardware]
-        if not marker:
-            return _contexts[0]
-        else:
-            for dec in _contexts:
-                if dec["hw"] in marker.args[0]:
-                    return dec
+        for dec in _contexts:
+            if dec["hw"] in marker.args[0]:
+                return dec
     pytest.skip("No required hardware found")
 
 
@@ -263,10 +259,7 @@ def context_desc(request, _contexts):
             return _contexts
         hardware = marker.args[0]
         hardware = hardware if isinstance(hardware, list) else [hardware]
-        if not marker:
-            return _contexts
-        desc = [dec for dec in _contexts if dec["hw"] in marker.args[0]]
-        if desc:
+        if desc := [dec for dec in _contexts if dec["hw"] in marker.args[0]]:
             return desc
     pytest.skip("No required hardware found")
 
@@ -287,10 +280,9 @@ def _iio_emu_func(request, _contexts, _iio_emu):
         hardware = hardware if isinstance(hardware, list) else [hardware]
         if not marker:
             return _contexts[0]
-        else:
-            for dec in _contexts:
-                if dec["hw"] in marker.args[0]:
-                    return handle_iio_emu(dec, request, _iio_emu)
+        for dec in _contexts:
+            if dec["hw"] in marker.args[0]:
+                return handle_iio_emu(dec, request, _iio_emu)
     pytest.skip("No required hardware found")
 
 
@@ -298,8 +290,7 @@ def _iio_emu_func(request, _contexts, _iio_emu):
 def _iio_emu(request):
     """Initialization emulation fixture"""
     if request.config.getoption("--emu"):
-        exml = request.config.getoption("--emu-xml")
-        if exml:
+        if exml := request.config.getoption("--emu-xml"):
             if not os.path.exists(exml):
                 raise Exception(f"{exml} not found")
             emu = iio_emu_manager(xml_path=exml, auto=False)
@@ -318,10 +309,7 @@ def _iio_emu(request):
                 if isinstance(field, dict) and "emulate" in field:
                     hw_w_emulation[hw] = field
             if hw in hw_w_emulation:
-                devices = []
-                for field in map[hw]:
-                    if isinstance(field, str):
-                        devices.append(field)
+                devices = [field for field in map[hw] if isinstance(field, str)]
                 hw_w_emulation[hw]["devices"] = devices
 
         emu = iio_emu_manager(xml_path="auto", auto=True)
@@ -341,17 +329,15 @@ def _contexts(request, _iio_emu):
 
     if _iio_emu:
         if _iio_emu.auto:
-            ctx_plus_hw = []
-            for hw in _iio_emu.hw:
-                ctx_plus_hw.append(
-                    {
-                        "uri": _iio_emu.uri,
-                        "type": "emu",
-                        "devices": _iio_emu.hw[hw]["devices"],
-                        "hw": hw,
-                    }
-                )
-            return ctx_plus_hw
+            return [
+                {
+                    "uri": _iio_emu.uri,
+                    "type": "emu",
+                    "devices": _iio_emu.hw[hw]["devices"],
+                    "hw": hw,
+                }
+                for hw in _iio_emu.hw
+            ]
         else:
             uri = _iio_emu.uri
 
@@ -359,12 +345,11 @@ def _contexts(request, _iio_emu):
         try:
             ctx = iio.Context(uri)
         except TimeoutError:
-            raise Exception("URI {} has no reachable context".format(uri))
+            raise Exception(f"URI {uri} has no reachable context")
 
         devices = []
         for dev in ctx.devices:
-            name = dev.name
-            if name:
+            if name := dev.name:
                 devices.append(name)
         devices = ",".join(devices)
 
@@ -491,9 +476,6 @@ def lookup_hw_from_map(ctx, map):
                                         in ctx_attrs[hw_ctx_attr]
                                     ):
                                         found += 1
-                    # Compare other attribute types ...
-                    if attr_type == "dev_attr":
-                        pass
                 continue
             # Loop over drivers
             for h in hw:
@@ -515,10 +497,7 @@ def lookup_hw_from_map(ctx, map):
 
 
 def find_contexts(config, map, request):
-    if request.config.getoption("--skip-scan"):
-        ctxs = None
-    else:
-        ctxs = iio.scan_contexts()
+    ctxs = None if request.config.getoption("--skip-scan") else iio.scan_contexts()
     if not ctxs:
         print("\nNo libiio contexts found")
         return False
@@ -529,9 +508,8 @@ def find_contexts(config, map, request):
         devices = info.split("(")[1].split(")")[0]
 
         if config.getoption("--scan-verbose"):
-            string = "\nContext: {}".format(uri)
-            string += "\n\tType: {}".format(type)
-            string += "\n\tInfo: {}".format(info)
+            string = f"\nContext: {uri}" + f"\n\tType: {type}"
+            string += f"\n\tInfo: {info}"
             print(string)
 
         try:
@@ -545,8 +523,7 @@ def find_contexts(config, map, request):
         if config.getoption("--scan-verbose"):
             devices = []
             for dev in ctx.devices:
-                name = dev.name
-                if name:
+                if name := dev.name:
                     devices.append(name)
                 else:
                     devices.append(dev.id)
