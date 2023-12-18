@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import time
+import os
 
 import pytest
 
@@ -346,6 +347,52 @@ def test_iio_uri_fixture_emulation_xml_path(testdir, resource_folder, hw):
 
     # make sure that that we get a '0' exit code for the testsuite
     assert result.ret == 0
+
+
+@pytest.mark.parametrize("hw", ["pluto_rev_c"])
+def test_metadata_collection(testdir, resource_folder, hw):
+    """Make sure that pytest accepts our fixture."""
+    time.sleep(sleep)
+
+    # create a temporary pytest test module
+    test_name = "test_sth"
+    testdir.makepyfile(
+        """
+        import pytest
+        import iio
+
+        @pytest.mark.iio_hardware('"""
+        + hw
+        + f"""')
+        def {test_name}(iio_uri):
+            assert iio_uri
+            ctx = iio.Context(iio_uri)
+    """
+    )
+
+    # run pytest with the following cmd args
+    tdf = "test_data_folder"
+    result = testdir.runpytest(
+        "--adi-hw-map",
+        "-v",
+        "-s",
+        "--scan-verbose",
+        "--telm",
+        f"--telm-data-folder={tdf}",
+        "--emu",
+        f"--emu-xml={resource_folder}/pluto.xml",
+    )
+
+    # fnmatch_lines does an assertion internally
+    result.stdout.fnmatch_lines(["*PASSED*"])
+
+    # make sure that that we get a '0' exit code for the testsuite
+    assert result.ret == 0
+
+    # make sure pickle file generated
+    file_name = f"{tdf}/{test_name}.pkl"
+    assert os.path.isfile(file_name)
+    
 
 
 # def test_help_message(testdir):
