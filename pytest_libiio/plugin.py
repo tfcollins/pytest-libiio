@@ -11,11 +11,18 @@ from shutil import which
 import iio
 import pytest
 import yaml
+import pickle
+
+import pytest_libiio.meta as meta
 
 
 class iio_emu_manager:
     def __init__(
-        self, xml_path: str, auto: bool = True, rx_dev: str = None, tx_dev: str = None,
+        self,
+        xml_path: str,
+        auto: bool = True,
+        rx_dev: str = None,
+        tx_dev: str = None,
     ):
         self.xml_path = xml_path
         self.rx_dev = rx_dev
@@ -113,6 +120,7 @@ def handle_iio_emu(ctx, request, _iio_emu):
             _iio_emu.data_devices = dd
             print("Starting iio-emu")
             _iio_emu.start()
+
     return ctx
 
 
@@ -181,6 +189,20 @@ def pytest_addoption(parser):
         default=False,
         help="Path to folder with XML files for back-end context",
     )
+    group.addoption(
+        "--telm",
+        action="store_true",
+        dest="telm",
+        default=False,
+        help="Enable hardware telemetry collection on each test",
+    )
+    group.addoption(
+        "--telm-data-folder",
+        action="store",
+        dest="telm_data_folder",
+        default="telm_data",
+        help="Folder to store telemetry data",
+    )
 
 
 def pytest_configure(config):
@@ -191,7 +213,7 @@ def pytest_configure(config):
 
 
 @pytest.fixture(scope="function")
-def iio_uri(_iio_emu_func):
+def iio_uri(request, _iio_emu_func):
     """URI fixture which provides a string of the target uri of the
     found board filtered by iio_hardware marker. If no hardware matching
     the required hardware is found, the test is skipped. If no iio_hardware
@@ -199,7 +221,9 @@ def iio_uri(_iio_emu_func):
     markers are provided, the first matching is returned.
     """
     if isinstance(_iio_emu_func, dict):
-        return _iio_emu_func["uri"]
+        get_telemetry_data(request, _iio_emu_func, before_test=True)
+        yield _iio_emu_func["uri"]
+        get_telemetry_data(request, _iio_emu_func, before_test=False)
     else:
         return False
 
@@ -361,6 +385,68 @@ def _contexts(request, _iio_emu):
         return [ctx_plus_hw]
 
     return find_contexts(request.config, map, request)
+
+
+@pytest.fixture(scope="session", autouse=True)
+def cleanup_ssh_sessions():
+    yield
+    if hasattr(pytest, "hw_telemetry_ssh_sessions"):
+        for uri in pytest.hw_telemetry_ssh_sessions:
+            if pytest.hw_telemetry_ssh_sessions[uri]:
+                print(f"Closing SSH session for URI {uri}")
+                pytest.hw_telemetry_ssh_sessions[uri].close()
+
+
+@pytest.fixture(scope="session", autouse=True)
+def save_telemtry_logs_to_files(request):
+    yield
+
+    if hasattr(pytest, "hw_telemetry"):
+        folder = request.config.getoption("--telm-data-folder")
+        if not os.path.exists(folder):
+            os.makedirs(folder)
+        for uri in pytest.hw_telemetry:
+            print(f"Saving telemetry data for URI {uri} to {folder}")
+            for test in pytest.hw_telemetry[uri]:
+                filename = f"{folder}/{test}.pkl"
+                with open(filename, "wb") as f:
+                    pickle.dump(pytest.hw_telemetry[uri][test], f)
+
+
+def get_telemetry_data(request, ctx, before_test=True):
+
+    if not request.config.getoption("--telm"):
+        return
+
+    if not hasattr(pytest, "hw_telemetry"):
+        pytest.hw_telemetry = {}
+
+    if not hasattr(pytest, "hw_telemetry_ssh_sessions"):
+        pytest.hw_telemetry_ssh_sessions = {}
+
+    ctx_o = iio.Context(ctx["uri"])
+    ssh_sessions = pytest.hw_telemetry_ssh_sessions
+
+    if ctx["uri"] not in ssh_sessions:
+        if request.config.getoption("--emu"):
+            ssh_sessions[ctx["uri"]] = None
+        else:
+            ssh_sessions[ctx["uri"]] = meta.get_ssh_session(ctx_o)
+
+    metadata = meta.get_hardware_info(ctx_o, ssh_sessions[ctx["uri"]])
+    msg = "before" if before_test else "after"
+    print(f"\nCollecting telemetry data {msg} test for URI {ctx['uri']}")
+
+    if ctx["uri"] not in pytest.hw_telemetry:
+        pytest.hw_telemetry[ctx["uri"]] = {}
+
+    if request.node.name not in pytest.hw_telemetry[ctx["uri"]]:
+        pytest.hw_telemetry[ctx["uri"]][request.node.name] = {}
+
+    if before_test:
+        pytest.hw_telemetry[ctx["uri"]][request.node.name]["before_test"] = metadata
+    else:
+        pytest.hw_telemetry[ctx["uri"]][request.node.name]["after_test"] = metadata
 
 
 def import_hw_map(filename):
