@@ -26,7 +26,7 @@ setup(
     packages=["pytest_libiio"],
     package_data={"pytest_libiio": ["resources/*"]},
     python_requires=">=3.5",
-    install_requires=["pytest>=3.5.0", "pylibiio>=0.23.1", "pyyaml"],
+    install_requires=["pytest>=3.5.0", "pylibiio>=0.23.1", "pyyaml", "paramiko"],
     classifiers=[
         "Development Status :: 4 - Beta",
         "Framework :: Pytest",
