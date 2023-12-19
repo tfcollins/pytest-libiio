@@ -26,7 +26,7 @@ setup(
     packages=["pytest_libiio"],
     package_data={"pytest_libiio": ["resources/*"]},
     python_requires=">=3.5",
-    install_requires=["pytest>=3.5.0", "pylibiio>=0.23.1", "pyyaml", "paramiko"],
+    install_requires=["pytest>=3.5.0", "pylibiio>=0.23.1", "pyyaml", "lxml", "paramiko", "click"],
     classifiers=[
         "Development Status :: 4 - Beta",
         "Framework :: Pytest",
@@ -45,5 +45,6 @@ setup(
         "License :: OSI Approved :: BSD License",
     ],
     include_package_data=True,
-    entry_points={"pytest11": ["libiio = pytest_libiio.plugin"]},
+    entry_points={"pytest11": ["libiio = pytest_libiio.plugin"],
+                  "console_scripts": ["gen_xml = pytest_libiio:tools.gen_xml"]},
 )

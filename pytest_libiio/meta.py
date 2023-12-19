@@ -4,13 +4,10 @@ import iio
 import os
 import paramiko
 from pprint import pprint
+import re
 import xml.etree.ElementTree as ET
-
-
-def convert_to_xml_method1(data_str):
-    root = ET.fromstring(data_str)
-    # return ET.tostring(root, encoding='unicode')
-    return root
+import lxml.etree as etree
+from io import StringIO, BytesIO
 
 
 def __get_value_from_hw(
@@ -68,6 +65,8 @@ def get_emulated_context(ctx: iio.Context):
 
     # Convert string to xml
     root = ET.fromstring(cxml)
+
+    context_fields = list(root.attrib.keys())
 
     # loop through items
     for item in root:
@@ -140,8 +139,42 @@ def get_emulated_context(ctx: iio.Context):
         else:
             raise Exception("Unknown item")
 
+    # Update context ATTLIST of DOCTYPE to include all context fields
+    context_fields += ["description"]
+    context_fields = list(set(context_fields))
+    template = "<!ATTLIST context "
+    full = [
+        f"{field.replace(',','').replace(' ','_')} CDATA #IMPLIED "
+        for field in context_fields
+    ]
+    full = template + "".join(full)
+    full = full[:-1] + ">"
+
+    doctype = f"<!DOCTYPE context [\n\
+        <!ELEMENT context (device | context-attribute)*>\n\
+        <!ELEMENT context-attribute EMPTY>\n\
+        <!ELEMENT device (channel | attribute | debug-attribute | buffer-attribute)*>\n\
+        <!ELEMENT channel (scan-element?, attribute*)>\n\
+        <!ELEMENT attribute EMPTY><!ELEMENT scan-element EMPTY>\n\
+        <!ELEMENT debug-attribute EMPTY>\n\
+        <!ELEMENT buffer-attribute EMPTY>\n\
+        {full}\n\
+        <!ATTLIST context-attribute name CDATA #REQUIRED value CDATA #REQUIRED>\n\
+        <!ATTLIST device id CDATA #REQUIRED name CDATA #IMPLIED>\n\
+        <!ATTLIST channel id CDATA #REQUIRED type (input|output) #REQUIRED name CDATA #IMPLIED>\n\
+        <!ATTLIST scan-element index CDATA #REQUIRED format CDATA #REQUIRED scale CDATA #IMPLIED>\n\
+        <!ATTLIST attribute name CDATA #REQUIRED filename CDATA #IMPLIED value CDATA #IMPLIED>\n\
+        <!ATTLIST debug-attribute name CDATA #REQUIRED value CDATA #IMPLIED>\n\
+        <!ATTLIST buffer-attribute name CDATA #REQUIRED value CDATA #IMPLIED>\n\
+    ]>"
+
     xml_str = ET.tostring(root, encoding="unicode")
 
+    tree = etree.parse(StringIO(xml_str))
+    xml_str = etree.tostring(
+        tree, pretty_print=True, xml_declaration=True, doctype=doctype, encoding="utf-8"
+    )
+    xml_str = str(xml_str, "utf-8")
     return xml_str
 
 
@@ -204,4 +237,5 @@ def get_hardware_info(ctx: iio.Context, ssh: paramiko.SSHClient = None):
 
 if __name__ == "__main__":
     ctx = iio.Context("ip:analog.local")
-    root = get_hardware_info(ctx)
+    # root = get_hardware_info(ctx)
+    root = get_emulated_context(ctx)
