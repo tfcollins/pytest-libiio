@@ -1,4 +1,4 @@
-# Command Line Parameters
+# pytest Command Line Parameters
 
 The pytest-libiio plugin extends the pytest cli with a few options to help with debugging tests, accessing specific hardware, and adding hardware maps between drivers and tests.
 

@@ -3,3 +3,4 @@ mkdocs-material
 jinja2
 pyyaml
 pylibiio
+mkdocs-click

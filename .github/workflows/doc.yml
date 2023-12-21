@@ -17,6 +17,7 @@ jobs:
         run: |
           bash ./.github/scripts/install_libiio.sh
           pip install -r requirements_doc.txt
+          pip install .
       - name: Build doc and release
         run: |
           cd docs && mkdir devices
