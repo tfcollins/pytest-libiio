@@ -12,7 +12,8 @@ nav:
     - Home: index.md
     - Fixtures: fixtures.md
     - Emulation: emulation.md
-    - CLI: cli.md
+    - pytest CLI: cli.md
+    - CLI Tools: cli_tools.md
     - Emulated Driver Contexts:
 {%- for xml in xmls %}
        - {{ xml }}:
@@ -24,6 +25,7 @@ nav:
 markdown_extensions:
   - pymdownx.highlight
   - pymdownx.superfences
+  - mkdocs-click
 
 extra_javascript:
   - js/extra.js

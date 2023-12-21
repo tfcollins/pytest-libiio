@@ -13,22 +13,22 @@
       
       
       
-        <link rel="prev" href="../pluto_rev_c_ad9361-phy/">
+        <link rel="prev" href="../cli/">
       
       
-        <link rel="next" href="../pluto_rev_c_cf-ad9361-dds-core-lpc/">
+        <link rel="next" href="../devices/fmcomms2_ad7291/">
       
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.2.7">
     
     
       
-        <title>xadc - pytest-libiio</title>
+        <title>CLI Tools - pytest-libiio</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.046329b4.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.046329b4.min.css">
       
       
 
@@ -47,9 +47,9 @@
       
     
     
-      <link rel="stylesheet" href="../../css/extra.css">
+      <link rel="stylesheet" href="../css/extra.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -71,7 +71,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#xadc" class="md-skip">
+        <a href="#command-line-tools" class="md-skip">
           Skip to content
         </a>
       
@@ -87,7 +87,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="pytest-libiio" class="md-header__button md-logo" aria-label="pytest-libiio" data-md-component="logo">
+    <a href=".." title="pytest-libiio" class="md-header__button md-logo" aria-label="pytest-libiio" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -107,7 +107,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              xadc
+              CLI Tools
             
           </span>
         </div>
@@ -191,7 +191,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="pytest-libiio" class="md-nav__button md-logo" aria-label="pytest-libiio" data-md-component="logo">
+    <a href=".." title="pytest-libiio" class="md-nav__button md-logo" aria-label="pytest-libiio" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -220,7 +220,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href=".." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -239,7 +239,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../fixtures/" class="md-nav__link">
+      <a href="../fixtures/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -258,7 +258,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../emulation/" class="md-nav__link">
+      <a href="../emulation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -277,7 +277,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cli/" class="md-nav__link">
+      <a href="../cli/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -294,9 +294,18 @@
       
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../cli_tools/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -305,6 +314,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -313,19 +323,17 @@
       
   
   
-    
-  
   
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
         
           <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
             
@@ -338,7 +346,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             Emulated Driver Contexts
@@ -385,7 +393,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms2_ad7291/" class="md-nav__link">
+      <a href="../devices/fmcomms2_ad7291/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -405,7 +413,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms2_ad9361-phy/" class="md-nav__link">
+      <a href="../devices/fmcomms2_ad9361-phy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -425,7 +433,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms2_xadc/" class="md-nav__link">
+      <a href="../devices/fmcomms2_xadc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -445,7 +453,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms2_adf4351-udc-tx-pmod/" class="md-nav__link">
+      <a href="../devices/fmcomms2_adf4351-udc-tx-pmod/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -465,7 +473,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms2_adf4351-udc-rx-pmod/" class="md-nav__link">
+      <a href="../devices/fmcomms2_adf4351-udc-rx-pmod/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -485,7 +493,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms2_cf-ad9361-dds-core-lpc/" class="md-nav__link">
+      <a href="../devices/fmcomms2_cf-ad9361-dds-core-lpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -505,7 +513,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms2_cf-ad9361-lpc/" class="md-nav__link">
+      <a href="../devices/fmcomms2_cf-ad9361-lpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -525,7 +533,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms2_iio_sysfs_trigger/" class="md-nav__link">
+      <a href="../devices/fmcomms2_iio_sysfs_trigger/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -587,7 +595,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms4_ad7291/" class="md-nav__link">
+      <a href="../devices/fmcomms4_ad7291/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -607,7 +615,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms4_ad9361-phy/" class="md-nav__link">
+      <a href="../devices/fmcomms4_ad9361-phy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -627,7 +635,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms4_xadc/" class="md-nav__link">
+      <a href="../devices/fmcomms4_xadc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -647,7 +655,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms4_adf4351-udc-tx-pmod/" class="md-nav__link">
+      <a href="../devices/fmcomms4_adf4351-udc-tx-pmod/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -667,7 +675,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms4_adf4351-udc-rx-pmod/" class="md-nav__link">
+      <a href="../devices/fmcomms4_adf4351-udc-rx-pmod/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -687,7 +695,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms4_cf-ad9361-dds-core-lpc/" class="md-nav__link">
+      <a href="../devices/fmcomms4_cf-ad9361-dds-core-lpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -707,7 +715,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms4_cf-ad9361-lpc/" class="md-nav__link">
+      <a href="../devices/fmcomms4_cf-ad9361-lpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -727,7 +735,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms4_iio_sysfs_trigger/" class="md-nav__link">
+      <a href="../devices/fmcomms4_iio_sysfs_trigger/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -789,7 +797,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms5_ad7291/" class="md-nav__link">
+      <a href="../devices/fmcomms5_ad7291/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -809,7 +817,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms5_ad9361-phy/" class="md-nav__link">
+      <a href="../devices/fmcomms5_ad9361-phy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -829,7 +837,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms5_ad9361-phy-B/" class="md-nav__link">
+      <a href="../devices/fmcomms5_ad9361-phy-B/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -849,7 +857,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms5_xadc/" class="md-nav__link">
+      <a href="../devices/fmcomms5_xadc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -869,7 +877,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms5_cf-ad9361-dds-core-lpc/" class="md-nav__link">
+      <a href="../devices/fmcomms5_cf-ad9361-dds-core-lpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -889,7 +897,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms5_cf-ad9361-dds-core-B/" class="md-nav__link">
+      <a href="../devices/fmcomms5_cf-ad9361-dds-core-B/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -909,7 +917,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms5_cf-ad9361-A/" class="md-nav__link">
+      <a href="../devices/fmcomms5_cf-ad9361-A/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -929,7 +937,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms5_cf-ad9361-B/" class="md-nav__link">
+      <a href="../devices/fmcomms5_cf-ad9361-B/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -949,7 +957,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms5_iio_sysfs_trigger/" class="md-nav__link">
+      <a href="../devices/fmcomms5_iio_sysfs_trigger/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1011,7 +1019,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms11_ad7291/" class="md-nav__link">
+      <a href="../devices/fmcomms11_ad7291/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1031,7 +1039,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms11_xadc/" class="md-nav__link">
+      <a href="../devices/fmcomms11_xadc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1051,7 +1059,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms11_adl5240/" class="md-nav__link">
+      <a href="../devices/fmcomms11_adl5240/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1071,7 +1079,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms11_hmc1119/" class="md-nav__link">
+      <a href="../devices/fmcomms11_hmc1119/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1091,7 +1099,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms11_adf4355/" class="md-nav__link">
+      <a href="../devices/fmcomms11_adf4355/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1111,7 +1119,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms11_axi-ad9625-hpc/" class="md-nav__link">
+      <a href="../devices/fmcomms11_axi-ad9625-hpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1131,7 +1139,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms11_axi-ad9162-hpc/" class="md-nav__link">
+      <a href="../devices/fmcomms11_axi-ad9162-hpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1151,7 +1159,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fmcomms11_iio_sysfs_trigger/" class="md-nav__link">
+      <a href="../devices/fmcomms11_iio_sysfs_trigger/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1213,7 +1221,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pluto_ad9361-phy/" class="md-nav__link">
+      <a href="../devices/pluto_ad9361-phy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1233,7 +1241,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pluto_xadc/" class="md-nav__link">
+      <a href="../devices/pluto_xadc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1253,7 +1261,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pluto_cf-ad9361-dds-core-lpc/" class="md-nav__link">
+      <a href="../devices/pluto_cf-ad9361-dds-core-lpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1273,7 +1281,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pluto_cf-ad9361-lpc/" class="md-nav__link">
+      <a href="../devices/pluto_cf-ad9361-lpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1299,19 +1307,17 @@
                 
   
   
-    
-  
   
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_6" >
         
           <label class="md-nav__link" for="__nav_6_6" id="__nav_6_6_label" tabindex="0">
             
@@ -1324,7 +1330,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_6_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6_6">
             <span class="md-nav__icon md-icon"></span>
             pluto_rev_c
@@ -1337,7 +1343,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pluto_rev_c_ad9361-phy/" class="md-nav__link">
+      <a href="../devices/pluto_rev_c_ad9361-phy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1355,29 +1361,9 @@
                 
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    xadc
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../devices/pluto_rev_c_xadc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1386,109 +1372,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#channel-attributes" class="md-nav__link">
-    Channel Attributes
-  </a>
-  
-    <nav class="md-nav" aria-label="Channel Attributes">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#temp0" class="md-nav__link">
-    temp0
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vccint" class="md-nav__link">
-    vccint
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vccaux" class="md-nav__link">
-    vccaux
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vccbram" class="md-nav__link">
-    vccbram
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vccpint" class="md-nav__link">
-    vccpint
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vccpaux" class="md-nav__link">
-    vccpaux
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vccoddr" class="md-nav__link">
-    vccoddr
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vrefp" class="md-nav__link">
-    vrefp
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vrefn" class="md-nav__link">
-    vrefn
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#voltage8" class="md-nav__link">
-    voltage8
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1500,7 +1383,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pluto_rev_c_cf-ad9361-dds-core-lpc/" class="md-nav__link">
+      <a href="../devices/pluto_rev_c_cf-ad9361-dds-core-lpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1520,7 +1403,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pluto_rev_c_cf-ad9361-lpc/" class="md-nav__link">
+      <a href="../devices/pluto_rev_c_cf-ad9361-lpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1582,7 +1465,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../daq2_ad7291/" class="md-nav__link">
+      <a href="../devices/daq2_ad7291/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1602,7 +1485,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../daq2_xadc/" class="md-nav__link">
+      <a href="../devices/daq2_xadc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1622,7 +1505,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../daq2_ad9523-1/" class="md-nav__link">
+      <a href="../devices/daq2_ad9523-1/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1642,7 +1525,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../daq2_axi-ad9144-hpc/" class="md-nav__link">
+      <a href="../devices/daq2_axi-ad9144-hpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1662,7 +1545,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../daq2_axi-ad9680-hpc/" class="md-nav__link">
+      <a href="../devices/daq2_axi-ad9680-hpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1682,7 +1565,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../daq2_iio_sysfs_trigger/" class="md-nav__link">
+      <a href="../devices/daq2_iio_sysfs_trigger/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1744,7 +1627,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../daq3_ams/" class="md-nav__link">
+      <a href="../devices/daq3_ams/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1764,7 +1647,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../daq3_ad9528/" class="md-nav__link">
+      <a href="../devices/daq3_ad9528/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1784,7 +1667,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../daq3_ad7291/" class="md-nav__link">
+      <a href="../devices/daq3_ad7291/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1804,7 +1687,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../daq3_axi-ad9680-hpc/" class="md-nav__link">
+      <a href="../devices/daq3_axi-ad9680-hpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1824,7 +1707,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../daq3_axi-ad9152-hpc/" class="md-nav__link">
+      <a href="../devices/daq3_axi-ad9152-hpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1844,7 +1727,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../daq3_iio_sysfs_trigger/" class="md-nav__link">
+      <a href="../devices/daq3_iio_sysfs_trigger/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1906,7 +1789,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ad9081_ams/" class="md-nav__link">
+      <a href="../devices/ad9081_ams/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1926,7 +1809,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ad9081_hmc7044/" class="md-nav__link">
+      <a href="../devices/ad9081_hmc7044/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1946,7 +1829,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ad9081_axi-ad9081-rx-hpc/" class="md-nav__link">
+      <a href="../devices/ad9081_axi-ad9081-rx-hpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1966,7 +1849,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ad9081_axi-ad9081-tx-hpc/" class="md-nav__link">
+      <a href="../devices/ad9081_axi-ad9081-tx-hpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1986,7 +1869,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ad9081_iio-gen-mux/" class="md-nav__link">
+      <a href="../devices/ad9081_iio-gen-mux/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2006,7 +1889,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ad9081_iio_sysfs_trigger/" class="md-nav__link">
+      <a href="../devices/ad9081_iio_sysfs_trigger/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2068,7 +1951,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ad9081_tdd_ams/" class="md-nav__link">
+      <a href="../devices/ad9081_tdd_ams/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2088,7 +1971,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ad9081_tdd_hmc7044/" class="md-nav__link">
+      <a href="../devices/ad9081_tdd_hmc7044/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2108,7 +1991,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ad9081_tdd_axi-core-tdd/" class="md-nav__link">
+      <a href="../devices/ad9081_tdd_axi-core-tdd/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2128,7 +2011,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ad9081_tdd_axi-ad9081-rx-hpc/" class="md-nav__link">
+      <a href="../devices/ad9081_tdd_axi-ad9081-rx-hpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2148,7 +2031,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ad9081_tdd_axi-ad9081-tx-hpc/" class="md-nav__link">
+      <a href="../devices/ad9081_tdd_axi-ad9081-tx-hpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2168,7 +2051,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ad9081_tdd_iio_sysfs_trigger/" class="md-nav__link">
+      <a href="../devices/ad9081_tdd_iio_sysfs_trigger/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2230,7 +2113,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ad9172_ams/" class="md-nav__link">
+      <a href="../devices/ad9172_ams/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2250,7 +2133,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ad9172_hmc7044/" class="md-nav__link">
+      <a href="../devices/ad9172_hmc7044/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2270,7 +2153,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ad9172_axi-ad9172-hpc/" class="md-nav__link">
+      <a href="../devices/ad9172_axi-ad9172-hpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2290,7 +2173,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ad9172_iio_sysfs_trigger/" class="md-nav__link">
+      <a href="../devices/ad9172_iio_sysfs_trigger/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2352,7 +2235,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cn0511_ad9166-amp/" class="md-nav__link">
+      <a href="../devices/cn0511_ad9166-amp/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2372,7 +2255,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cn0511_adf4372/" class="md-nav__link">
+      <a href="../devices/cn0511_adf4372/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2392,7 +2275,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cn0511_ad5693r/" class="md-nav__link">
+      <a href="../devices/cn0511_ad5693r/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2412,7 +2295,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cn0511_ad9166/" class="md-nav__link">
+      <a href="../devices/cn0511_ad9166/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2432,7 +2315,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cn0511_iio_sysfs_trigger/" class="md-nav__link">
+      <a href="../devices/cn0511_iio_sysfs_trigger/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2452,7 +2335,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cn0511_ad5693r-dev2/" class="md-nav__link">
+      <a href="../devices/cn0511_ad5693r-dev2/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2514,7 +2397,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cn0540_ad7768-1/" class="md-nav__link">
+      <a href="../devices/cn0540_ad7768-1/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2534,7 +2417,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cn0540_ltc2308/" class="md-nav__link">
+      <a href="../devices/cn0540_ltc2308/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2554,7 +2437,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cn0540_one-bit-adc-dac/" class="md-nav__link">
+      <a href="../devices/cn0540_one-bit-adc-dac/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2574,7 +2457,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cn0540_ltc2606/" class="md-nav__link">
+      <a href="../devices/cn0540_ltc2606/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2594,7 +2477,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cn0540_iio_sysfs_trigger/" class="md-nav__link">
+      <a href="../devices/cn0540_iio_sysfs_trigger/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2656,7 +2539,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9361_ad7291/" class="md-nav__link">
+      <a href="../devices/adrv9361_ad7291/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2676,7 +2559,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9361_ad9361-phy/" class="md-nav__link">
+      <a href="../devices/adrv9361_ad9361-phy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2696,7 +2579,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9361_xadc/" class="md-nav__link">
+      <a href="../devices/adrv9361_xadc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2716,7 +2599,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9361_ad9517-3/" class="md-nav__link">
+      <a href="../devices/adrv9361_ad9517-3/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2736,7 +2619,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9361_cf-ad9361-dds-core-lpc/" class="md-nav__link">
+      <a href="../devices/adrv9361_cf-ad9361-dds-core-lpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2756,7 +2639,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9361_cf-ad9361-lpc/" class="md-nav__link">
+      <a href="../devices/adrv9361_cf-ad9361-lpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2776,7 +2659,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9361_iio_sysfs_trigger/" class="md-nav__link">
+      <a href="../devices/adrv9361_iio_sysfs_trigger/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2838,7 +2721,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9364_ad7291/" class="md-nav__link">
+      <a href="../devices/adrv9364_ad7291/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2858,7 +2741,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9364_ad7291-bob/" class="md-nav__link">
+      <a href="../devices/adrv9364_ad7291-bob/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2878,7 +2761,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9364_ad9361-phy/" class="md-nav__link">
+      <a href="../devices/adrv9364_ad9361-phy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2898,7 +2781,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9364_xadc/" class="md-nav__link">
+      <a href="../devices/adrv9364_xadc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2918,7 +2801,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9364_cf-ad9361-dds-core-lpc/" class="md-nav__link">
+      <a href="../devices/adrv9364_cf-ad9361-dds-core-lpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2938,7 +2821,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9364_cf-ad9361-lpc/" class="md-nav__link">
+      <a href="../devices/adrv9364_cf-ad9361-lpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2958,7 +2841,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9364_iio_sysfs_trigger/" class="md-nav__link">
+      <a href="../devices/adrv9364_iio_sysfs_trigger/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3020,7 +2903,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9002_ams/" class="md-nav__link">
+      <a href="../devices/adrv9002_ams/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3040,7 +2923,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9002_adrv9002-phy/" class="md-nav__link">
+      <a href="../devices/adrv9002_adrv9002-phy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3060,7 +2943,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9002_axi-adrv9002-rx-lpc/" class="md-nav__link">
+      <a href="../devices/adrv9002_axi-adrv9002-rx-lpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3080,7 +2963,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9002_axi-adrv9002-core-tdd-lpc/" class="md-nav__link">
+      <a href="../devices/adrv9002_axi-adrv9002-core-tdd-lpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3100,7 +2983,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9002_axi-adrv9002-tx-lpc/" class="md-nav__link">
+      <a href="../devices/adrv9002_axi-adrv9002-tx-lpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3120,7 +3003,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9002_iio_sysfs_trigger/" class="md-nav__link">
+      <a href="../devices/adrv9002_iio_sysfs_trigger/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3182,7 +3065,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9371_ams/" class="md-nav__link">
+      <a href="../devices/adrv9371_ams/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3202,7 +3085,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9371_ad9528-1/" class="md-nav__link">
+      <a href="../devices/adrv9371_ad9528-1/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3222,7 +3105,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9371_ad7291/" class="md-nav__link">
+      <a href="../devices/adrv9371_ad7291/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3242,7 +3125,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9371_ad9371-phy/" class="md-nav__link">
+      <a href="../devices/adrv9371_ad9371-phy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3262,7 +3145,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9371_axi-ad9371-rx-hpc/" class="md-nav__link">
+      <a href="../devices/adrv9371_axi-ad9371-rx-hpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3282,7 +3165,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9371_axi-ad9371-rx-obs-hpc/" class="md-nav__link">
+      <a href="../devices/adrv9371_axi-ad9371-rx-obs-hpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3302,7 +3185,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9371_axi-ad9371-tx-hpc/" class="md-nav__link">
+      <a href="../devices/adrv9371_axi-ad9371-tx-hpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3322,7 +3205,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9371_iio_sysfs_trigger/" class="md-nav__link">
+      <a href="../devices/adrv9371_iio_sysfs_trigger/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3384,7 +3267,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9375_ina226/" class="md-nav__link">
+      <a href="../devices/adrv9375_ina226/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3404,7 +3287,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9375_max20751/" class="md-nav__link">
+      <a href="../devices/adrv9375_max20751/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3424,7 +3307,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9375_ams/" class="md-nav__link">
+      <a href="../devices/adrv9375_ams/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3444,7 +3327,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9375_ad9528-1/" class="md-nav__link">
+      <a href="../devices/adrv9375_ad9528-1/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3464,7 +3347,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9375_ad7291/" class="md-nav__link">
+      <a href="../devices/adrv9375_ad7291/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3484,7 +3367,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9375_ad9371-phy/" class="md-nav__link">
+      <a href="../devices/adrv9375_ad9371-phy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3504,7 +3387,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9375_axi-ad9371-rx-hpc/" class="md-nav__link">
+      <a href="../devices/adrv9375_axi-ad9371-rx-hpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3524,7 +3407,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9375_axi-ad9371-rx-obs-hpc/" class="md-nav__link">
+      <a href="../devices/adrv9375_axi-ad9371-rx-obs-hpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3544,7 +3427,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9375_axi-ad9371-tx-hpc/" class="md-nav__link">
+      <a href="../devices/adrv9375_axi-ad9371-tx-hpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3564,7 +3447,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adrv9375_iio_sysfs_trigger/" class="md-nav__link">
+      <a href="../devices/adrv9375_iio_sysfs_trigger/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3626,7 +3509,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adt7420_adt7420/" class="md-nav__link">
+      <a href="../devices/adt7420_adt7420/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3688,7 +3571,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adxl355_adxl355/" class="md-nav__link">
+      <a href="../devices/adxl355_adxl355/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3708,7 +3591,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adxl355_iio_sysfs_trigger/" class="md-nav__link">
+      <a href="../devices/adxl355_iio_sysfs_trigger/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3728,7 +3611,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adxl355_adxl355-dev0/" class="md-nav__link">
+      <a href="../devices/adxl355_adxl355-dev0/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3790,7 +3673,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ad9434_xadc/" class="md-nav__link">
+      <a href="../devices/ad9434_xadc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3810,7 +3693,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ad9434_ad9517-4/" class="md-nav__link">
+      <a href="../devices/ad9434_ad9517-4/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3830,7 +3713,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ad9434_axi-ad9434-core-lpc/" class="md-nav__link">
+      <a href="../devices/ad9434_axi-ad9434-core-lpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3850,7 +3733,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ad9434_iio_sysfs_trigger/" class="md-nav__link">
+      <a href="../devices/ad9434_iio_sysfs_trigger/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3912,7 +3795,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ad9265_xadc/" class="md-nav__link">
+      <a href="../devices/ad9265_xadc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3932,7 +3815,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ad9265_ad9517-4/" class="md-nav__link">
+      <a href="../devices/ad9265_ad9517-4/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3952,7 +3835,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ad9265_axi-ad9265-core-lpc/" class="md-nav__link">
+      <a href="../devices/ad9265_axi-ad9265-core-lpc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3972,7 +3855,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ad9265_iio_sysfs_trigger/" class="md-nav__link">
+      <a href="../devices/ad9265_iio_sysfs_trigger/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4034,7 +3917,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ad4020_ad4020/" class="md-nav__link">
+      <a href="../devices/ad4020_ad4020/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4054,7 +3937,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ad4020_xadc/" class="md-nav__link">
+      <a href="../devices/ad4020_xadc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4074,7 +3957,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ad4020_iio_sysfs_trigger/" class="md-nav__link">
+      <a href="../devices/ad4020_iio_sysfs_trigger/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4136,7 +4019,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ltc2387_ltc2387/" class="md-nav__link">
+      <a href="../devices/ltc2387_ltc2387/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4156,7 +4039,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ltc2387_xadc/" class="md-nav__link">
+      <a href="../devices/ltc2387_xadc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4176,7 +4059,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ltc2387_iio_sysfs_trigger/" class="md-nav__link">
+      <a href="../devices/ltc2387_iio_sysfs_trigger/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4225,97 +4108,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#channel-attributes" class="md-nav__link">
-    Channel Attributes
-  </a>
-  
-    <nav class="md-nav" aria-label="Channel Attributes">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#temp0" class="md-nav__link">
-    temp0
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vccint" class="md-nav__link">
-    vccint
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vccaux" class="md-nav__link">
-    vccaux
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vccbram" class="md-nav__link">
-    vccbram
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vccpint" class="md-nav__link">
-    vccpint
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vccpaux" class="md-nav__link">
-    vccpaux
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vccoddr" class="md-nav__link">
-    vccoddr
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vrefp" class="md-nav__link">
-    vrefp
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vrefn" class="md-nav__link">
-    vrefn
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#voltage8" class="md-nav__link">
-    voltage8
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -4332,266 +4124,18 @@
   
 
 
-<p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"></p>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-<div class="offcanvas-header">
-<h5 class="offcanvas-title" id="offcanvasLabel">Offcanvas</h5>
-<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-</div>
-
-<div class="offcanvas-body">
-IIO-Tools example:
-<div id="channel_example_iio_attr">
-INSERT
-</div>
-
-Python bindings example:
-<div id="channel_example_iio_python">
-INSERT
-</div>
-
-</div>
-</div>
-
-<h1 id="xadc">xadc</h1>
-<h2 id="channel-attributes">Channel Attributes</h2>
-<h3 id="temp0">temp0</h3>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>sysfs filename</th>
-<th>Examples</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>offset</td>
-<td>in_temp0_offset</td>
-<td><button class="" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" onclick="render_code('xadc','temp0','offset')" aria-controls="offcanvasExample">EX</button></td>
-</tr>
-<tr>
-<td>raw</td>
-<td>in_temp0_raw</td>
-<td><button class="" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" onclick="render_code('xadc','temp0','raw')" aria-controls="offcanvasExample">EX</button></td>
-</tr>
-<tr>
-<td>scale</td>
-<td>in_temp0_scale</td>
-<td><button class="" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" onclick="render_code('xadc','temp0','scale')" aria-controls="offcanvasExample">EX</button></td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3 id="vccint">vccint</h3>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>sysfs filename</th>
-<th>Examples</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>raw</td>
-<td>in_voltage0_vccint_raw</td>
-<td><button class="" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" onclick="render_code('xadc','vccint','raw')" aria-controls="offcanvasExample">EX</button></td>
-</tr>
-<tr>
-<td>scale</td>
-<td>in_voltage0_vccint_scale</td>
-<td><button class="" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" onclick="render_code('xadc','vccint','scale')" aria-controls="offcanvasExample">EX</button></td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3 id="vccaux">vccaux</h3>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>sysfs filename</th>
-<th>Examples</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>raw</td>
-<td>in_voltage1_vccaux_raw</td>
-<td><button class="" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" onclick="render_code('xadc','vccaux','raw')" aria-controls="offcanvasExample">EX</button></td>
-</tr>
-<tr>
-<td>scale</td>
-<td>in_voltage1_vccaux_scale</td>
-<td><button class="" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" onclick="render_code('xadc','vccaux','scale')" aria-controls="offcanvasExample">EX</button></td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3 id="vccbram">vccbram</h3>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>sysfs filename</th>
-<th>Examples</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>raw</td>
-<td>in_voltage2_vccbram_raw</td>
-<td><button class="" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" onclick="render_code('xadc','vccbram','raw')" aria-controls="offcanvasExample">EX</button></td>
-</tr>
-<tr>
-<td>scale</td>
-<td>in_voltage2_vccbram_scale</td>
-<td><button class="" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" onclick="render_code('xadc','vccbram','scale')" aria-controls="offcanvasExample">EX</button></td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3 id="vccpint">vccpint</h3>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>sysfs filename</th>
-<th>Examples</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>raw</td>
-<td>in_voltage3_vccpint_raw</td>
-<td><button class="" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" onclick="render_code('xadc','vccpint','raw')" aria-controls="offcanvasExample">EX</button></td>
-</tr>
-<tr>
-<td>scale</td>
-<td>in_voltage3_vccpint_scale</td>
-<td><button class="" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" onclick="render_code('xadc','vccpint','scale')" aria-controls="offcanvasExample">EX</button></td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3 id="vccpaux">vccpaux</h3>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>sysfs filename</th>
-<th>Examples</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>raw</td>
-<td>in_voltage4_vccpaux_raw</td>
-<td><button class="" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" onclick="render_code('xadc','vccpaux','raw')" aria-controls="offcanvasExample">EX</button></td>
-</tr>
-<tr>
-<td>scale</td>
-<td>in_voltage4_vccpaux_scale</td>
-<td><button class="" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" onclick="render_code('xadc','vccpaux','scale')" aria-controls="offcanvasExample">EX</button></td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3 id="vccoddr">vccoddr</h3>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>sysfs filename</th>
-<th>Examples</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>raw</td>
-<td>in_voltage5_vccoddr_raw</td>
-<td><button class="" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" onclick="render_code('xadc','vccoddr','raw')" aria-controls="offcanvasExample">EX</button></td>
-</tr>
-<tr>
-<td>scale</td>
-<td>in_voltage5_vccoddr_scale</td>
-<td><button class="" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" onclick="render_code('xadc','vccoddr','scale')" aria-controls="offcanvasExample">EX</button></td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3 id="vrefp">vrefp</h3>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>sysfs filename</th>
-<th>Examples</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>raw</td>
-<td>in_voltage6_vrefp_raw</td>
-<td><button class="" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" onclick="render_code('xadc','vrefp','raw')" aria-controls="offcanvasExample">EX</button></td>
-</tr>
-<tr>
-<td>scale</td>
-<td>in_voltage6_vrefp_scale</td>
-<td><button class="" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" onclick="render_code('xadc','vrefp','scale')" aria-controls="offcanvasExample">EX</button></td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3 id="vrefn">vrefn</h3>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>sysfs filename</th>
-<th>Examples</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>raw</td>
-<td>in_voltage7_vrefn_raw</td>
-<td><button class="" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" onclick="render_code('xadc','vrefn','raw')" aria-controls="offcanvasExample">EX</button></td>
-</tr>
-<tr>
-<td>scale</td>
-<td>in_voltage7_vrefn_scale</td>
-<td><button class="" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" onclick="render_code('xadc','vrefn','scale')" aria-controls="offcanvasExample">EX</button></td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3 id="voltage8">voltage8</h3>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>sysfs filename</th>
-<th>Examples</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>raw</td>
-<td>in_voltage8_raw</td>
-<td><button class="" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" onclick="render_code('xadc','voltage8','raw')" aria-controls="offcanvasExample">EX</button></td>
-</tr>
-<tr>
-<td>scale</td>
-<td>in_voltage8_scale</td>
-<td><button class="" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" onclick="render_code('xadc','voltage8','scale')" aria-controls="offcanvasExample">EX</button></td>
-</tr>
-</tbody>
-</table>
-<hr />
+<h1 id="command-line-tools">Command Line Tools</h1>
+<p><strong>pytest-libiio</strong> includes a set of command line tools to help generate context files from hardware devices</p>
+<h1 id="gen-xml">gen-xml</h1>
+<p>Generate IIO XML context file from device</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code>gen-xml [OPTIONS]
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code>  -u, --uri TEXT  URI of the device to connect to  [required]
+  -x, --xml TEXT  XML file to write output to
+  --help          Show this message and exit.
+</code></pre></div>
 
 
 
@@ -4629,12 +4173,12 @@ INSERT
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.dff1b7c8.min.js"></script>
+      <script src="../assets/javascripts/bundle.dff1b7c8.min.js"></script>
       
-        <script src="../../js/extra.js"></script>
+        <script src="../js/extra.js"></script>
       
     
   </body>
