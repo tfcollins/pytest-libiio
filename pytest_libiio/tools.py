@@ -8,7 +8,7 @@ import pytest_libiio.meta as meta
 @click.option("--uri", "-u", help="URI of the device to connect to", required=True)
 @click.option("--xml", "-x", help="XML file to write output to")
 def gen_xml(uri, xml):
-    """Generate XML file from device"""
+    """Generate IIO XML context file from device"""
     ctx = iio.Context(uri)
     if not ctx:
         raise Exception("Failed to create IIO context")
