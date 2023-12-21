@@ -46,5 +46,5 @@ setup(
     ],
     include_package_data=True,
     entry_points={"pytest11": ["libiio = pytest_libiio.plugin"],
-                  "console_scripts": ["gen_xml = pytest_libiio:tools.gen_xml"]},
+                  "console_scripts": ["gen_xml = pytest_libiio.tools:gen_xml"]},
 )
