@@ -203,7 +203,7 @@ def get_ssh_session(ctx: iio.Context):
         return None
 
 
-def get_hardware_info(ctx: iio.Context, ssh: paramiko.SSHClient = None):
+def get_hardware_info(ctx: iio.Context, ssh=None):
     """Get hardware information from the context"""
     local = {}
     remote = {}
