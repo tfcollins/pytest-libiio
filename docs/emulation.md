@@ -9,7 +9,7 @@ To use device emulation you will need [libtinyiiod](https://github.com/analogdev
 
 ## Adding device support
 
-Emulating hardware is done through a XML file generated from an existing hardware set up and pointing the tool [xml_gen](https://github.com/analogdevicesinc/iio-emu/blob/master/GENERIC_EMULATOR.md) to the target context:
+Emulating hardware is done through a XML file generated from an existing hardware set up and pointing the tool [xml_gen](https://github.com/analogdevicesinc/iio-emu/blob/master/GENERIC_EMULATOR.md) or [gen-xml](cli_tools.md) to the target context:
 
 ```bash
 xml_gen ip:pluto.local > pluto.xml

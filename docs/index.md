@@ -54,7 +54,7 @@ You can install **pytest-libiio** via __pip__ from **PyPI**:
 
 ### Usage
 
-Please see the [CLI](/cli) and [fixtures](/fixtures) sections for information about using the plugin.
+Please see the [CLI](cli.md) and [fixtures](fixtures.md) sections for information about using the plugin.
 
 ### Future ideas
 
