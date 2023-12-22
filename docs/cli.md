@@ -10,12 +10,27 @@ $ pytest -h
 ...
 libiio:
   --uri=URI             Set libiio URI to utilize
-  --scan-verbose        Print info of found contexts when scanning
-  --adi-hw-map          Use ADI hardware map to determine hardware names based on context drivers
+  --scan-verbose        Print info of found contexts when
+                        scanning
+  --adi-hw-map          Use ADI hardware map to determine
+                        hardware names based on context drivers
   --custom-hw-map=HW_MAP
                         Path to custom hardware map for drivers
-  --hw=HW_SELECT        Define hardware name of provided URI. Will ignore scan information and requires input URI
-                        argument
+  --hw=HW_SELECT        Define hardware name of provided URI.
+                        Will ignore scan information and
+                        requires input URI argument
+  --skip-scan           Skip avahi scan. This is usually used
+                        within CI.
+  --emu                 Enable context emulation with iio-emu.
+  --emu-xml=EMU_XML     Path or name of built-in XML for back-
+                        end context
+  --emu-xml-dir=EMU_XML_DIR
+                        Path to folder with XML files for back-
+                        end context
+  --telm                Enable hardware telemetry collection on
+                        each test
+  --telm-data-folder=TELM_DATA_FOLDER
+                        Folder to store telemetry data
 ...
 ```
 
@@ -67,3 +82,7 @@ By default, all devices are labeled as unknown if no map exists or they are not 
 When the flag **--adi-hw-map** is used the provided map from [plugin itself is used](https://github.com/tfcollins/pytest-libiio/blob/master/pytest_libiio/resources/adi_hardware_map.yml). Alternatively, a custom map can be used by supply the path with **--custom-hw-map=<path to yaml\>**.
 
 If the flag **--hw=<hardware name>** is used the hardware map is ignored and the provided URI is defined as that hardware. This is handy if you do not want to create a custom map or are debugging. Note that **--hw** is only applicable when **--uri** is also used.
+
+### Telemetry
+
+When the flag **--telm** is used, hardware telemetry is collected on each test. This enables a fixture that is autouse, meaning it is automatically used by all tests. The telemetry is collected in a folder defined by **--telm-data-folder=<path\>**. The folder is created if it does not exist. Telemetry data is stored in individual files that are specific to a URI. So after a test suite run there should one file for every hardware platform under test. The test files are generated at pickle files and contain different metadata. This is primarily just IIO based information. However, if the optional SSH dependency is installed, additional metadata is collected from the target hardware if it uses an IP context.
