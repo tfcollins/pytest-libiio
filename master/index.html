@@ -4291,6 +4291,8 @@
 <p>Optional for emulation support:</p>
 <ul>
 <li><a href="https://github.com/analogdevicesinc/libtinyiiod">libtinyiiod</a> and <a href="https://github.com/analogdevicesinc/iio-emu">iio-emu</a></li>
+<li><a href="https://pypi.org/project/paramiko/">paramiko</a> for additional metadata collection. Use the optional <em>ssh</em> argument when installing the package to get this automatically.</li>
+<li><code>pip install pytest-libiio[ssh]</code></li>
 </ul>
 <p>For <a href="https://github.com/tfcollins/pytest-libiio/blob/master/requirements_dev.txt">development the following are also needed</a>:</p>
 <ul>
@@ -4307,7 +4309,7 @@
 <div class="highlight"><pre><span></span><code>$ pip install pytest-libiio
 </code></pre></div>
 <h3 id="usage">Usage</h3>
-<p>Please see the <a href="/cli">CLI</a> and <a href="/fixtures">fixtures</a> sections for information about using the plugin.</p>
+<p>Please see the <a href="cli/">CLI</a> and <a href="fixtures/">fixtures</a> sections for information about using the plugin.</p>
 <h3 id="future-ideas">Future ideas</h3>
 <p>Mock testing is common with libiio's python library since hardware is needed otherwise. In future releases, we hope to extend features in pytest-mock through this plugin to make mocking libiio more streamlined.</p>
 <h3 id="contributing">Contributing</h3>

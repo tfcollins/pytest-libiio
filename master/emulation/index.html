@@ -4221,7 +4221,7 @@
 <h2 id="set-up">Set up</h2>
 <p>To use device emulation you will need <a href="https://github.com/analogdevicesinc/libtinyiiod">libtinyiiod</a> and <a href="https://github.com/analogdevicesinc/iio-emu">iio-emu</a> libraries installed. <strong>pytest-libiio</strong> will take care of managing the <em>iio-emu</em> server automatically for you. <strong>iio-emu</strong> will also provide additional utilities incase XML need to be created for new devices.</p>
 <h2 id="adding-device-support">Adding device support</h2>
-<p>Emulating hardware is done through a XML file generated from an existing hardware set up and pointing the tool <a href="https://github.com/analogdevicesinc/iio-emu/blob/master/GENERIC_EMULATOR.md">xml_gen</a> to the target context:</p>
+<p>Emulating hardware is done through a XML file generated from an existing hardware set up and pointing the tool <a href="https://github.com/analogdevicesinc/iio-emu/blob/master/GENERIC_EMULATOR.md">xml_gen</a> or <a href="../cli_tools/">gen-xml</a> to the target context:</p>
 <div class="highlight"><pre><span></span><code>xml_gen<span class="w"> </span>ip:pluto.local<span class="w"> </span>&gt;<span class="w"> </span>pluto.xml
 </code></pre></div>
 <p>This XML file can be manually used with <strong>pytest-libiio</strong> by leveraging the <em>--emu-xml</em> flag as so:</p>
