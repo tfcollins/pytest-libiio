@@ -1,13 +1,20 @@
 """This is a set of function to help extract metadata from tests and hardware"""
 
-import iio
 import os
-import paramiko
-from pprint import pprint
 import re
 import xml.etree.ElementTree as ET
+from io import BytesIO, StringIO
+from pprint import pprint
+
+import iio
 import lxml.etree as etree
-from io import StringIO, BytesIO
+
+try:
+    import paramiko
+
+    useSSH = True
+except ImportError:
+    useSSH = False
 
 
 def __get_value_from_hw(
@@ -181,6 +188,9 @@ def get_emulated_context(ctx: iio.Context):
 def get_ssh_session(ctx: iio.Context):
     """Get ssh session"""
     uri = ctx.attrs["uri"].split(":")
+    if not useSSH:
+        print("Paramiko is not installed, cannot use SSH")
+        return None
     if uri[0] == "ip":
         print(f"Starting SSH session for uri: {ctx.attrs['uri']}")
         ip = uri[1]
