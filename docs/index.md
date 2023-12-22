@@ -31,6 +31,8 @@ pytest-libiio is pytest plugin to manage interfacing with libiio contexts. This 
 Optional for emulation support:
 
 * [libtinyiiod](https://github.com/analogdevicesinc/libtinyiiod) and [iio-emu](https://github.com/analogdevicesinc/iio-emu)
+* [paramiko](https://pypi.org/project/paramiko/) for additional metadata collection. Use the optional *ssh* argument when installing the package to get this automatically.
+  * `pip install pytest-libiio[ssh]`
 
 
 For [development the following are also needed](https://github.com/tfcollins/pytest-libiio/blob/master/requirements_dev.txt):
