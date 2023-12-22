@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-import time
 import os
+import time
 
 import pytest
 
@@ -392,7 +392,6 @@ def test_metadata_collection(testdir, resource_folder, hw):
     # make sure pickle file generated
     file_name = f"{tdf}/{test_name}.pkl"
     assert os.path.isfile(file_name)
-    
 
 
 # def test_help_message(testdir):

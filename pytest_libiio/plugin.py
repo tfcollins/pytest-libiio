@@ -2,6 +2,7 @@
 
 import os
 import pathlib
+import pickle
 import signal
 import socket
 import subprocess
@@ -10,19 +11,13 @@ from shutil import which
 
 import iio
 import pytest
-import yaml
-import pickle
-
 import pytest_libiio.meta as meta
+import yaml
 
 
 class iio_emu_manager:
     def __init__(
-        self,
-        xml_path: str,
-        auto: bool = True,
-        rx_dev: str = None,
-        tx_dev: str = None,
+        self, xml_path: str, auto: bool = True, rx_dev: str = None, tx_dev: str = None,
     ):
         self.xml_path = xml_path
         self.rx_dev = rx_dev
