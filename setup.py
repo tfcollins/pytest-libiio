@@ -14,7 +14,7 @@ def read(fname):
 
 setup(
     name="pytest-libiio",
-    version="0.0.16",
+    version="0.0.17",
     author="Travis F. Collins",
     author_email="travis.collins@analog.com",
     maintainer="Travis F. Collins",
