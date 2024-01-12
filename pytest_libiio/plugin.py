@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import logging
 import os
 import pathlib
 import pickle
@@ -14,10 +15,17 @@ import pytest
 import pytest_libiio.meta as meta
 import yaml
 
+IIO_EMU_BASE_PORT = 30431
+
 
 class iio_emu_manager:
     def __init__(
-        self, xml_path: str, auto: bool = True, rx_dev: str = None, tx_dev: str = None,
+        self,
+        xml_path: str,
+        auto: bool = True,
+        rx_dev: str = None,
+        tx_dev: str = None,
+        custom_port: int = None,
     ):
         self.xml_path = xml_path
         self.rx_dev = rx_dev
@@ -25,6 +33,7 @@ class iio_emu_manager:
         self.current_device = None
         self.auto = auto
         self.data_devices = None
+        self.custom_port = custom_port
 
         iio_emu = which("iio-emu") is None
         if iio_emu:
@@ -33,6 +42,8 @@ class iio_emu_manager:
         hostname = socket.gethostname()
         self.local_ip = socket.gethostbyname(hostname)
         self.uri = f"ip:{self.local_ip}"
+        if self.custom_port:
+            self.uri += f":{self.custom_port}"
         self.p = None
         if os.getenv("IIO_EMU_URI"):
             self.uri = os.getenv("IIO_EMU_URI")
@@ -48,6 +59,8 @@ class iio_emu_manager:
         if self.data_devices:
             for dev in self.data_devices:
                 cmd.append(f"{dev}@data.bin")
+        if self.custom_port:
+            cmd.append(f"{self.custom_port}")
         self.p = subprocess.Popen(cmd)
         time.sleep(3)  # wait for server to boot
         if self.p.poll():
@@ -206,6 +219,35 @@ def pytest_configure(config):
         "markers", "iio_hardware(hardware): Provide list of hardware applicable to test"
     )
 
+    worker_id = os.environ.get("PYTEST_XDIST_WORKER")
+    if worker_id is not None:
+        logging.basicConfig(
+            format=config.getini("log_file_format"),
+            filename=f"tests_{worker_id}.log",
+            level=logging.INFO,
+        )
+
+
+def pytest_collection_modifyitems(config, items):
+    # Get list of contexts and mapped hardware
+    class Object(object):
+        config = None
+
+    request = Object()
+    request.config = config
+    pytest._context_table = find_contexts(config, get_hw_map(request), request)
+
+    # Add xdist marker to split tests based on context
+    for item in items:
+        mark = item.get_closest_marker("iio_hardware")
+        if mark.name == "iio_hardware":
+            hw = mark.args[0]
+            for info in pytest._context_table:
+                if info["hw"] == hw:
+                    item.add_marker(
+                        pytest.mark.xdist_group(name=f"xdist_{info['uri']}")
+                    )
+
 
 @pytest.fixture(scope="function")
 def iio_uri(request, _iio_emu_func):
@@ -293,14 +335,25 @@ def _iio_emu_func(request, _contexts, _iio_emu):
 
 
 @pytest.fixture(scope="session", autouse=True)
-def _iio_emu(request):
+def _iio_emu(request, worker_id):
     """Initialization emulation fixture"""
     if request.config.getoption("--emu"):
+        if True:  # xdist
+            if worker_id == "master":
+                custom_port = None
+            else:
+                worker_id = worker_id.replace("gw", "")
+                custom_port = IIO_EMU_BASE_PORT + int(worker_id)
+                print(f"Using custom port {custom_port}")
+        else:
+            custom_port = None
+
         exml = request.config.getoption("--emu-xml")
         if exml:
             if not os.path.exists(exml):
                 raise Exception(f"{exml} not found")
-            emu = iio_emu_manager(xml_path=exml, auto=False)
+
+            emu = iio_emu_manager(xml_path=exml, auto=False, custom_port=custom_port)
             emu.start()
             yield emu
             emu.stop()
@@ -322,7 +375,7 @@ def _iio_emu(request):
                         devices.append(field)
                 hw_w_emulation[hw]["devices"] = devices
 
-        emu = iio_emu_manager(xml_path="auto", auto=True)
+        emu = iio_emu_manager(xml_path="auto", auto=True, custom_port=custom_port)
         emu.hw = hw_w_emulation
 
         yield emu
@@ -412,7 +465,6 @@ def save_telemtry_logs_to_files(request):
 
 
 def get_telemetry_data(request, ctx, before_test=True):
-
     if not request.config.getoption("--telm"):
         return
 
