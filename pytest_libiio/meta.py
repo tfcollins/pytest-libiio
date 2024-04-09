@@ -34,10 +34,13 @@ def __get_value_from_hw(
         elif ptype == "channel":
             dev = ctx.find_device(str(dev_name))
             ch = dev.find_channel(str(ch_name), is_output)
-            try:
-                value = ch.attrs[attr_name].value
-            except OSError:
-                value = "ERROR"
+            if hasattr(ch, "attrs") and attr_name in ch.attrs:
+                try:
+                    value = ch.attrs[attr_name].value
+                except OSError:
+                    value = "ERROR"
+            else:
+                value = "NO ATTRS FOR CHANNEL"
         elif ptype == "debug":
             dev = ctx.find_device(str(dev_name))
             try:
@@ -150,12 +153,12 @@ def get_emulated_context(ctx: iio.Context):
     context_fields += ["description"]
     context_fields = list(set(context_fields))
     template = "<!ATTLIST context "
-    full = [
+    context_fields_list = [
         f"{field.replace(',','').replace(' ','_')} CDATA #IMPLIED "
         for field in context_fields
     ]
-    full = template + "".join(full)
-    full = full[:-1] + ">"
+    full = template + "".join(context_fields_list)
+    full = f"{full[:-1]}>"
 
     doctype = f"<!DOCTYPE context [\n\
         <!ELEMENT context (device | context-attribute)*>\n\
@@ -181,7 +184,7 @@ def get_emulated_context(ctx: iio.Context):
     xml_str = etree.tostring(
         tree, pretty_print=True, xml_declaration=True, doctype=doctype, encoding="utf-8"
     )
-    xml_str = str(xml_str, "utf-8")
+    xml_str = str(xml_str, "utf-8")  # type: ignore
     return xml_str
 
 
