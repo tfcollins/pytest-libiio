@@ -39,6 +39,8 @@ class iio_emu_manager:
         
         if os.getenv("IIO_EMU_PREFIX"):
             self.prefix = os.getenv("IIO_EMU_PREFIX")
+            self.prefix = self.prefix.replace("'","")
+            print(f"Using IIO_EMU_PREFIX: {self.prefix}")
         else:
             self.prefix = None
 
@@ -53,7 +55,7 @@ class iio_emu_manager:
         if self.data_devices:
             for dev in self.data_devices:
                 cmd.append(f"{dev}@data.bin")
-        self.p = subprocess.Popen(cmd)
+        self.p = subprocess.Popen(cmd, shell=True)
         time.sleep(3)  # wait for server to boot
         if self.p.poll():
             self.p.send_signal(signal.SIGINT)
