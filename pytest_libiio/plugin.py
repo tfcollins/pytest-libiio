@@ -36,6 +36,11 @@ class iio_emu_manager:
         self.p = None
         if os.getenv("IIO_EMU_URI"):
             self.uri = os.getenv("IIO_EMU_URI")
+        
+        if os.getenv("IIO_EMU_PREFIX"):
+            self.prefix = os.getenv("IIO_EMU_PREFIX")
+        else:
+            self.prefix = None
 
     def __del__(self):
         if self.p:
@@ -44,7 +49,7 @@ class iio_emu_manager:
     def start(self):
         with open("data.bin", "w"):
             pass
-        cmd = ["iio-emu", "generic", self.xml_path]
+        cmd = [self.prefix, "iio-emu", "generic", self.xml_path]
         if self.data_devices:
             for dev in self.data_devices:
                 cmd.append(f"{dev}@data.bin")
