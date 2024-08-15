@@ -51,19 +51,30 @@ class iio_emu_manager:
     def start(self):
         with open("data.bin", "w"):
             pass
-        cmd = [self.prefix, "iio-emu", "generic", self.xml_path]
+        cmd = ["iio-emu", "generic", self.xml_path]
+        if self.prefix:
+            cmd = [self.prefix] + cmd
         if self.data_devices:
             for dev in self.data_devices:
                 cmd.append(f"{dev}@data.bin")
-        self.p = subprocess.Popen(cmd, shell=True)
+        print(cmd)
+        self.p = subprocess.Popen(' '.join(cmd), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, preexec_fn=os.setsid)
         time.sleep(3)  # wait for server to boot
-        if self.p.poll():
-            self.p.send_signal(signal.SIGINT)
+        # With shell stopping or checking if the process is stopped is hard
+        # It should have a process group if its running.
+        try:
+            pidg = os.getpgid(self.p.pid)
+            failed_to_start = False
+        except ProcessLookupError:
+            failed_to_start = True # stop multiple exceptions appearing
+
+        if failed_to_start:
+            self.p = None
             raise Exception("iio-emu failed to start... exiting")
 
     def stop(self):
         if self.p:
-            self.p.send_signal(signal.SIGINT)
+            os.killpg(os.getpgid(self.p.pid), signal.SIGTERM)
         self.p = None
 
 
