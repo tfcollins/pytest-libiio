@@ -284,6 +284,9 @@ def _iio_emu_func(request, _contexts, _iio_emu):
             return _contexts[0]
         else:
             for dec in _contexts:
+                if dec["hw"] == marker.args[0]:
+                    return handle_iio_emu(dec, request, _iio_emu)
+            for dec in _contexts:
                 if dec["hw"] in marker.args[0]:
                     return handle_iio_emu(dec, request, _iio_emu)
     pytest.skip("No required hardware found")
