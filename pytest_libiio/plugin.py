@@ -60,6 +60,7 @@ class iio_emu_manager:
             for dev in self.data_devices:
                 cmd.append(f"{dev}@data.bin")
         if self.custom_port:
+            cmd.append("-p")
             cmd.append(f"{self.custom_port}")
         self.p = subprocess.Popen(cmd)
         time.sleep(3)  # wait for server to boot
@@ -240,7 +241,7 @@ def pytest_collection_modifyitems(config, items):
     # Add xdist marker to split tests based on context
     for item in items:
         mark = item.get_closest_marker("iio_hardware")
-        if mark.name == "iio_hardware":
+        if hasattr(mark, "name") and mark.name == "iio_hardware":
             hw = mark.args[0]
             for info in pytest._context_table:
                 if info["hw"] == hw:
@@ -338,15 +339,13 @@ def _iio_emu_func(request, _contexts, _iio_emu):
 def _iio_emu(request, worker_id):
     """Initialization emulation fixture"""
     if request.config.getoption("--emu"):
-        if True:  # xdist
-            if worker_id == "master":
-                custom_port = None
-            else:
-                worker_id = worker_id.replace("gw", "")
-                custom_port = IIO_EMU_BASE_PORT + int(worker_id)
-                print(f"Using custom port {custom_port}")
-        else:
+        if worker_id == "master":
             custom_port = None
+        else:
+            worker_id = worker_id.replace("gw", "")
+            custom_port = IIO_EMU_BASE_PORT + int(worker_id)
+            logger = logging.getLogger()
+            logger.info(f"Using custom port {custom_port}")
 
         exml = request.config.getoption("--emu-xml")
         if exml:
