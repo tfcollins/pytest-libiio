@@ -237,6 +237,8 @@ def pytest_collection_modifyitems(config, items):
     request = Object()
     request.config = config
     pytest._context_table = find_contexts(config, get_hw_map(request), request)
+    if not pytest._context_table:
+        return
 
     # Add xdist marker to split tests based on context
     for item in items:
