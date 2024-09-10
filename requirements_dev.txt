@@ -10,3 +10,4 @@ pyyaml
 coveralls
 tox
 paramiko
+pytest-xdist
