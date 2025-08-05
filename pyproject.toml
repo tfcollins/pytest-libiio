@@ -1,0 +1,68 @@
+[build-system]
+requires = ["setuptools>=40.6.0"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "pytest-libiio"
+dynamic = ["version"]
+description = "A pytest plugin for testing libiio based devices"
+readme = "README.rst"
+keywords = ["pytest", "libiio", "adi", "testing"]
+license = { text = "BSD-3-Clause" }
+classifiers = [
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+requires-python = ">=3.9"
+authors = [{ name = "Travis Collins", email = "travis.collins@analog.com" }]
+maintainers = [{ name = "Travis Collins", email = "travis.collins@analog.com" }]
+dependencies = [
+    "pytest>=3.5.0",
+    "pylibiio>=0.23.1",
+    "pyyaml",
+    "lxml",
+    "click",
+    "pytest-xdist",
+]
+
+[tool.setuptools.dynamic]
+version = { attr = "pytest_libiio.__version__" }
+readme = { file = "README.rst", content-type = "text/x-rst" }
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["pytest_libiio*"]
+exclude = ["test*"]
+namespaces = true
+
+[project.optional-dependencies]
+ssh = ["paramiko"]
+
+[project.urls]
+homepage = "https://tfcollins.github.io/pytest-libiio/"
+documentation = "https://tfcollins.github.io/pytest-libiio/"
+repository = "https://github.com/tfcollins/pytest-libiio"
+
+[tool.mypy]
+ignore_missing_imports = "true"
+
+[project.entry-points.pytest11]
+libiio = "pytest_libiio.plugin"
+
+[tool.setuptools.package-data]
+pytest_libiio = ["pytest_libiio/resources/*"]
+
+[project.scripts]
+gen_xml = "pytest_libiio.tools:gen_xml"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-vs"
+testpaths = ["tests"]
