@@ -8,7 +8,7 @@ import pytest
 # Set logging to debug level
 logging.basicConfig(level=logging.DEBUG)
 
-
+@pytest.mark.skip(reason="This is a smoke test manual testing with hardware")
 def test_coverage_smoke():
     """Test to ensure coverage tracking is working."""
     from pytest_libiio import coverage
