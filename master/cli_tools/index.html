@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.2.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.046329b4.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
       
       
 
@@ -49,7 +49,7 @@
     
       <link rel="stylesheet" href="../css/extra.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -61,9 +61,6 @@
   
     <body dir="ltr">
   
-    
-    
-      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -90,12 +87,12 @@
     <a href=".." title="pytest-libiio" class="md-header__button md-logo" aria-label="pytest-libiio" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
       
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -115,33 +112,38 @@
     </div>
     
     
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
     
-      <label class="md-header__button md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
-      </label>
-      <div class="md-search" data-md-component="search" role="dialog">
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
         
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
       </label>
       <nav class="md-search__options" aria-label="Search">
         
         <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
           
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
         </button>
       </nav>
       
     </form>
     <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
             Initializing search
@@ -152,13 +154,14 @@
     </div>
   </div>
 </div>
+      
     
     
       <div class="md-header__source">
         <a href="https://github.com/tfcollins/pytest-libiio" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub
@@ -194,7 +197,7 @@
     <a href=".." title="pytest-libiio" class="md-nav__button md-logo" aria-label="pytest-libiio" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
     pytest-libiio
@@ -204,7 +207,7 @@
       <a href="https://github.com/tfcollins/pytest-libiio" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub
@@ -219,12 +222,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href=".." class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Home
+    
   </span>
   
 
@@ -235,6 +241,7 @@
     
       
       
+  
   
   
   
@@ -242,8 +249,10 @@
       <a href="../fixtures/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Fixtures
+    
   </span>
   
 
@@ -254,6 +263,7 @@
     
       
       
+  
   
   
   
@@ -261,8 +271,10 @@
       <a href="../emulation/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Emulation
+    
   </span>
   
 
@@ -273,6 +285,7 @@
     
       
       
+  
   
   
   
@@ -280,8 +293,10 @@
       <a href="../cli/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     pytest CLI
+    
   </span>
   
 
@@ -295,6 +310,7 @@
   
   
     
+  
   
   
     <li class="md-nav__item md-nav__item--active">
@@ -308,8 +324,10 @@
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
+  
   <span class="md-ellipsis">
     CLI Tools
+    
   </span>
   
 
@@ -324,6 +342,9 @@
   
   
   
+  
+    
+    
     
     
     
@@ -331,15 +352,16 @@
       
         
         
-        
-        
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
         
+          
           <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
     Emulated Driver Contexts
+    
   </span>
   
 
@@ -358,6 +380,9 @@
   
   
   
+  
+    
+    
     
     
     
@@ -365,15 +390,16 @@
       
         
         
-        
-        
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1" >
         
+          
           <label class="md-nav__link" for="__nav_6_1" id="__nav_6_1_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
     fmcomms2
+    
   </span>
   
 
@@ -392,12 +418,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/fmcomms2_ad7291/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad7291
+    
   </span>
   
 
@@ -409,6 +438,7 @@
             
               
                 
+  
   
   
   
@@ -416,8 +446,10 @@
       <a href="../devices/fmcomms2_ad9361-phy/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad9361-phy
+    
   </span>
   
 
@@ -429,6 +461,7 @@
             
               
                 
+  
   
   
   
@@ -436,8 +469,10 @@
       <a href="../devices/fmcomms2_xadc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     xadc
+    
   </span>
   
 
@@ -449,6 +484,7 @@
             
               
                 
+  
   
   
   
@@ -456,8 +492,10 @@
       <a href="../devices/fmcomms2_adf4351-udc-tx-pmod/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     adf4351-udc-tx-pmod
+    
   </span>
   
 
@@ -469,6 +507,7 @@
             
               
                 
+  
   
   
   
@@ -476,8 +515,10 @@
       <a href="../devices/fmcomms2_adf4351-udc-rx-pmod/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     adf4351-udc-rx-pmod
+    
   </span>
   
 
@@ -489,6 +530,7 @@
             
               
                 
+  
   
   
   
@@ -496,8 +538,10 @@
       <a href="../devices/fmcomms2_cf-ad9361-dds-core-lpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     cf-ad9361-dds-core-lpc
+    
   </span>
   
 
@@ -509,6 +553,7 @@
             
               
                 
+  
   
   
   
@@ -516,8 +561,10 @@
       <a href="../devices/fmcomms2_cf-ad9361-lpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     cf-ad9361-lpc
+    
   </span>
   
 
@@ -532,12 +579,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/fmcomms2_iio_sysfs_trigger/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     iio_sysfs_trigger
+    
   </span>
   
 
@@ -560,6 +610,9 @@
   
   
   
+  
+    
+    
     
     
     
@@ -567,15 +620,16 @@
       
         
         
-        
-        
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
         
+          
           <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
     fmcomms4
+    
   </span>
   
 
@@ -594,12 +648,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/fmcomms4_ad7291/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad7291
+    
   </span>
   
 
@@ -611,6 +668,7 @@
             
               
                 
+  
   
   
   
@@ -618,8 +676,10 @@
       <a href="../devices/fmcomms4_ad9361-phy/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad9361-phy
+    
   </span>
   
 
@@ -631,6 +691,7 @@
             
               
                 
+  
   
   
   
@@ -638,8 +699,10 @@
       <a href="../devices/fmcomms4_xadc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     xadc
+    
   </span>
   
 
@@ -651,6 +714,7 @@
             
               
                 
+  
   
   
   
@@ -658,8 +722,10 @@
       <a href="../devices/fmcomms4_adf4351-udc-tx-pmod/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     adf4351-udc-tx-pmod
+    
   </span>
   
 
@@ -671,6 +737,7 @@
             
               
                 
+  
   
   
   
@@ -678,8 +745,10 @@
       <a href="../devices/fmcomms4_adf4351-udc-rx-pmod/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     adf4351-udc-rx-pmod
+    
   </span>
   
 
@@ -691,6 +760,7 @@
             
               
                 
+  
   
   
   
@@ -698,8 +768,10 @@
       <a href="../devices/fmcomms4_cf-ad9361-dds-core-lpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     cf-ad9361-dds-core-lpc
+    
   </span>
   
 
@@ -711,6 +783,7 @@
             
               
                 
+  
   
   
   
@@ -718,8 +791,10 @@
       <a href="../devices/fmcomms4_cf-ad9361-lpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     cf-ad9361-lpc
+    
   </span>
   
 
@@ -734,12 +809,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/fmcomms4_iio_sysfs_trigger/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     iio_sysfs_trigger
+    
   </span>
   
 
@@ -762,6 +840,9 @@
   
   
   
+  
+    
+    
     
     
     
@@ -769,15 +850,16 @@
       
         
         
-        
-        
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_3" >
         
+          
           <label class="md-nav__link" for="__nav_6_3" id="__nav_6_3_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
     fmcomms5
+    
   </span>
   
 
@@ -796,12 +878,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/fmcomms5_ad7291/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad7291
+    
   </span>
   
 
@@ -813,6 +898,7 @@
             
               
                 
+  
   
   
   
@@ -820,8 +906,10 @@
       <a href="../devices/fmcomms5_ad9361-phy/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad9361-phy
+    
   </span>
   
 
@@ -833,6 +921,7 @@
             
               
                 
+  
   
   
   
@@ -840,8 +929,10 @@
       <a href="../devices/fmcomms5_ad9361-phy-B/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad9361-phy-B
+    
   </span>
   
 
@@ -853,6 +944,7 @@
             
               
                 
+  
   
   
   
@@ -860,8 +952,10 @@
       <a href="../devices/fmcomms5_xadc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     xadc
+    
   </span>
   
 
@@ -873,6 +967,7 @@
             
               
                 
+  
   
   
   
@@ -880,8 +975,10 @@
       <a href="../devices/fmcomms5_cf-ad9361-dds-core-lpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     cf-ad9361-dds-core-lpc
+    
   </span>
   
 
@@ -893,6 +990,7 @@
             
               
                 
+  
   
   
   
@@ -900,8 +998,10 @@
       <a href="../devices/fmcomms5_cf-ad9361-dds-core-B/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     cf-ad9361-dds-core-B
+    
   </span>
   
 
@@ -913,6 +1013,7 @@
             
               
                 
+  
   
   
   
@@ -920,8 +1021,10 @@
       <a href="../devices/fmcomms5_cf-ad9361-A/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     cf-ad9361-A
+    
   </span>
   
 
@@ -933,6 +1036,7 @@
             
               
                 
+  
   
   
   
@@ -940,8 +1044,10 @@
       <a href="../devices/fmcomms5_cf-ad9361-B/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     cf-ad9361-B
+    
   </span>
   
 
@@ -956,12 +1062,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/fmcomms5_iio_sysfs_trigger/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     iio_sysfs_trigger
+    
   </span>
   
 
@@ -984,6 +1093,9 @@
   
   
   
+  
+    
+    
     
     
     
@@ -991,15 +1103,16 @@
       
         
         
-        
-        
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_4" >
         
+          
           <label class="md-nav__link" for="__nav_6_4" id="__nav_6_4_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
     fmcomms11
+    
   </span>
   
 
@@ -1018,12 +1131,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/fmcomms11_ad7291/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad7291
+    
   </span>
   
 
@@ -1035,6 +1151,7 @@
             
               
                 
+  
   
   
   
@@ -1042,8 +1159,10 @@
       <a href="../devices/fmcomms11_xadc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     xadc
+    
   </span>
   
 
@@ -1055,6 +1174,7 @@
             
               
                 
+  
   
   
   
@@ -1062,8 +1182,10 @@
       <a href="../devices/fmcomms11_adl5240/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     adl5240
+    
   </span>
   
 
@@ -1075,6 +1197,7 @@
             
               
                 
+  
   
   
   
@@ -1082,8 +1205,10 @@
       <a href="../devices/fmcomms11_hmc1119/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     hmc1119
+    
   </span>
   
 
@@ -1095,6 +1220,7 @@
             
               
                 
+  
   
   
   
@@ -1102,8 +1228,10 @@
       <a href="../devices/fmcomms11_adf4355/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     adf4355
+    
   </span>
   
 
@@ -1115,6 +1243,7 @@
             
               
                 
+  
   
   
   
@@ -1122,8 +1251,10 @@
       <a href="../devices/fmcomms11_axi-ad9625-hpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     axi-ad9625-hpc
+    
   </span>
   
 
@@ -1135,6 +1266,7 @@
             
               
                 
+  
   
   
   
@@ -1142,8 +1274,10 @@
       <a href="../devices/fmcomms11_axi-ad9162-hpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     axi-ad9162-hpc
+    
   </span>
   
 
@@ -1158,12 +1292,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/fmcomms11_iio_sysfs_trigger/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     iio_sysfs_trigger
+    
   </span>
   
 
@@ -1186,6 +1323,9 @@
   
   
   
+  
+    
+    
     
     
     
@@ -1193,15 +1333,16 @@
       
         
         
-        
-        
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_5" >
         
+          
           <label class="md-nav__link" for="__nav_6_5" id="__nav_6_5_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
     pluto
+    
   </span>
   
 
@@ -1220,12 +1361,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/pluto_ad9361-phy/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad9361-phy
+    
   </span>
   
 
@@ -1237,6 +1381,7 @@
             
               
                 
+  
   
   
   
@@ -1244,8 +1389,10 @@
       <a href="../devices/pluto_xadc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     xadc
+    
   </span>
   
 
@@ -1257,6 +1404,7 @@
             
               
                 
+  
   
   
   
@@ -1264,8 +1412,10 @@
       <a href="../devices/pluto_cf-ad9361-dds-core-lpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     cf-ad9361-dds-core-lpc
+    
   </span>
   
 
@@ -1280,12 +1430,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/pluto_cf-ad9361-lpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     cf-ad9361-lpc
+    
   </span>
   
 
@@ -1308,6 +1461,9 @@
   
   
   
+  
+    
+    
     
     
     
@@ -1315,15 +1471,16 @@
       
         
         
-        
-        
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_6" >
         
+          
           <label class="md-nav__link" for="__nav_6_6" id="__nav_6_6_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
     pluto_rev_c
+    
   </span>
   
 
@@ -1342,12 +1499,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/pluto_rev_c_ad9361-phy/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad9361-phy
+    
   </span>
   
 
@@ -1359,6 +1519,7 @@
             
               
                 
+  
   
   
   
@@ -1366,8 +1527,10 @@
       <a href="../devices/pluto_rev_c_xadc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     xadc
+    
   </span>
   
 
@@ -1379,6 +1542,7 @@
             
               
                 
+  
   
   
   
@@ -1386,8 +1550,10 @@
       <a href="../devices/pluto_rev_c_cf-ad9361-dds-core-lpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     cf-ad9361-dds-core-lpc
+    
   </span>
   
 
@@ -1402,12 +1568,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/pluto_rev_c_cf-ad9361-lpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     cf-ad9361-lpc
+    
   </span>
   
 
@@ -1430,6 +1599,9 @@
   
   
   
+  
+    
+    
     
     
     
@@ -1437,15 +1609,16 @@
       
         
         
-        
-        
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_7" >
         
+          
           <label class="md-nav__link" for="__nav_6_7" id="__nav_6_7_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
     daq2
+    
   </span>
   
 
@@ -1464,12 +1637,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/daq2_ad7291/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad7291
+    
   </span>
   
 
@@ -1481,6 +1657,7 @@
             
               
                 
+  
   
   
   
@@ -1488,8 +1665,10 @@
       <a href="../devices/daq2_xadc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     xadc
+    
   </span>
   
 
@@ -1501,6 +1680,7 @@
             
               
                 
+  
   
   
   
@@ -1508,8 +1688,10 @@
       <a href="../devices/daq2_ad9523-1/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad9523-1
+    
   </span>
   
 
@@ -1521,6 +1703,7 @@
             
               
                 
+  
   
   
   
@@ -1528,8 +1711,10 @@
       <a href="../devices/daq2_axi-ad9144-hpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     axi-ad9144-hpc
+    
   </span>
   
 
@@ -1541,6 +1726,7 @@
             
               
                 
+  
   
   
   
@@ -1548,8 +1734,10 @@
       <a href="../devices/daq2_axi-ad9680-hpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     axi-ad9680-hpc
+    
   </span>
   
 
@@ -1564,12 +1752,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/daq2_iio_sysfs_trigger/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     iio_sysfs_trigger
+    
   </span>
   
 
@@ -1592,6 +1783,9 @@
   
   
   
+  
+    
+    
     
     
     
@@ -1599,15 +1793,16 @@
       
         
         
-        
-        
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_8" >
         
+          
           <label class="md-nav__link" for="__nav_6_8" id="__nav_6_8_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
     daq3
+    
   </span>
   
 
@@ -1626,12 +1821,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/daq3_ams/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ams
+    
   </span>
   
 
@@ -1643,6 +1841,7 @@
             
               
                 
+  
   
   
   
@@ -1650,8 +1849,10 @@
       <a href="../devices/daq3_ad9528/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad9528
+    
   </span>
   
 
@@ -1663,6 +1864,7 @@
             
               
                 
+  
   
   
   
@@ -1670,8 +1872,10 @@
       <a href="../devices/daq3_ad7291/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad7291
+    
   </span>
   
 
@@ -1683,6 +1887,7 @@
             
               
                 
+  
   
   
   
@@ -1690,8 +1895,10 @@
       <a href="../devices/daq3_axi-ad9680-hpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     axi-ad9680-hpc
+    
   </span>
   
 
@@ -1703,6 +1910,7 @@
             
               
                 
+  
   
   
   
@@ -1710,8 +1918,10 @@
       <a href="../devices/daq3_axi-ad9152-hpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     axi-ad9152-hpc
+    
   </span>
   
 
@@ -1726,12 +1936,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/daq3_iio_sysfs_trigger/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     iio_sysfs_trigger
+    
   </span>
   
 
@@ -1754,6 +1967,9 @@
   
   
   
+  
+    
+    
     
     
     
@@ -1761,15 +1977,16 @@
       
         
         
-        
-        
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_9" >
         
+          
           <label class="md-nav__link" for="__nav_6_9" id="__nav_6_9_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
     ad9081
+    
   </span>
   
 
@@ -1788,12 +2005,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/ad9081_ams/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ams
+    
   </span>
   
 
@@ -1805,6 +2025,7 @@
             
               
                 
+  
   
   
   
@@ -1812,8 +2033,10 @@
       <a href="../devices/ad9081_hmc7044/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     hmc7044
+    
   </span>
   
 
@@ -1825,6 +2048,7 @@
             
               
                 
+  
   
   
   
@@ -1832,8 +2056,10 @@
       <a href="../devices/ad9081_axi-ad9081-rx-hpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     axi-ad9081-rx-hpc
+    
   </span>
   
 
@@ -1845,6 +2071,7 @@
             
               
                 
+  
   
   
   
@@ -1852,8 +2079,10 @@
       <a href="../devices/ad9081_axi-ad9081-tx-hpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     axi-ad9081-tx-hpc
+    
   </span>
   
 
@@ -1865,6 +2094,7 @@
             
               
                 
+  
   
   
   
@@ -1872,8 +2102,10 @@
       <a href="../devices/ad9081_iio-gen-mux/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     iio-gen-mux
+    
   </span>
   
 
@@ -1888,12 +2120,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/ad9081_iio_sysfs_trigger/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     iio_sysfs_trigger
+    
   </span>
   
 
@@ -1916,6 +2151,9 @@
   
   
   
+  
+    
+    
     
     
     
@@ -1923,15 +2161,16 @@
       
         
         
-        
-        
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_10" >
         
+          
           <label class="md-nav__link" for="__nav_6_10" id="__nav_6_10_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
     ad9081_tdd
+    
   </span>
   
 
@@ -1950,12 +2189,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/ad9081_tdd_ams/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ams
+    
   </span>
   
 
@@ -1967,6 +2209,7 @@
             
               
                 
+  
   
   
   
@@ -1974,8 +2217,10 @@
       <a href="../devices/ad9081_tdd_hmc7044/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     hmc7044
+    
   </span>
   
 
@@ -1987,6 +2232,7 @@
             
               
                 
+  
   
   
   
@@ -1994,8 +2240,10 @@
       <a href="../devices/ad9081_tdd_axi-core-tdd/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     axi-core-tdd
+    
   </span>
   
 
@@ -2007,6 +2255,7 @@
             
               
                 
+  
   
   
   
@@ -2014,8 +2263,10 @@
       <a href="../devices/ad9081_tdd_axi-ad9081-rx-hpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     axi-ad9081-rx-hpc
+    
   </span>
   
 
@@ -2027,6 +2278,7 @@
             
               
                 
+  
   
   
   
@@ -2034,8 +2286,10 @@
       <a href="../devices/ad9081_tdd_axi-ad9081-tx-hpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     axi-ad9081-tx-hpc
+    
   </span>
   
 
@@ -2050,12 +2304,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/ad9081_tdd_iio_sysfs_trigger/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     iio_sysfs_trigger
+    
   </span>
   
 
@@ -2078,6 +2335,9 @@
   
   
   
+  
+    
+    
     
     
     
@@ -2085,15 +2345,16 @@
       
         
         
-        
-        
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_11" >
         
+          
           <label class="md-nav__link" for="__nav_6_11" id="__nav_6_11_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
     ad9172
+    
   </span>
   
 
@@ -2112,12 +2373,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/ad9172_ams/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ams
+    
   </span>
   
 
@@ -2129,6 +2393,7 @@
             
               
                 
+  
   
   
   
@@ -2136,8 +2401,10 @@
       <a href="../devices/ad9172_hmc7044/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     hmc7044
+    
   </span>
   
 
@@ -2149,6 +2416,7 @@
             
               
                 
+  
   
   
   
@@ -2156,8 +2424,10 @@
       <a href="../devices/ad9172_axi-ad9172-hpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     axi-ad9172-hpc
+    
   </span>
   
 
@@ -2172,12 +2442,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/ad9172_iio_sysfs_trigger/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     iio_sysfs_trigger
+    
   </span>
   
 
@@ -2200,6 +2473,9 @@
   
   
   
+  
+    
+    
     
     
     
@@ -2207,15 +2483,16 @@
       
         
         
-        
-        
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_12" >
         
+          
           <label class="md-nav__link" for="__nav_6_12" id="__nav_6_12_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
     cn0511
+    
   </span>
   
 
@@ -2234,12 +2511,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/cn0511_ad9166-amp/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad9166-amp
+    
   </span>
   
 
@@ -2251,6 +2531,7 @@
             
               
                 
+  
   
   
   
@@ -2258,8 +2539,10 @@
       <a href="../devices/cn0511_adf4372/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     adf4372
+    
   </span>
   
 
@@ -2271,6 +2554,7 @@
             
               
                 
+  
   
   
   
@@ -2278,8 +2562,10 @@
       <a href="../devices/cn0511_ad5693r/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad5693r
+    
   </span>
   
 
@@ -2291,6 +2577,7 @@
             
               
                 
+  
   
   
   
@@ -2298,8 +2585,10 @@
       <a href="../devices/cn0511_ad9166/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad9166
+    
   </span>
   
 
@@ -2311,6 +2600,7 @@
             
               
                 
+  
   
   
   
@@ -2318,8 +2608,10 @@
       <a href="../devices/cn0511_iio_sysfs_trigger/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     iio_sysfs_trigger
+    
   </span>
   
 
@@ -2334,12 +2626,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/cn0511_ad5693r-dev2/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad5693r-dev2
+    
   </span>
   
 
@@ -2362,6 +2657,9 @@
   
   
   
+  
+    
+    
     
     
     
@@ -2369,15 +2667,16 @@
       
         
         
-        
-        
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_13" >
         
+          
           <label class="md-nav__link" for="__nav_6_13" id="__nav_6_13_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
     cn0540
+    
   </span>
   
 
@@ -2396,12 +2695,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/cn0540_ad7768-1/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad7768-1
+    
   </span>
   
 
@@ -2413,6 +2715,7 @@
             
               
                 
+  
   
   
   
@@ -2420,8 +2723,10 @@
       <a href="../devices/cn0540_ltc2308/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ltc2308
+    
   </span>
   
 
@@ -2433,6 +2738,7 @@
             
               
                 
+  
   
   
   
@@ -2440,8 +2746,10 @@
       <a href="../devices/cn0540_one-bit-adc-dac/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     one-bit-adc-dac
+    
   </span>
   
 
@@ -2453,6 +2761,7 @@
             
               
                 
+  
   
   
   
@@ -2460,8 +2769,10 @@
       <a href="../devices/cn0540_ltc2606/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ltc2606
+    
   </span>
   
 
@@ -2476,12 +2787,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/cn0540_iio_sysfs_trigger/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     iio_sysfs_trigger
+    
   </span>
   
 
@@ -2504,6 +2818,9 @@
   
   
   
+  
+    
+    
     
     
     
@@ -2511,15 +2828,16 @@
       
         
         
-        
-        
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_14" >
         
+          
           <label class="md-nav__link" for="__nav_6_14" id="__nav_6_14_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
     adrv9361
+    
   </span>
   
 
@@ -2538,12 +2856,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/adrv9361_ad7291/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad7291
+    
   </span>
   
 
@@ -2555,6 +2876,7 @@
             
               
                 
+  
   
   
   
@@ -2562,8 +2884,10 @@
       <a href="../devices/adrv9361_ad9361-phy/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad9361-phy
+    
   </span>
   
 
@@ -2575,6 +2899,7 @@
             
               
                 
+  
   
   
   
@@ -2582,8 +2907,10 @@
       <a href="../devices/adrv9361_xadc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     xadc
+    
   </span>
   
 
@@ -2595,6 +2922,7 @@
             
               
                 
+  
   
   
   
@@ -2602,8 +2930,10 @@
       <a href="../devices/adrv9361_ad9517-3/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad9517-3
+    
   </span>
   
 
@@ -2615,6 +2945,7 @@
             
               
                 
+  
   
   
   
@@ -2622,8 +2953,10 @@
       <a href="../devices/adrv9361_cf-ad9361-dds-core-lpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     cf-ad9361-dds-core-lpc
+    
   </span>
   
 
@@ -2635,6 +2968,7 @@
             
               
                 
+  
   
   
   
@@ -2642,8 +2976,10 @@
       <a href="../devices/adrv9361_cf-ad9361-lpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     cf-ad9361-lpc
+    
   </span>
   
 
@@ -2658,12 +2994,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/adrv9361_iio_sysfs_trigger/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     iio_sysfs_trigger
+    
   </span>
   
 
@@ -2686,6 +3025,9 @@
   
   
   
+  
+    
+    
     
     
     
@@ -2693,15 +3035,16 @@
       
         
         
-        
-        
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_15" >
         
+          
           <label class="md-nav__link" for="__nav_6_15" id="__nav_6_15_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
     adrv9364
+    
   </span>
   
 
@@ -2720,12 +3063,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/adrv9364_ad7291/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad7291
+    
   </span>
   
 
@@ -2737,6 +3083,7 @@
             
               
                 
+  
   
   
   
@@ -2744,8 +3091,10 @@
       <a href="../devices/adrv9364_ad7291-bob/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad7291-bob
+    
   </span>
   
 
@@ -2757,6 +3106,7 @@
             
               
                 
+  
   
   
   
@@ -2764,8 +3114,10 @@
       <a href="../devices/adrv9364_ad9361-phy/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad9361-phy
+    
   </span>
   
 
@@ -2777,6 +3129,7 @@
             
               
                 
+  
   
   
   
@@ -2784,8 +3137,10 @@
       <a href="../devices/adrv9364_xadc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     xadc
+    
   </span>
   
 
@@ -2797,6 +3152,7 @@
             
               
                 
+  
   
   
   
@@ -2804,8 +3160,10 @@
       <a href="../devices/adrv9364_cf-ad9361-dds-core-lpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     cf-ad9361-dds-core-lpc
+    
   </span>
   
 
@@ -2817,6 +3175,7 @@
             
               
                 
+  
   
   
   
@@ -2824,8 +3183,10 @@
       <a href="../devices/adrv9364_cf-ad9361-lpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     cf-ad9361-lpc
+    
   </span>
   
 
@@ -2840,12 +3201,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/adrv9364_iio_sysfs_trigger/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     iio_sysfs_trigger
+    
   </span>
   
 
@@ -2868,6 +3232,9 @@
   
   
   
+  
+    
+    
     
     
     
@@ -2875,15 +3242,16 @@
       
         
         
-        
-        
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_16" >
         
+          
           <label class="md-nav__link" for="__nav_6_16" id="__nav_6_16_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
     adrv9002
+    
   </span>
   
 
@@ -2902,12 +3270,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/adrv9002_ams/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ams
+    
   </span>
   
 
@@ -2919,6 +3290,7 @@
             
               
                 
+  
   
   
   
@@ -2926,8 +3298,10 @@
       <a href="../devices/adrv9002_adrv9002-phy/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     adrv9002-phy
+    
   </span>
   
 
@@ -2939,6 +3313,7 @@
             
               
                 
+  
   
   
   
@@ -2946,8 +3321,10 @@
       <a href="../devices/adrv9002_axi-adrv9002-rx-lpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     axi-adrv9002-rx-lpc
+    
   </span>
   
 
@@ -2959,6 +3336,7 @@
             
               
                 
+  
   
   
   
@@ -2966,8 +3344,10 @@
       <a href="../devices/adrv9002_axi-adrv9002-core-tdd-lpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     axi-adrv9002-core-tdd-lpc
+    
   </span>
   
 
@@ -2979,6 +3359,7 @@
             
               
                 
+  
   
   
   
@@ -2986,8 +3367,10 @@
       <a href="../devices/adrv9002_axi-adrv9002-tx-lpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     axi-adrv9002-tx-lpc
+    
   </span>
   
 
@@ -3002,12 +3385,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/adrv9002_iio_sysfs_trigger/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     iio_sysfs_trigger
+    
   </span>
   
 
@@ -3030,6 +3416,9 @@
   
   
   
+  
+    
+    
     
     
     
@@ -3037,15 +3426,16 @@
       
         
         
-        
-        
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_17" >
         
+          
           <label class="md-nav__link" for="__nav_6_17" id="__nav_6_17_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
     adrv9371
+    
   </span>
   
 
@@ -3064,12 +3454,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/adrv9371_ams/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ams
+    
   </span>
   
 
@@ -3081,6 +3474,7 @@
             
               
                 
+  
   
   
   
@@ -3088,8 +3482,10 @@
       <a href="../devices/adrv9371_ad9528-1/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad9528-1
+    
   </span>
   
 
@@ -3101,6 +3497,7 @@
             
               
                 
+  
   
   
   
@@ -3108,8 +3505,10 @@
       <a href="../devices/adrv9371_ad7291/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad7291
+    
   </span>
   
 
@@ -3121,6 +3520,7 @@
             
               
                 
+  
   
   
   
@@ -3128,8 +3528,10 @@
       <a href="../devices/adrv9371_ad9371-phy/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad9371-phy
+    
   </span>
   
 
@@ -3141,6 +3543,7 @@
             
               
                 
+  
   
   
   
@@ -3148,8 +3551,10 @@
       <a href="../devices/adrv9371_axi-ad9371-rx-hpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     axi-ad9371-rx-hpc
+    
   </span>
   
 
@@ -3161,6 +3566,7 @@
             
               
                 
+  
   
   
   
@@ -3168,8 +3574,10 @@
       <a href="../devices/adrv9371_axi-ad9371-rx-obs-hpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     axi-ad9371-rx-obs-hpc
+    
   </span>
   
 
@@ -3181,6 +3589,7 @@
             
               
                 
+  
   
   
   
@@ -3188,8 +3597,10 @@
       <a href="../devices/adrv9371_axi-ad9371-tx-hpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     axi-ad9371-tx-hpc
+    
   </span>
   
 
@@ -3204,12 +3615,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/adrv9371_iio_sysfs_trigger/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     iio_sysfs_trigger
+    
   </span>
   
 
@@ -3232,6 +3646,9 @@
   
   
   
+  
+    
+    
     
     
     
@@ -3239,15 +3656,16 @@
       
         
         
-        
-        
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_18" >
         
+          
           <label class="md-nav__link" for="__nav_6_18" id="__nav_6_18_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
     adrv9375
+    
   </span>
   
 
@@ -3266,12 +3684,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/adrv9375_ina226/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ina226
+    
   </span>
   
 
@@ -3283,6 +3704,7 @@
             
               
                 
+  
   
   
   
@@ -3290,8 +3712,10 @@
       <a href="../devices/adrv9375_max20751/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     max20751
+    
   </span>
   
 
@@ -3303,6 +3727,7 @@
             
               
                 
+  
   
   
   
@@ -3310,8 +3735,10 @@
       <a href="../devices/adrv9375_ams/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ams
+    
   </span>
   
 
@@ -3323,6 +3750,7 @@
             
               
                 
+  
   
   
   
@@ -3330,8 +3758,10 @@
       <a href="../devices/adrv9375_ad9528-1/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad9528-1
+    
   </span>
   
 
@@ -3343,6 +3773,7 @@
             
               
                 
+  
   
   
   
@@ -3350,8 +3781,10 @@
       <a href="../devices/adrv9375_ad7291/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad7291
+    
   </span>
   
 
@@ -3363,6 +3796,7 @@
             
               
                 
+  
   
   
   
@@ -3370,8 +3804,10 @@
       <a href="../devices/adrv9375_ad9371-phy/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad9371-phy
+    
   </span>
   
 
@@ -3383,6 +3819,7 @@
             
               
                 
+  
   
   
   
@@ -3390,8 +3827,10 @@
       <a href="../devices/adrv9375_axi-ad9371-rx-hpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     axi-ad9371-rx-hpc
+    
   </span>
   
 
@@ -3403,6 +3842,7 @@
             
               
                 
+  
   
   
   
@@ -3410,8 +3850,10 @@
       <a href="../devices/adrv9375_axi-ad9371-rx-obs-hpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     axi-ad9371-rx-obs-hpc
+    
   </span>
   
 
@@ -3423,6 +3865,7 @@
             
               
                 
+  
   
   
   
@@ -3430,8 +3873,10 @@
       <a href="../devices/adrv9375_axi-ad9371-tx-hpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     axi-ad9371-tx-hpc
+    
   </span>
   
 
@@ -3446,12 +3891,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/adrv9375_iio_sysfs_trigger/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     iio_sysfs_trigger
+    
   </span>
   
 
@@ -3474,6 +3922,9 @@
   
   
   
+  
+    
+    
     
     
     
@@ -3481,15 +3932,16 @@
       
         
         
-        
-        
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_19" >
         
+          
           <label class="md-nav__link" for="__nav_6_19" id="__nav_6_19_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
     adt7420
+    
   </span>
   
 
@@ -3508,12 +3960,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/adt7420_adt7420/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     adt7420
+    
   </span>
   
 
@@ -3536,6 +3991,9 @@
   
   
   
+  
+    
+    
     
     
     
@@ -3543,15 +4001,16 @@
       
         
         
-        
-        
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_20" >
         
+          
           <label class="md-nav__link" for="__nav_6_20" id="__nav_6_20_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
     adxl355
+    
   </span>
   
 
@@ -3570,12 +4029,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/adxl355_adxl355/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     adxl355
+    
   </span>
   
 
@@ -3587,6 +4049,7 @@
             
               
                 
+  
   
   
   
@@ -3594,8 +4057,10 @@
       <a href="../devices/adxl355_iio_sysfs_trigger/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     iio_sysfs_trigger
+    
   </span>
   
 
@@ -3610,12 +4075,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/adxl355_adxl355-dev0/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     adxl355-dev0
+    
   </span>
   
 
@@ -3638,6 +4106,9 @@
   
   
   
+  
+    
+    
     
     
     
@@ -3645,15 +4116,16 @@
       
         
         
-        
-        
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_21" >
         
+          
           <label class="md-nav__link" for="__nav_6_21" id="__nav_6_21_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
     ad9434
+    
   </span>
   
 
@@ -3672,12 +4144,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/ad9434_xadc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     xadc
+    
   </span>
   
 
@@ -3689,6 +4164,7 @@
             
               
                 
+  
   
   
   
@@ -3696,8 +4172,10 @@
       <a href="../devices/ad9434_ad9517-4/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad9517-4
+    
   </span>
   
 
@@ -3709,6 +4187,7 @@
             
               
                 
+  
   
   
   
@@ -3716,8 +4195,10 @@
       <a href="../devices/ad9434_axi-ad9434-core-lpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     axi-ad9434-core-lpc
+    
   </span>
   
 
@@ -3732,12 +4213,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/ad9434_iio_sysfs_trigger/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     iio_sysfs_trigger
+    
   </span>
   
 
@@ -3760,6 +4244,9 @@
   
   
   
+  
+    
+    
     
     
     
@@ -3767,15 +4254,16 @@
       
         
         
-        
-        
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_22" >
         
+          
           <label class="md-nav__link" for="__nav_6_22" id="__nav_6_22_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
     ad9265
+    
   </span>
   
 
@@ -3794,12 +4282,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/ad9265_xadc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     xadc
+    
   </span>
   
 
@@ -3811,6 +4302,7 @@
             
               
                 
+  
   
   
   
@@ -3818,8 +4310,10 @@
       <a href="../devices/ad9265_ad9517-4/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad9517-4
+    
   </span>
   
 
@@ -3831,6 +4325,7 @@
             
               
                 
+  
   
   
   
@@ -3838,8 +4333,10 @@
       <a href="../devices/ad9265_axi-ad9265-core-lpc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     axi-ad9265-core-lpc
+    
   </span>
   
 
@@ -3854,12 +4351,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/ad9265_iio_sysfs_trigger/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     iio_sysfs_trigger
+    
   </span>
   
 
@@ -3882,6 +4382,9 @@
   
   
   
+  
+    
+    
     
     
     
@@ -3889,15 +4392,16 @@
       
         
         
-        
-        
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_23" >
         
+          
           <label class="md-nav__link" for="__nav_6_23" id="__nav_6_23_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
     ad4020
+    
   </span>
   
 
@@ -3916,12 +4420,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/ad4020_ad4020/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ad4020
+    
   </span>
   
 
@@ -3933,6 +4440,7 @@
             
               
                 
+  
   
   
   
@@ -3940,8 +4448,10 @@
       <a href="../devices/ad4020_xadc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     xadc
+    
   </span>
   
 
@@ -3956,12 +4466,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/ad4020_iio_sysfs_trigger/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     iio_sysfs_trigger
+    
   </span>
   
 
@@ -3984,6 +4497,9 @@
   
   
   
+  
+    
+    
     
     
     
@@ -3991,15 +4507,16 @@
       
         
         
-        
-        
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_24" >
         
+          
           <label class="md-nav__link" for="__nav_6_24" id="__nav_6_24_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
     ltc2387
+    
   </span>
   
 
@@ -4018,12 +4535,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/ltc2387_ltc2387/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     ltc2387
+    
   </span>
   
 
@@ -4035,6 +4555,7 @@
             
               
                 
+  
   
   
   
@@ -4042,8 +4563,10 @@
       <a href="../devices/ltc2387_xadc/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     xadc
+    
   </span>
   
 
@@ -4058,12 +4581,15 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../devices/ltc2387_iio_sysfs_trigger/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     iio_sysfs_trigger
+    
   </span>
   
 
@@ -4120,6 +4646,7 @@
                 
                   
 
+
   
   
 
@@ -4141,11 +4668,19 @@
 
 
 
+
+
+
+
+
+
+
                 
               </article>
             </div>
           
           
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
       </main>
@@ -4173,10 +4708,13 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.dff1b7c8.min.js"></script>
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.50899def.min.js"></script>
       
         <script src="../js/extra.js"></script>
       
