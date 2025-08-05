@@ -1,7 +1,9 @@
-import pytest
-from pprint import pprint
-import iio
 import logging
+from pprint import pprint
+
+import iio
+
+import pytest
 
 # Set logging to debug level
 logging.basicConfig(level=logging.DEBUG)
@@ -38,7 +40,7 @@ def test_coverage_smoke():
     assert coverage_data["channel_coverage"] > 0
 
 
-@pytest.mark.iio_hardware(['pluto'])
+@pytest.mark.iio_hardware(["pluto"])
 def test_coverage_tracker(iio_uri):
     ctx = iio.Context(iio_uri)
 
@@ -47,5 +49,3 @@ def test_coverage_tracker(iio_uri):
 
     attr_name = "frequency"
     channel.attrs[attr_name].value = "2000000000"
-
-    

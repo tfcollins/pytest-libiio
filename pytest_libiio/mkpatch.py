@@ -1,7 +1,8 @@
-from pprint import pprint
 import logging
+from pprint import pprint
 
 import iio
+from iio import ChannelAttr as _Attr
 
 logger = logging.getLogger(__name__)
 
@@ -10,7 +11,7 @@ coverage_tracker = None
 
 def _check_tracker():
     """Check if the coverage tracker is set."""
-    global coverage_tracker
+    global coverage_tracker  # noqa: F824
     if coverage_tracker is None:
         raise RuntimeError(
             "Coverage tracker is not set. Call set_coverage_tracker first."
@@ -32,9 +33,11 @@ def _read(self):
 
     _check_tracker()
 
-    global coverage_tracker
+    global coverage_tracker  # noqa: F824
     if channel_name and device_name:
-        coverage_tracker.channel_attr_reads_writes[device_name][channel_name][attr_name] += 1
+        coverage_tracker.channel_attr_reads_writes[device_name][channel_name][
+            attr_name
+        ] += 1
     elif device_name:
         coverage_tracker.device_attr_reads_writes[device_name][attr_name] += 1
     else:
@@ -61,9 +64,11 @@ def _write(self, value):
 
     _check_tracker()
 
-    global coverage_tracker
+    global coverage_tracker  # noqa: F824
     if channel_name and device_name:
-        coverage_tracker.channel_attr_reads_writes[device_name][channel_name][attr_name] += 1
+        coverage_tracker.channel_attr_reads_writes[device_name][channel_name][
+            attr_name
+        ] += 1
     elif device_name:
         coverage_tracker.device_attr_reads_writes[device_name][attr_name] += 1
     else:
@@ -74,8 +79,6 @@ def _write(self, value):
     )
     self._write_org(value)
 
-
-from iio import ChannelAttr as _Attr
 
 _Attr._read_org = _Attr._read
 _Attr._read = _read
