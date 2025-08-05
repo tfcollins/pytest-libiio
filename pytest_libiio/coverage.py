@@ -1,7 +1,9 @@
 """Coverage tracking for iio attributes using monkey patching."""
+
 import json
-import iio
 from pprint import pprint
+
+import iio
 
 
 class MultiContextTracker:
@@ -72,10 +74,10 @@ class CoverageTracker:
             "device_attr_reads_writes": self.device_attr_reads_writes,
             "channel_attr_reads_writes": self.channel_attr_reads_writes,
         }
-    
+
     def export_to_file(self, filename=None):
         """Export coverage data to a file.
-        
+
         Args:
             filename (str, optional): Name of the file to save the coverage data.
             If None, defaults to "{self.name}_coverage.json".
@@ -134,7 +136,9 @@ class CoverageTracker:
                 else 0
             ),
             "total_coverage": (
-                total_context_reads_writes + total_device_reads_writes + total_channel_reads_writes
+                total_context_reads_writes
+                + total_device_reads_writes
+                + total_channel_reads_writes
             )
             / (
                 total_context_attributes
