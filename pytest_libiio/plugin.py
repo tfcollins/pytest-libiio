@@ -11,9 +11,12 @@ import time
 from shutil import which
 
 import iio
+
 import pytest
 import pytest_libiio.meta as meta
 import yaml
+
+from .coverage import MultiContextTracker
 
 IIO_EMU_BASE_PORT = 30431
 
@@ -212,6 +215,13 @@ def pytest_addoption(parser):
         default="telm_data",
         help="Folder to store telemetry data",
     )
+    group.addoption(
+        "--iio-coverage",
+        action="store_true",
+        dest="iio_coverage",
+        default=False,
+        help="Enable iio attribute coverage tracking",
+    )
 
 
 def pytest_configure(config):
@@ -252,6 +262,33 @@ def pytest_collection_modifyitems(config, items):
                     )
 
 
+# initialize coverage tracker
+def pytest_sessionstart(session):
+    class Object(object):
+        coverage_tracker = None
+
+    if session.config.getoption("--iio-coverage"):
+        session.config.pytest_libiio = Object()
+        session.config.pytest_libiio.coverage_tracker = MultiContextTracker()
+        session.config.pytest_libiio.coverage_tracker.do_monkey_patch()
+        print("IIO coverage tracking enabled")
+    else:
+        session.config.pytest_libiio = Object()
+        session.config.pytest_libiio.coverage_tracker = None
+
+
+def pytest_sessionfinish(session, exitstatus):
+    """Called after all tests have run."""
+    if session.config.getoption("--iio-coverage"):
+        if tracker := session.config.pytest_libiio.coverage_tracker:
+            for name in tracker.trackers:
+                tracker.trackers[name].print_context_map()
+                tracker.trackers[name].export_to_file()
+            print("IIO coverage tracking finished")
+        else:
+            print("No IIO coverage tracking was set up")
+
+
 @pytest.fixture(scope="function")
 def iio_uri(request, _iio_emu_func):
     """URI fixture which provides a string of the target uri of the
@@ -262,6 +299,13 @@ def iio_uri(request, _iio_emu_func):
     """
     if isinstance(_iio_emu_func, dict):
         get_telemetry_data(request, _iio_emu_func, before_test=True)
+        # Start coverage tracking
+        if request.config.getoption("--iio-coverage"):
+            c_name = _iio_emu_func["hw"]
+            tracker = request.config.pytest_libiio.coverage_tracker
+            if c_name not in tracker.trackers:
+                tracker.add_instance(c_name, _iio_emu_func["uri"])
+            tracker.set_tracker(c_name)
         yield _iio_emu_func["uri"]
         get_telemetry_data(request, _iio_emu_func, before_test=False)
     else:
