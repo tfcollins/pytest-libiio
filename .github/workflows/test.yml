@@ -68,7 +68,8 @@ jobs:
           bash ./.github/scripts/install_libiio.sh
           sudo apt-get install -y python3-pip python3-setuptools
           pip install -r requirements_dev.txt
-          python setup.py sdist
+          pip install build twine
+          python -m build --sdist --wheel
 
       - name: Publish package
         uses: pypa/gh-action-pypi-publish@master
