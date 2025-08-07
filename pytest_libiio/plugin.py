@@ -229,6 +229,20 @@ def pytest_addoption(parser):
         default=False,
         help="Enable iio attribute coverage tracking for debug properties",
     )
+    group.addoption(
+        "--iio-coverage-folder",
+        action="store",
+        dest="iio_coverage_folder",
+        default="iio_coverage_results",
+        help="Folder to store iio coverage data. Defaults to 'iio_coverage_results'.",
+    )
+    group.addoption(
+        "--iio-coverage-print-results",
+        action="store_true",
+        dest="iio_coverage_print_results",
+        default=False,
+        help="Print iio coverage results to console after tests",
+    )
 
 
 def pytest_configure(config):
@@ -292,7 +306,12 @@ def pytest_sessionfinish(session, exitstatus):
     if session.config.getoption("--iio-coverage"):
         if tracker := session.config.pytest_libiio.coverage_tracker:
             for name in tracker.trackers:
-                tracker.trackers[name].print_context_map()
+                if session.config.getoption("--iio-coverage-print-results"):
+                    tracker.trackers[name].print_context_map()
+                if session.config.getoption("--iio-coverage-folder"):
+                    tracker.trackers[name].results_folder = session.config.getoption(
+                        "--iio-coverage-folder"
+                    )
                 tracker.trackers[name].export_to_file()
             print("IIO coverage tracking finished")
         else:
