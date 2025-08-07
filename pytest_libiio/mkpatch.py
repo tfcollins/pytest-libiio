@@ -100,4 +100,14 @@ def reset_coverage_tracker():
     coverage_tracker = None
 
 
+def unset_monkey_patch():
+    """Unset the monkey patch for iio attributes."""
+    global coverage_tracker
+    if coverage_tracker:
+        coverage_tracker = None
+
+    _Attr._read = _Attr._read_org
+    _Attr._write = _Attr._write_org
+
+
 logger.debug("iio.py monkey patch applied")

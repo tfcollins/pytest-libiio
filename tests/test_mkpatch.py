@@ -12,6 +12,15 @@ logging.basicConfig(level=logging.DEBUG)
 sleep = 1
 
 
+@pytest.fixture(scope="module", autouse=True)
+def reset_monkey_patch():
+    """Reset the monkey patch before and after tests."""
+    from pytest_libiio import mkpatch
+
+    mkpatch.unset_monkey_patch()
+    yield
+
+
 @pytest.mark.skip(reason="This is a smoke test manual testing with hardware")
 def test_coverage_smoke():
     """Test to ensure coverage tracking is working."""
