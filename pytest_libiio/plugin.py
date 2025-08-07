@@ -222,6 +222,13 @@ def pytest_addoption(parser):
         default=False,
         help="Enable iio attribute coverage tracking",
     )
+    group.addoption(
+        "--iio-coverage-debug-props",
+        action="store_true",
+        dest="iio_coverage_debug_props",
+        default=False,
+        help="Enable iio attribute coverage tracking for debug properties",
+    )
 
 
 def pytest_configure(config):
@@ -271,6 +278,9 @@ def pytest_sessionstart(session):
         session.config.pytest_libiio = Object()
         session.config.pytest_libiio.coverage_tracker = MultiContextTracker()
         session.config.pytest_libiio.coverage_tracker.do_monkey_patch()
+        session.config.pytest_libiio.coverage_tracker.track_debug_props = bool(
+            session.config.getoption("--iio-coverage-debug-props")
+        )
         print("IIO coverage tracking enabled")
     else:
         session.config.pytest_libiio = Object()
