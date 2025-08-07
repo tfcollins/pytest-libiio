@@ -127,10 +127,11 @@ class CoverageTracker:
             len(device) for device in self.device_attr_reads_writes.values()
         )
         if self.track_debug_props:
-            total_debug_reads_writes = sum(
-                self.debug_attr_reads_writes[dev].values()
-                for dev in self.debug_attr_reads_writes
-            )
+            total_debug_reads_writes = 0
+            for dev in self.debug_attr_reads_writes:
+                for attr in self.debug_attr_reads_writes[dev]:
+                    total_debug_reads_writes += self.debug_attr_reads_writes[dev][attr]
+
             total_device_attributes = sum(
                 len(self.debug_attr_reads_writes[dev])
                 for dev in self.debug_attr_reads_writes

@@ -77,6 +77,21 @@ class iio_emu_manager:
         self.p = None
 
 
+def gen_markdown_table(systems_data, filename):
+    """Generate a markdown table from the coverage data."""
+    table = "| System | Attribute Type | Coverage |\n"
+    table += "|--------|----------------|----------|\n"
+    print(systems_data)
+    for system in systems_data:
+        for attr in systems_data[system]:
+            print(f"Processing {system} - {attr}")
+            if "coverage" in attr:
+                coverage = systems_data[system][attr]
+                table += f"| {system}  | {attr} | {coverage} |\n"
+    with open(filename, "w") as f:
+        f.write(table)
+
+
 def get_hw_map(request):
     if request.config.getoption("--adi-hw-map"):
         path = pathlib.Path(__file__).parent.absolute()
@@ -305,6 +320,7 @@ def pytest_sessionfinish(session, exitstatus):
     """Called after all tests have run."""
     if session.config.getoption("--iio-coverage"):
         if tracker := session.config.pytest_libiio.coverage_tracker:
+            all_systems_tracked = {}
             for name in tracker.trackers:
                 if session.config.getoption("--iio-coverage-print-results"):
                     tracker.trackers[name].print_context_map()
@@ -313,6 +329,17 @@ def pytest_sessionfinish(session, exitstatus):
                         "--iio-coverage-folder"
                     )
                 tracker.trackers[name].export_to_file()
+                all_systems_tracked[name] = tracker.trackers[name].calculate_coverage()
+            # Export to markdown report
+            full_path = os.path.join(
+                os.getcwd(),
+                session.config.getoption(
+                    "--iio-coverage-folder", "iio_coverage_results"
+                ),
+                "iio_coverage_report.md",
+            )
+            print(f"Generating markdown report at {full_path}")
+            gen_markdown_table(all_systems_tracked, full_path)
             print("IIO coverage tracking finished")
         else:
             print("No IIO coverage tracking was set up")
