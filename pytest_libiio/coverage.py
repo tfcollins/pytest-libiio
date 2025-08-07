@@ -1,6 +1,7 @@
 """Coverage tracking for iio attributes using monkey patching."""
 
 import json
+import os
 from pprint import pprint
 
 import iio
@@ -12,6 +13,7 @@ class MultiContextTracker:
     def __init__(self):
         self.trackers = {}
         self.track_debug_props = False
+        self.results_folder = "iio_coverage_results"
 
     def do_monkey_patch(self):
         """Apply monkey patch to iio.py."""
@@ -42,7 +44,7 @@ class MultiContextTracker:
 class CoverageTracker:
     """Class to track coverage of iio attributes."""
 
-    def __init__(self, name, uri, track_debug_props=False):
+    def __init__(self, name, uri, track_debug_props=False, results_folder=None):
         self.name = name
         self.context_attr_reads_writes = {}
         self.device_attr_reads_writes = {}
@@ -51,6 +53,7 @@ class CoverageTracker:
         self.uri = uri
         self.ctx = iio.Context(uri)
         self.track_debug_props = track_debug_props
+        self.results_folder = results_folder or "iio_coverage_results"
         self.build_context_map()
 
     def reset(self):
@@ -72,8 +75,6 @@ class CoverageTracker:
                 self.debug_attr_reads_writes[dev.name] = {
                     attr: 0 for attr in dev.debug_attrs
                 }
-        print("Context map built with attributes:")
-        pprint(self.channel_attr_reads_writes)
 
     def export(self):
         """Export raw coverage data."""
@@ -95,8 +96,12 @@ class CoverageTracker:
         """
         if filename is None:
             filename = f"{self.name}_coverage.json"
+        if not os.path.exists(self.results_folder):
+            os.makedirs(self.results_folder)
+        filename = os.path.join(os.getcwd(), self.results_folder, filename)
         with open(filename, "w") as f:
             json.dump(self.export(), f, indent=4)
+        print(f"Coverage data exported to {filename}")
 
     def print_context_map(self):
         print("Context Attribute Reads:")
