@@ -11,6 +11,7 @@ class MultiContextTracker:
 
     def __init__(self):
         self.trackers = {}
+        self.track_debug_props = False
 
     def do_monkey_patch(self):
         """Apply monkey patch to iio.py."""
@@ -27,7 +28,7 @@ class MultiContextTracker:
             uri (str): URI of the context.
         """
         if uri not in self.trackers:
-            self.trackers[name] = CoverageTracker(name, uri)
+            self.trackers[name] = CoverageTracker(name, uri, self.track_debug_props)
 
     def set_tracker(self, name):
         from .mkpatch import set_coverage_tracker
@@ -41,13 +42,15 @@ class MultiContextTracker:
 class CoverageTracker:
     """Class to track coverage of iio attributes."""
 
-    def __init__(self, name, uri):
+    def __init__(self, name, uri, track_debug_props=False):
         self.name = name
         self.context_attr_reads_writes = {}
         self.device_attr_reads_writes = {}
         self.channel_attr_reads_writes = {}
+        self.debug_attr_reads_writes = {}
         self.uri = uri
         self.ctx = iio.Context(uri)
+        self.track_debug_props = track_debug_props
         self.build_context_map()
 
     def reset(self):
@@ -55,6 +58,7 @@ class CoverageTracker:
         self.context_attr_reads_writes.clear()
         self.device_attr_reads_writes.clear()
         self.channel_attr_reads_writes.clear()
+        self.debug_attr_reads_writes.clear()
 
     def build_context_map(self):
         """Build a map of context attributes."""
@@ -64,16 +68,23 @@ class CoverageTracker:
             self.channel_attr_reads_writes[dev.name] = {
                 chn.id: {attr: 0 for attr in chn.attrs} for chn in dev.channels
             }
+            if self.track_debug_props:
+                self.debug_attr_reads_writes[dev.name] = {
+                    attr: 0 for attr in dev.debug_attrs
+                }
         print("Context map built with attributes:")
         pprint(self.channel_attr_reads_writes)
 
     def export(self):
         """Export raw coverage data."""
-        return {
+        out = {
             "context_attr_reads_writes": self.context_attr_reads_writes,
             "device_attr_reads_writes": self.device_attr_reads_writes,
             "channel_attr_reads_writes": self.channel_attr_reads_writes,
         }
+        if self.track_debug_props:
+            out["debug_attr_reads_writes"] = self.debug_attr_reads_writes
+        return out
 
     def export_to_file(self, filename=None):
         """Export coverage data to a file.
@@ -94,6 +105,9 @@ class CoverageTracker:
         pprint(self.device_attr_reads_writes)
         print("Channel Attribute Reads:")
         pprint(self.channel_attr_reads_writes)
+        if self.track_debug_props:
+            print("Debug Attribute Reads:")
+            pprint(self.debug_attr_reads_writes)
 
     def calculate_coverage(self):
         """Calculate coverage based on attribute reads and writes."""
@@ -107,6 +121,15 @@ class CoverageTracker:
         total_device_attributes = sum(
             len(device) for device in self.device_attr_reads_writes.values()
         )
+        if self.track_debug_props:
+            total_debug_reads_writes = sum(
+                self.debug_attr_reads_writes[dev].values()
+                for dev in self.debug_attr_reads_writes
+            )
+            total_device_attributes = sum(
+                len(self.debug_attr_reads_writes[dev])
+                for dev in self.debug_attr_reads_writes
+            )
 
         total_channel_reads_writes = 0
         total_channel_attributes = 0
@@ -119,7 +142,7 @@ class CoverageTracker:
                     self.channel_attr_reads_writes[device][channel]
                 )
 
-        return {
+        out = {
             "context_coverage": (
                 total_context_reads_writes / total_context_attributes
                 if total_context_attributes
@@ -152,3 +175,13 @@ class CoverageTracker:
             "total_device_attributes": total_device_attributes,
             "total_channel_attributes": total_channel_attributes,
         }
+
+        if self.track_debug_props:
+            out["total_debug_reads_writes"] = total_debug_reads_writes
+            out["total_debug_attributes"] = total_device_attributes
+            out["debug_coverage"] = (
+                total_debug_reads_writes / total_device_attributes
+                if total_device_attributes
+                else 0
+            )
+        return out
