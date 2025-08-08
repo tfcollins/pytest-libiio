@@ -68,9 +68,16 @@ class CoverageTracker:
         self.context_attr_reads_writes = {attr: 0 for attr in self.ctx.attrs}
         for dev in self.ctx.devices:
             self.device_attr_reads_writes[dev.name] = {attr: 0 for attr in dev.attrs}
-            self.channel_attr_reads_writes[dev.name] = {
-                chn.id: {attr: 0 for attr in chn.attrs} for chn in dev.channels
-            }
+            for inout in ["input", "output"]:
+                for channel in dev.channels:
+                    inout = "output" if channel.output else "input"
+                    if dev.name not in self.channel_attr_reads_writes:
+                        self.channel_attr_reads_writes[dev.name] = {}
+                    if inout not in self.channel_attr_reads_writes[dev.name]:
+                        self.channel_attr_reads_writes[dev.name][inout] = {}
+                    self.channel_attr_reads_writes[dev.name][inout][channel.id] = {
+                        attr: 0 for attr in channel.attrs
+                    }
             if self.track_debug_props:
                 self.debug_attr_reads_writes[dev.name] = {
                     attr: 0 for attr in dev.debug_attrs
@@ -140,13 +147,16 @@ class CoverageTracker:
         total_channel_reads_writes = 0
         total_channel_attributes = 0
         for device in self.channel_attr_reads_writes:
-            for channel in self.channel_attr_reads_writes[device]:
-                total_channel_reads_writes += sum(
-                    self.channel_attr_reads_writes[device][channel].values()
-                )
-                total_channel_attributes += len(
-                    self.channel_attr_reads_writes[device][channel]
-                )
+            for inout in ["input", "output"]:
+                if inout not in self.channel_attr_reads_writes[device]:
+                    continue
+                for channel in self.channel_attr_reads_writes[device][inout]:
+                    total_channel_reads_writes += sum(
+                        self.channel_attr_reads_writes[device][inout][channel].values()
+                    )
+                    total_channel_attributes += len(
+                        self.channel_attr_reads_writes[device][inout][channel]
+                    )
 
         out = {
             "context_coverage": (

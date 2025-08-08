@@ -24,6 +24,7 @@ def _read(self):
     if self._channel:
         name_raw = iio._c_get_id(self._channel)
         channel_name = name_raw.decode("ascii") if name_raw is not None else None
+        output = iio._c_is_output(self._channel)
         dev_ptr = iio._channel_get_device(self._channel)
         name_raw = iio._d_get_name(dev_ptr)
         device_name = name_raw.decode("ascii") if name_raw is not None else None
@@ -35,7 +36,8 @@ def _read(self):
 
     global coverage_tracker  # noqa: F824
     if channel_name and device_name:
-        coverage_tracker.channel_attr_reads_writes[device_name][channel_name][
+        inout = "output" if output else "input"
+        coverage_tracker.channel_attr_reads_writes[device_name][inout][channel_name][
             attr_name
         ] += 1
     elif device_name:
@@ -55,6 +57,7 @@ def _write(self, value):
     if self._channel:
         name_raw = iio._c_get_id(self._channel)
         channel_name = name_raw.decode("ascii") if name_raw is not None else None
+        output = iio._c_is_output(self._channel)
         dev_ptr = iio._channel_get_device(self._channel)
         name_raw = iio._d_get_name(dev_ptr)
         device_name = name_raw.decode("ascii") if name_raw is not None else None
@@ -66,7 +69,8 @@ def _write(self, value):
 
     global coverage_tracker  # noqa: F824
     if channel_name and device_name:
-        coverage_tracker.channel_attr_reads_writes[device_name][channel_name][
+        inout = "output" if output else "input"
+        coverage_tracker.channel_attr_reads_writes[device_name][inout][channel_name][
             attr_name
         ] += 1
     elif device_name:
