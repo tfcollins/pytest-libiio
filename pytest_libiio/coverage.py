@@ -78,7 +78,8 @@ class CoverageTracker:
 
     def build_context_map(self):
         """Build a map of context attributes."""
-        self.context_attr_reads_writes = {attr: 0 for attr in self.ctx.attrs}
+        if self.track_context_props:
+            self.context_attr_reads_writes = {attr: 0 for attr in self.ctx.attrs}
         for dev in self.ctx.devices:
             self.device_attr_reads_writes[dev.name] = {attr: 0 for attr in dev.attrs}
             for inout in ["input", "output"]:
@@ -142,6 +143,9 @@ class CoverageTracker:
         if self.track_context_props:
             total_context_reads_writes = sum(self.context_attr_reads_writes.values())
             total_context_attributes = len(self.context_attr_reads_writes)
+        else:
+            total_context_reads_writes = 0
+            total_context_attributes = 0
 
         total_device_reads_writes = sum(
             sum(device.values()) for device in self.device_attr_reads_writes.values()
@@ -149,13 +153,15 @@ class CoverageTracker:
         total_device_attributes = sum(
             len(device) for device in self.device_attr_reads_writes.values()
         )
+
+        total_debug_reads_writes = 0
+        total_debug_attributes = 0
         if self.track_debug_props:
-            total_debug_reads_writes = 0
             for dev in self.debug_attr_reads_writes:
                 for attr in self.debug_attr_reads_writes[dev]:
                     total_debug_reads_writes += self.debug_attr_reads_writes[dev][attr]
 
-            total_device_attributes = sum(
+            total_debug_attributes = sum(
                 len(self.debug_attr_reads_writes[dev])
                 for dev in self.debug_attr_reads_writes
             )
@@ -187,11 +193,13 @@ class CoverageTracker:
             ),
             "total_coverage": (
                 total_context_reads_writes
+                + total_debug_reads_writes
                 + total_device_reads_writes
                 + total_channel_reads_writes
             )
             / (
                 total_context_attributes
+                + total_debug_attributes
                 + total_device_attributes
                 + total_channel_attributes
             ),
