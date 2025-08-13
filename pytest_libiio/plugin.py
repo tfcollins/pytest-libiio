@@ -79,7 +79,8 @@ class iio_emu_manager:
 
 def gen_markdown_table(systems_data, filename):
     """Generate a markdown table from the coverage data."""
-    table = "| System | Attribute Type | Coverage |\n"
+    table = "# IIO Coverage Report\n\n"
+    table += "| System | Attribute Type | Coverage (%) |\n"
     table += "|--------|----------------|----------|\n"
     print(systems_data)
     for system in systems_data:
