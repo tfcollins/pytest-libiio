@@ -260,7 +260,7 @@ def pytest_addoption(parser):
         help="Print iio coverage results to console after tests",
     )
 
-
+@pytest.hookimpl(trylast=True) # Need to make sure labgrid is loaded first
 def pytest_configure(config):
     # register an additional marker
     config.addinivalue_line(
@@ -275,6 +275,8 @@ def pytest_configure(config):
             level=logging.INFO,
         )
 
+    # Check if labgrid plugin is loaded
+    config.labgrid_support_enabled = config.pluginmanager.hasplugin("labgrid")
 
 def pytest_collection_modifyitems(config, items):
     # Get list of contexts and mapped hardware
@@ -411,10 +413,62 @@ def context_desc(request, _contexts):
             return desc
     pytest.skip("No required hardware found")
 
+def get_lg_context(env, markers):
+    lg_targets = env.config.get_targets().keys()
+    if markers:
+        # See if markers match any target hw names
+        for marker in markers.args[0]:
+            if hasattr(env, "labgrid_iio_contexts"):
+                if marker in env.labgrid_iio_contexts:
+                    return env.labgrid_iio_contexts[marker]
+            for lg_target in lg_targets:
+                t = env.config.get_targets().get(lg_target)
+                # Match iio_hardware field
+                if t.get("iio_hardware", None) == marker:
+                    target = env.get_target(lg_target)
+                    # Start the target
+                    strategy = target.get_driver("Strategy")
+                    strategy.transition("shell")
+                    # Get IIO context info
+                    try:
+                        ip_addresses = target["ADIShellDriver"].get_ip_addresses()
+                        ip = ip_addresses[0]
+                    except Exception as e:
+                        shell = target.get_driver("ADIShellDriver")
+                        out, err, ecode = shell.run("ip -4 addr show scope global | grep inet | awk '{print $2}' | cut -d'/' -f1")
+                        if isinstance(out, list):
+                            out = "\n".join(out)
+                        if ecode != 0:
+                            raise e
+                        ip = out.strip().split('\n')[0]
+
+                    uri = f"ip:{ip}"
+                    try:
+                        ctx = iio.Context(uri)
+                    except:
+                        pytest.skip(f"URI {uri} has no reachable context")
+                    devices = [device.name for device in ctx.devices]
+                    lg_context = {
+                        "uri": uri,
+                        "type": ctx.attrs.get("uri", "labgrid"),
+                        "devices": devices,
+                        "hw": marker,
+                    }
+                    # Cache context in strategy for later use
+                    if not hasattr(env, "labgrid_iio_contexts"):
+                        env.labgrid_iio_contexts = {}
+                    env.labgrid_iio_contexts[marker] = lg_context
+                    return lg_context
+    return None
 
 @pytest.fixture(scope="function")
-def _iio_emu_func(request, _contexts, _iio_emu):
+def _iio_emu_func(request, _contexts, _iio_emu, env):
     marker = request.node.get_closest_marker("iio_hardware")
+    if request.config.labgrid_support_enabled:
+        lg_context = get_lg_context(env, marker)
+        if lg_context:
+            return lg_context
+        
     if _contexts:
         if not marker or not marker.args:
             return _contexts[0]
