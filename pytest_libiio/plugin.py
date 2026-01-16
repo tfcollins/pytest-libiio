@@ -11,7 +11,6 @@ import time
 from shutil import which
 
 import iio
-
 import pytest
 import pytest_libiio.meta as meta
 import yaml
