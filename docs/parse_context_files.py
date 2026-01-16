@@ -2,7 +2,6 @@ import os
 from glob import glob
 
 import iio
-
 import yaml
 from jinja2 import Environment, FileSystemLoader
 
