@@ -3,7 +3,6 @@
 import logging
 
 import iio
-
 import pytest
 
 # Create file logger

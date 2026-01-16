@@ -210,8 +210,8 @@ class CoverageTracker:
         }
 
         if self.track_context_props:
-            out["total_context_reads_writes"] = total_context_reads_writes,
-            out["total_context_attributes"] = total_context_attributes,
+            out["total_context_reads_writes"] = (total_context_reads_writes,)
+            out["total_context_attributes"] = (total_context_attributes,)
             out["context_coverage"] = (
                 total_context_reads_writes / total_context_attributes
                 if total_context_attributes
