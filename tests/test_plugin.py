@@ -46,8 +46,9 @@ def mock_scan_contexts():
 
 # Tests
 def test_check_version():
-    from pytest_libiio import __version__ as v
     import re
+
+    from pytest_libiio import __version__ as v
 
     matched = re.match("[0-9].[0-9].[0-9]", v)
     assert bool(matched)

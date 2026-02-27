@@ -7,7 +7,6 @@ from io import BytesIO, StringIO
 from pprint import pprint
 
 import iio
-
 import lxml.etree as etree
 
 try:
@@ -155,7 +154,7 @@ def get_emulated_context(ctx: iio.Context):
     context_fields = list(set(context_fields))
     template = "<!ATTLIST context "
     context_fields_list = [
-        f"{field.replace(',','').replace(' ','_')} CDATA #IMPLIED "
+        f"{field.replace(',', '').replace(' ', '_')} CDATA #IMPLIED "
         for field in context_fields
     ]
     full = template + "".join(context_fields_list)

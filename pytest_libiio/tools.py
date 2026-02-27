@@ -1,6 +1,6 @@
+import click
 import iio
 
-import click
 import pytest_libiio.meta as meta
 
 
