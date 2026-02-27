@@ -1,7 +1,8 @@
-mkdocs
-mkdocs-material
+sphinx
+furo
+myst-parser
+sphinx-click
 jinja2
 pyyaml
 pylibiio
-mkdocs-click
 paramiko
