@@ -3,7 +3,6 @@ import time
 from pprint import pprint
 
 import iio
-
 import pytest
 
 # Set logging to debug level

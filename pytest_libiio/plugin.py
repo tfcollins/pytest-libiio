@@ -11,10 +11,10 @@ import time
 from shutil import which
 
 import iio
-
 import pytest
-import pytest_libiio.meta as meta
 import yaml
+
+import pytest_libiio.meta as meta
 
 from .coverage import MultiContextTracker
 
@@ -513,7 +513,7 @@ def _contexts(request, _iio_emu):
         try:
             ctx = iio.Context(uri)
         except TimeoutError:
-            raise Exception("URI {} has no reachable context".format(uri))
+            raise Exception("URI {} has no reachable context".format(uri)) from None
 
         devices = []
         for dev in ctx.devices:
