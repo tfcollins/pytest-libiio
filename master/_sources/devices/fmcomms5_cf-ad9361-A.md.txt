@@ -1,0 +1,218 @@
+# cf-ad9361-A
+
+
+
+## Channel Attributes
+
+### voltage0
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| calibbias | in_voltage0_calibbias |  |
+| calibphase | in_voltage0_calibphase |  |
+| calibscale | in_voltage0_calibscale |  |
+| samples_pps | in_voltage_samples_pps |  |
+| sampling_frequency | in_voltage_sampling_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c cf-ad9361-A voltage0 calibbias
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("cf-ad9361-A")
+chan = dev.find_channel("voltage0")
+rval = chan.attrs["calibbias"].value
+```
+
+***
+### voltage1
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| calibbias | in_voltage1_calibbias |  |
+| calibphase | in_voltage1_calibphase |  |
+| calibscale | in_voltage1_calibscale |  |
+| samples_pps | in_voltage_samples_pps |  |
+| sampling_frequency | in_voltage_sampling_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c cf-ad9361-A voltage1 calibbias
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("cf-ad9361-A")
+chan = dev.find_channel("voltage1")
+rval = chan.attrs["calibbias"].value
+```
+
+***
+### voltage2
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| calibbias | in_voltage2_calibbias |  |
+| calibphase | in_voltage2_calibphase |  |
+| calibscale | in_voltage2_calibscale |  |
+| samples_pps | in_voltage_samples_pps |  |
+| sampling_frequency | in_voltage_sampling_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c cf-ad9361-A voltage2 calibbias
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("cf-ad9361-A")
+chan = dev.find_channel("voltage2")
+rval = chan.attrs["calibbias"].value
+```
+
+***
+### voltage3
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| calibbias | in_voltage3_calibbias |  |
+| calibphase | in_voltage3_calibphase |  |
+| calibscale | in_voltage3_calibscale |  |
+| samples_pps | in_voltage_samples_pps |  |
+| sampling_frequency | in_voltage_sampling_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c cf-ad9361-A voltage3 calibbias
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("cf-ad9361-A")
+chan = dev.find_channel("voltage3")
+rval = chan.attrs["calibbias"].value
+```
+
+***
+### voltage4
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| samples_pps | in_voltage_samples_pps |  |
+| sampling_frequency | in_voltage_sampling_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c cf-ad9361-A voltage4 samples_pps
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("cf-ad9361-A")
+chan = dev.find_channel("voltage4")
+rval = chan.attrs["samples_pps"].value
+```
+
+***
+### voltage5
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| samples_pps | in_voltage_samples_pps |  |
+| sampling_frequency | in_voltage_sampling_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c cf-ad9361-A voltage5 samples_pps
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("cf-ad9361-A")
+chan = dev.find_channel("voltage5")
+rval = chan.attrs["samples_pps"].value
+```
+
+***
+### voltage6
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| samples_pps | in_voltage_samples_pps |  |
+| sampling_frequency | in_voltage_sampling_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c cf-ad9361-A voltage6 samples_pps
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("cf-ad9361-A")
+chan = dev.find_channel("voltage6")
+rval = chan.attrs["samples_pps"].value
+```
+
+***
+### voltage7
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| samples_pps | in_voltage_samples_pps |  |
+| sampling_frequency | in_voltage_sampling_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c cf-ad9361-A voltage7 samples_pps
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("cf-ad9361-A")
+chan = dev.find_channel("voltage7")
+rval = chan.attrs["samples_pps"].value
+```
+
+***

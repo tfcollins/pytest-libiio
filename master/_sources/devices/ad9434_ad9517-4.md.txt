@@ -1,0 +1,206 @@
+# ad9517-4
+
+
+
+## Channel Attributes
+
+### altvoltage0
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage0_frequency |  |
+| raw | out_altvoltage0_raw |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9517-4 altvoltage0 frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9517-4")
+chan = dev.find_channel("altvoltage0")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### altvoltage1
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage1_frequency |  |
+| raw | out_altvoltage1_raw |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9517-4 altvoltage1 frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9517-4")
+chan = dev.find_channel("altvoltage1")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### altvoltage2
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage2_frequency |  |
+| raw | out_altvoltage2_raw |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9517-4 altvoltage2 frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9517-4")
+chan = dev.find_channel("altvoltage2")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### altvoltage3
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage3_frequency |  |
+| raw | out_altvoltage3_raw |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9517-4 altvoltage3 frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9517-4")
+chan = dev.find_channel("altvoltage3")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### altvoltage4
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage4_frequency |  |
+| raw | out_altvoltage4_raw |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9517-4 altvoltage4 frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9517-4")
+chan = dev.find_channel("altvoltage4")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### altvoltage5
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage5_frequency |  |
+| raw | out_altvoltage5_raw |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9517-4 altvoltage5 frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9517-4")
+chan = dev.find_channel("altvoltage5")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### altvoltage6
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage6_frequency |  |
+| raw | out_altvoltage6_raw |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9517-4 altvoltage6 frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9517-4")
+chan = dev.find_channel("altvoltage6")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### altvoltage7
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage7_frequency |  |
+| raw | out_altvoltage7_raw |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9517-4 altvoltage7 frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9517-4")
+chan = dev.find_channel("altvoltage7")
+rval = chan.attrs["frequency"].value
+```
+
+***

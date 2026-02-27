@@ -1,0 +1,149 @@
+# max20751
+
+
+
+## Channel Attributes
+
+### curr1
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| input | curr1_input |  |
+| label | curr1_label |  |
+| max | curr1_max |  |
+| max_alarm | curr1_max_alarm |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c max20751 curr1 input
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("max20751")
+chan = dev.find_channel("curr1")
+rval = chan.attrs["input"].value
+```
+
+***
+### in1
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| alarm | in1_alarm |  |
+| crit | in1_crit |  |
+| input | in1_input |  |
+| label | in1_label |  |
+| lcrit | in1_lcrit |  |
+| max | in1_max |  |
+| min | in1_min |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c max20751 in1 alarm
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("max20751")
+chan = dev.find_channel("in1")
+rval = chan.attrs["alarm"].value
+```
+
+***
+### in2
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| input | in2_input |  |
+| label | in2_label |  |
+| lcrit | in2_lcrit |  |
+| lcrit_alarm | in2_lcrit_alarm |  |
+| max | in2_max |  |
+| max_alarm | in2_max_alarm |  |
+| min | in2_min |  |
+| min_alarm | in2_min_alarm |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c max20751 in2 input
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("max20751")
+chan = dev.find_channel("in2")
+rval = chan.attrs["input"].value
+```
+
+***
+### power1
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| input | power1_input |  |
+| label | power1_label |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c max20751 power1 input
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("max20751")
+chan = dev.find_channel("power1")
+rval = chan.attrs["input"].value
+```
+
+***
+### temp1
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| crit | temp1_crit |  |
+| crit_alarm | temp1_crit_alarm |  |
+| input | temp1_input |  |
+| max | temp1_max |  |
+| max_alarm | temp1_max_alarm |  |
+| min | temp1_min |  |
+| min_alarm | temp1_min_alarm |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c max20751 temp1 crit
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("max20751")
+chan = dev.find_channel("temp1")
+rval = chan.attrs["crit"].value
+```
+
+***

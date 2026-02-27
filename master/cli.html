@@ -3,10 +3,10 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Fixtures" href="fixtures.html">
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Command Line Tools" href="cli_tools.html"><link rel="prev" title="Emulation" href="emulation.html">
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2025.12.19 -->
-        <title>pytest-libiio documentation</title>
+        <title>pytest Command Line Parameters - pytest-libiio documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -161,7 +161,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="#"><div class="brand">pytest-libiio  documentation</div></a>
+      <a href="index.html"><div class="brand">pytest-libiio  documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
       
-      <div class="sidebar-sticky"><a class="sidebar-brand" href="#">
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   <span class="sidebar-brand-text">pytest-libiio  documentation</span>
   
@@ -190,10 +190,10 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <ul>
+  <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="fixtures.html">Fixtures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="emulation.html">Emulation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cli.html">pytest Command Line Parameters</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">pytest Command Line Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli_tools.html">Command Line Tools</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="devices/index.html">Emulated Driver Contexts</a><input aria-label="Toggle navigation of Emulated Driver Contexts" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="devices/ad4020_ad4020.html">ad4020</a></li>
@@ -354,7 +354,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="_sources/index.md.txt" title="View this page">
+  <a class="muted-link" href="_sources/cli.md.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -372,65 +372,86 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="pytest-libiio">
-<h1>pytest-libiio<a class="headerlink" href="#pytest-libiio" title="Link to this heading">¶</a></h1>
-<p>pytest-libiio is a pytest plugin to manage interfacing with libiio contexts. This plugin is
-handy for leveraging the (new) zeroconf features of libiio to find, filter, and map libiio
-contexts to tests. It was created for
-<a class="reference external" href="https://pypi.org/project/pyadi-iio/">pyadi-iio</a> testing but is used in other applications
-that need an organized way to handle libiio contexts without hardcoding URIs or lots of
-boilerplate code.</p>
-<section id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading">¶</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/analogdevicesinc/libiio">libiio</a> and <a class="reference external" href="https://pypi.org/project/pylibiio/">pylibiio</a></p>
-<ul>
-<li><p>Install with <a class="reference external" href="https://github.com/analogdevicesinc/libiio/blob/master/README_BUILD.md">zeroconf support</a> to enable scanning</p></li>
-</ul>
-</li>
-<li><p>pytest</p></li>
-<li><p>pyyaml</p></li>
-</ul>
-<p>Optional for emulation support:</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/analogdevicesinc/libtinyiiod">libtinyiiod</a> and <a class="reference external" href="https://github.com/analogdevicesinc/iio-emu">iio-emu</a></p></li>
-<li><p><a class="reference external" href="https://pypi.org/project/paramiko/">paramiko</a> for additional metadata collection. Use the optional <em>ssh</em> argument when installing the package to get this automatically.</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pytest-libiio[ssh]</span></code></p></li>
-</ul>
-</li>
-</ul>
-</section>
-<section id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h2>
-<p>You can install <strong>pytest-libiio</strong> via <strong>pip</strong> from <strong>PyPI</strong>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pytest-libiio
+          <section id="pytest-command-line-parameters">
+<h1>pytest Command Line Parameters<a class="headerlink" href="#pytest-command-line-parameters" title="Link to this heading">¶</a></h1>
+<p>The pytest-libiio plugin extends the pytest cli with a few options to help with debugging tests, accessing specific hardware, and adding hardware maps between drivers and tests.</p>
+<section id="available-cli-options">
+<h2>Available CLI options<a class="headerlink" href="#available-cli-options" title="Link to this heading">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pytest -h
+...
+libiio:
+  --uri=URI             Set libiio URI to utilize
+  --scan-verbose        Print info of found contexts when
+                        scanning
+  --adi-hw-map          Use ADI hardware map to determine
+                        hardware names based on context drivers
+  --custom-hw-map=HW_MAP
+                        Path to custom hardware map for drivers
+  --hw=HW_SELECT        Define hardware name of provided URI.
+                        Will ignore scan information and
+                        requires input URI argument
+  --skip-scan           Skip avahi scan. This is usually used
+                        within CI.
+  --emu                 Enable context emulation with iio-emu.
+  --emu-xml=EMU_XML     Path or name of built-in XML for back-
+                        end context
+  --emu-xml-dir=EMU_XML_DIR
+                        Path to folder with XML files for back-
+                        end context
+  --telm                Enable hardware telemetry collection on
+                        each test
+  --telm-data-folder=TELM_DATA_FOLDER
+                        Folder to store telemetry data
+...
 </pre></div>
 </div>
 </section>
-<section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h2>
-<p>Please see the <a class="reference internal" href="cli.html"><span class="std std-doc">CLI</span></a> and <a class="reference internal" href="fixtures.html"><span class="std std-doc">fixtures</span></a> sections for information about using
-the plugin.</p>
+<section id="uri">
+<h2>URI<a class="headerlink" href="#uri" title="Link to this heading">¶</a></h2>
+<p>When <strong>–uri=&lt;input uri&gt;</strong> is used, scanning is skipped and that URI is checked for a context. The URI can be in any form supported by the installed version of libiio:</p>
+<ul class="simple">
+<li><p><strong>Network:</strong> ip:192.168.2.1</p></li>
+<li><p><strong>USB:</strong> usb:1.2.3 or usb:</p></li>
+<li><p><strong>Local:</strong> local:</p></li>
+<li><p><strong>Serial:</strong> serial:/dev/ttyUSB0,115200</p></li>
+</ul>
+<p>When a URI is not supplied a scan is performed and all found contexts are used to determine which tests to enable.</p>
 </section>
-<section id="contributing">
-<h2>Contributing<a class="headerlink" href="#contributing" title="Link to this heading">¶</a></h2>
-<p>Contributions are very welcome. Tests can be run with <strong>tox</strong>, please ensure
-the coverage at least stays the same before you submit a pull request.</p>
-</section>
-<section id="license">
-<h2>License<a class="headerlink" href="#license" title="Link to this heading">¶</a></h2>
-<p>Distributed under the terms of the
-<a class="reference external" href="https://github.com/tfcollins/pytest-libiio/blob/master/LICENSE">BSD-3 license</a>,
-<strong>pytest-libiio</strong> is free and open source software.</p>
-</section>
-<section id="issues">
-<h2>Issues<a class="headerlink" href="#issues" title="Link to this heading">¶</a></h2>
-<p>If you encounter any problems, please
-<a class="reference external" href="https://github.com/tfcollins/pytest-libiio/issues">file an issue</a> along with a detailed
-description.</p>
-<div class="toctree-wrapper compound">
+<section id="hardware-maps">
+<h2>Hardware maps<a class="headerlink" href="#hardware-maps" title="Link to this heading">¶</a></h2>
+<p>pytest-libiio allows tests to be filtered based on markers with specific hardware maps. These maps are essentially a list of IIO device names and attributes which make up or identify a specific platform or board. These are defined in a yaml file which will have contents similar to the one below:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">pluto</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adm1177</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ad9361-phy</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cf-ad9361-lpc,2</span>
+<span class="nt">pluto_rev_c</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ad9361-phy</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cf-ad9361-lpc,2</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ctx_attr</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hw_model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Analog Devices PlutoSDR Rev.C</span>
+<span class="nt">fmcomms5</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ad9361-phy</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ad9361-phy-b</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cf-ad9361-lpc,8</span>
+</pre></div>
 </div>
+<p>These are arranged in the form:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;platform name&gt;</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;driver 1&gt;,&lt;number of channels of driver 1 (optional)&gt;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;driver 2&gt;,&lt;number of channels of driver 2 (optional)&gt;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ctx_attr</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">&lt;context attribute name&gt;</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;value&gt;</span>
+<span class="nn">...</span>
+</pre></div>
+</div>
+<p>When the decorator <strong>&#64;pytest.mark.iio_hardware(hardware)</strong> is used, any tests using this decorator will be used where <strong>hardware</strong> is a string or list of strings that match anything in the hardware map. Otherwise the test is filtered. Note that contexts must be found with matching hardware for the test to not be filtered as well.</p>
+<p>By default, all devices are labeled as unknown if no map exists or they are not found in the current map. If the decorator is not used, the test will not be filtered based on these criteria.</p>
+<p>When the flag <strong>–adi-hw-map</strong> is used the provided map from <a class="reference external" href="https://github.com/tfcollins/pytest-libiio/blob/master/pytest_libiio/resources/adi_hardware_map.yml">plugin itself is used</a>. Alternatively, a custom map can be used by supply the path with <strong>–custom-hw-map=&lt;path to yaml&gt;</strong>.</p>
+<p>If the flag <strong>–hw=<hardware name></strong> is used the hardware map is ignored and the provided URI is defined as that hardware. This is handy if you do not want to create a custom map or are debugging. Note that <strong>–hw</strong> is only applicable when <strong>–uri</strong> is also used.</p>
+</section>
+<section id="telemetry">
+<h2>Telemetry<a class="headerlink" href="#telemetry" title="Link to this heading">¶</a></h2>
+<p>When the flag <strong>–telm</strong> is used, hardware telemetry is collected on each test. This enables a fixture that is autouse, meaning it is automatically used by all tests. The telemetry is collected in a folder defined by <strong>–telm-data-folder=&lt;path&gt;</strong>. The folder is created if it does not exist. Telemetry data is stored in individual files that are specific to a URI. So after a test suite run there should one file for every hardware platform under test. The test files are generated at pickle files and contain different metadata. This is primarily just IIO based information. However, if the optional SSH dependency is installed, additional metadata is collected from the target hardware if it uses an IP context.</p>
 </section>
 </section>
 
@@ -439,16 +460,26 @@ description.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="fixtures.html">
+          <a class="next-page" href="cli_tools.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Fixtures</div>
+                <div class="title">Command Line Tools</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          
+          <a class="prev-page" href="emulation.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Emulation</div>
+                
+              </div>
+            </a>
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -479,13 +510,11 @@ description.</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">pytest-libiio</a><ul>
-<li><a class="reference internal" href="#requirements">Requirements</a></li>
-<li><a class="reference internal" href="#installation">Installation</a></li>
-<li><a class="reference internal" href="#usage">Usage</a></li>
-<li><a class="reference internal" href="#contributing">Contributing</a></li>
-<li><a class="reference internal" href="#license">License</a></li>
-<li><a class="reference internal" href="#issues">Issues</a></li>
+<li><a class="reference internal" href="#">pytest Command Line Parameters</a><ul>
+<li><a class="reference internal" href="#available-cli-options">Available CLI options</a></li>
+<li><a class="reference internal" href="#uri">URI</a></li>
+<li><a class="reference internal" href="#hardware-maps">Hardware maps</a></li>
+<li><a class="reference internal" href="#telemetry">Telemetry</a></li>
 </ul>
 </li>
 </ul>

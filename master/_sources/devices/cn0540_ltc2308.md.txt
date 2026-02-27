@@ -1,0 +1,215 @@
+# ltc2308
+
+
+## Device Attributes
+
+| Name | Default value |
+| ---- | ------------- |
+| sleep_mode |  |
+| sleep_mode_available |  |
+
+
+
+
+## Channel Attributes
+
+### voltage0
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| raw | in_voltage0_raw |  |
+| scale | in_voltage_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ltc2308 voltage0 raw
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ltc2308")
+chan = dev.find_channel("voltage0")
+rval = chan.attrs["raw"].value
+```
+
+***
+### voltage1
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| raw | in_voltage1_raw |  |
+| scale | in_voltage_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ltc2308 voltage1 raw
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ltc2308")
+chan = dev.find_channel("voltage1")
+rval = chan.attrs["raw"].value
+```
+
+***
+### voltage2
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| raw | in_voltage2_raw |  |
+| scale | in_voltage_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ltc2308 voltage2 raw
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ltc2308")
+chan = dev.find_channel("voltage2")
+rval = chan.attrs["raw"].value
+```
+
+***
+### voltage3
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| raw | in_voltage3_raw |  |
+| scale | in_voltage_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ltc2308 voltage3 raw
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ltc2308")
+chan = dev.find_channel("voltage3")
+rval = chan.attrs["raw"].value
+```
+
+***
+### voltage4
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| raw | in_voltage4_raw |  |
+| scale | in_voltage_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ltc2308 voltage4 raw
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ltc2308")
+chan = dev.find_channel("voltage4")
+rval = chan.attrs["raw"].value
+```
+
+***
+### voltage5
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| raw | in_voltage5_raw |  |
+| scale | in_voltage_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ltc2308 voltage5 raw
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ltc2308")
+chan = dev.find_channel("voltage5")
+rval = chan.attrs["raw"].value
+```
+
+***
+### voltage6
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| raw | in_voltage6_raw |  |
+| scale | in_voltage_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ltc2308 voltage6 raw
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ltc2308")
+chan = dev.find_channel("voltage6")
+rval = chan.attrs["raw"].value
+```
+
+***
+### voltage7
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| raw | in_voltage7_raw |  |
+| scale | in_voltage_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ltc2308 voltage7 raw
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ltc2308")
+chan = dev.find_channel("voltage7")
+rval = chan.attrs["raw"].value
+```
+
+***

@@ -1,0 +1,52 @@
+# axi-ad9371-rx-obs-hpc
+
+
+
+## Channel Attributes
+
+### voltage0_i
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9371-rx-obs-hpc voltage0_i 
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9371-rx-obs-hpc")
+chan = dev.find_channel("voltage0_i")
+rval = chan.attrs[""].value
+```
+
+***
+### voltage0_q
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9371-rx-obs-hpc voltage0_q 
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9371-rx-obs-hpc")
+chan = dev.find_channel("voltage0_q")
+rval = chan.attrs[""].value
+```
+
+***

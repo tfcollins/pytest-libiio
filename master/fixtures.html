@@ -3,10 +3,10 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Fixtures" href="fixtures.html">
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Emulation" href="emulation.html"><link rel="prev" title="pytest-libiio" href="index.html">
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2025.12.19 -->
-        <title>pytest-libiio documentation</title>
+        <title>Fixtures - pytest-libiio documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -161,7 +161,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="#"><div class="brand">pytest-libiio  documentation</div></a>
+      <a href="index.html"><div class="brand">pytest-libiio  documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
       
-      <div class="sidebar-sticky"><a class="sidebar-brand" href="#">
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   <span class="sidebar-brand-text">pytest-libiio  documentation</span>
   
@@ -190,8 +190,8 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <ul>
-<li class="toctree-l1"><a class="reference internal" href="fixtures.html">Fixtures</a></li>
+  <ul class="current">
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Fixtures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="emulation.html">Emulation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">pytest Command Line Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli_tools.html">Command Line Tools</a></li>
@@ -354,7 +354,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="_sources/index.md.txt" title="View this page">
+  <a class="muted-link" href="_sources/fixtures.md.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -372,64 +372,159 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="pytest-libiio">
-<h1>pytest-libiio<a class="headerlink" href="#pytest-libiio" title="Link to this heading">¶</a></h1>
-<p>pytest-libiio is a pytest plugin to manage interfacing with libiio contexts. This plugin is
-handy for leveraging the (new) zeroconf features of libiio to find, filter, and map libiio
-contexts to tests. It was created for
-<a class="reference external" href="https://pypi.org/project/pyadi-iio/">pyadi-iio</a> testing but is used in other applications
-that need an organized way to handle libiio contexts without hardcoding URIs or lots of
-boilerplate code.</p>
-<section id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading">¶</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/analogdevicesinc/libiio">libiio</a> and <a class="reference external" href="https://pypi.org/project/pylibiio/">pylibiio</a></p>
-<ul>
-<li><p>Install with <a class="reference external" href="https://github.com/analogdevicesinc/libiio/blob/master/README_BUILD.md">zeroconf support</a> to enable scanning</p></li>
-</ul>
-</li>
-<li><p>pytest</p></li>
-<li><p>pyyaml</p></li>
-</ul>
-<p>Optional for emulation support:</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/analogdevicesinc/libtinyiiod">libtinyiiod</a> and <a class="reference external" href="https://github.com/analogdevicesinc/iio-emu">iio-emu</a></p></li>
-<li><p><a class="reference external" href="https://pypi.org/project/paramiko/">paramiko</a> for additional metadata collection. Use the optional <em>ssh</em> argument when installing the package to get this automatically.</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pytest-libiio[ssh]</span></code></p></li>
-</ul>
-</li>
-</ul>
-</section>
-<section id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h2>
-<p>You can install <strong>pytest-libiio</strong> via <strong>pip</strong> from <strong>PyPI</strong>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pytest-libiio
+          <section id="fixtures">
+<h1>Fixtures<a class="headerlink" href="#fixtures" title="Link to this heading">¶</a></h1>
+<p>pytest-libiio provides three public fixtures for accessing libiio hardware contexts in tests.
+All fixtures integrate with the <code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.iio_hardware</span></code> marker to filter contexts by
+hardware name, and skip the test automatically when no matching hardware is found.</p>
+<hr class="docutils" />
+<section id="iio-uri">
+<h2><code class="docutils literal notranslate"><span class="pre">iio_uri</span></code><a class="headerlink" href="#iio-uri" title="Link to this heading">¶</a></h2>
+<p><strong>Scope:</strong> function</p>
+<p>Returns a URI string for the first matching hardware context. If no context matches the
+<code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.iio_hardware</span></code> marker (or no hardware is detected at all), the test is skipped.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">--iio-coverage</span></code> is passed, this fixture starts per-test attribute coverage tracking
+automatically. When <code class="docutils literal notranslate"><span class="pre">--telm</span></code> is passed, telemetry collection is started and stopped around
+the test body.</p>
+<p><strong>Returns:</strong> <code class="docutils literal notranslate"><span class="pre">str</span></code> — a libiio URI such as <code class="docutils literal notranslate"><span class="pre">&quot;ip:192.168.1.1&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;usb:1.2.3&quot;</span></code></p>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">iio</span>
+
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">iio_hardware</span><span class="p">([</span><span class="s2">&quot;adrv9361&quot;</span><span class="p">,</span> <span class="s2">&quot;pluto&quot;</span><span class="p">])</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_identify_device</span><span class="p">(</span><span class="n">iio_uri</span><span class="p">):</span>
+    <span class="n">ctx</span> <span class="o">=</span> <span class="n">iio</span><span class="o">.</span><span class="n">Context</span><span class="p">(</span><span class="n">iio_uri</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">ctx</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 </pre></div>
 </div>
 </section>
-<section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h2>
-<p>Please see the <a class="reference internal" href="cli.html"><span class="std std-doc">CLI</span></a> and <a class="reference internal" href="fixtures.html"><span class="std std-doc">fixtures</span></a> sections for information about using
-the plugin.</p>
+<hr class="docutils" />
+<section id="single-ctx-desc">
+<h2><code class="docutils literal notranslate"><span class="pre">single_ctx_desc</span></code><a class="headerlink" href="#single-ctx-desc" title="Link to this heading">¶</a></h2>
+<p><strong>Scope:</strong> function</p>
+<p>Returns a single context-description dict for the first matching hardware context.
+The test is skipped if no matching context is found.</p>
+<p><strong>Returns:</strong> <code class="docutils literal notranslate"><span class="pre">dict</span></code> — see <a class="reference internal" href="#context-dict-schema"><span class="xref myst">Context dict schema</span></a> below.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">iio</span>
+
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">iio_hardware</span><span class="p">(</span><span class="s2">&quot;adrv9361&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_device_drivers</span><span class="p">(</span><span class="n">single_ctx_desc</span><span class="p">):</span>
+    <span class="n">ctx</span> <span class="o">=</span> <span class="n">iio</span><span class="o">.</span><span class="n">Context</span><span class="p">(</span><span class="n">single_ctx_desc</span><span class="p">[</span><span class="s2">&quot;uri&quot;</span><span class="p">])</span>
+    <span class="k">assert</span> <span class="n">single_ctx_desc</span><span class="p">[</span><span class="s2">&quot;hw&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;adrv9361&quot;</span>
+    <span class="k">assert</span> <span class="s2">&quot;ad9361-phy&quot;</span> <span class="ow">in</span> <span class="n">single_ctx_desc</span><span class="p">[</span><span class="s2">&quot;devices&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
 </section>
-<section id="contributing">
-<h2>Contributing<a class="headerlink" href="#contributing" title="Link to this heading">¶</a></h2>
-<p>Contributions are very welcome. Tests can be run with <strong>tox</strong>, please ensure
-the coverage at least stays the same before you submit a pull request.</p>
+<hr class="docutils" />
+<section id="context-desc">
+<h2><code class="docutils literal notranslate"><span class="pre">context_desc</span></code><a class="headerlink" href="#context-desc" title="Link to this heading">¶</a></h2>
+<p><strong>Scope:</strong> function</p>
+<p>Returns a list of all matching context-description dicts. This is useful when multiple
+boards of the same type are connected simultaneously. The test is skipped if no matching
+contexts are found.</p>
+<p><strong>Returns:</strong> <code class="docutils literal notranslate"><span class="pre">list[dict]</span></code> — each element follows the <a class="reference internal" href="#context-dict-schema"><span class="xref myst">Context dict schema</span></a>.</p>
+<p><strong>Example — multi-board pattern:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">iio</span>
+
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">iio_hardware</span><span class="p">(</span><span class="s2">&quot;fmcomms2&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_all_boards</span><span class="p">(</span><span class="n">context_desc</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">ctx_d</span> <span class="ow">in</span> <span class="n">context_desc</span><span class="p">:</span>
+        <span class="n">ctx</span> <span class="o">=</span> <span class="n">iio</span><span class="o">.</span><span class="n">Context</span><span class="p">(</span><span class="n">ctx_d</span><span class="p">[</span><span class="s2">&quot;uri&quot;</span><span class="p">])</span>
+        <span class="n">phy</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">find_device</span><span class="p">(</span><span class="s2">&quot;ad9361-phy&quot;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">phy</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+</pre></div>
+</div>
 </section>
-<section id="license">
-<h2>License<a class="headerlink" href="#license" title="Link to this heading">¶</a></h2>
-<p>Distributed under the terms of the
-<a class="reference external" href="https://github.com/tfcollins/pytest-libiio/blob/master/LICENSE">BSD-3 license</a>,
-<strong>pytest-libiio</strong> is free and open source software.</p>
+<hr class="docutils" />
+<section id="pytest-mark-iio-hardware-marker">
+<h2><code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.iio_hardware</span></code> marker<a class="headerlink" href="#pytest-mark-iio-hardware-marker" title="Link to this heading">¶</a></h2>
+<p>The marker controls which hardware a test requires. It is optional — without it, <code class="docutils literal notranslate"><span class="pre">context_desc</span></code>
+returns all found contexts and no filtering is applied.</p>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Usage</p></th>
+<th class="head"><p>Behaviour</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.iio_hardware(&quot;pluto&quot;)</span></code></p></td>
+<td><p>Accept only contexts whose <code class="docutils literal notranslate"><span class="pre">hw</span></code> key equals <code class="docutils literal notranslate"><span class="pre">&quot;pluto&quot;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.iio_hardware([&quot;pluto&quot;,</span> <span class="pre">&quot;adrv9361&quot;])</span></code></p></td>
+<td><p>Accept contexts matching any name in the list</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.iio_hardware(&quot;pluto&quot;,</span> <span class="pre">True)</span></code></p></td>
+<td><p>Second arg <code class="docutils literal notranslate"><span class="pre">True</span></code> disables the test when running under <code class="docutils literal notranslate"><span class="pre">--emu</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Single hardware name:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">iio_hardware</span><span class="p">(</span><span class="s2">&quot;pluto&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_pluto_only</span><span class="p">(</span><span class="n">iio_uri</span><span class="p">):</span>
+    <span class="n">ctx</span> <span class="o">=</span> <span class="n">iio</span><span class="o">.</span><span class="n">Context</span><span class="p">(</span><span class="n">iio_uri</span><span class="p">)</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p><strong>Accept any of a list:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">iio_hardware</span><span class="p">([</span><span class="s2">&quot;pluto&quot;</span><span class="p">,</span> <span class="s2">&quot;adrv9361&quot;</span><span class="p">])</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_pluto_or_adrv</span><span class="p">(</span><span class="n">iio_uri</span><span class="p">):</span>
+    <span class="n">ctx</span> <span class="o">=</span> <span class="n">iio</span><span class="o">.</span><span class="n">Context</span><span class="p">(</span><span class="n">iio_uri</span><span class="p">)</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p><strong>Disable during emulation:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">iio_hardware</span><span class="p">(</span><span class="s2">&quot;pluto&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_real_hw_only</span><span class="p">(</span><span class="n">iio_uri</span><span class="p">):</span>
+    <span class="c1"># This test is skipped when --emu is used</span>
+    <span class="n">ctx</span> <span class="o">=</span> <span class="n">iio</span><span class="o">.</span><span class="n">Context</span><span class="p">(</span><span class="n">iio_uri</span><span class="p">)</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
 </section>
-<section id="issues">
-<h2>Issues<a class="headerlink" href="#issues" title="Link to this heading">¶</a></h2>
-<p>If you encounter any problems, please
-<a class="reference external" href="https://github.com/tfcollins/pytest-libiio/issues">file an issue</a> along with a detailed
-description.</p>
-<div class="toctree-wrapper compound">
+<hr class="docutils" />
+<section id="context-dict-schema">
+<h2>Context dict schema<a class="headerlink" href="#context-dict-schema" title="Link to this heading">¶</a></h2>
+<p>Each context-description dict returned by <code class="docutils literal notranslate"><span class="pre">context_desc</span></code> and <code class="docutils literal notranslate"><span class="pre">single_ctx_desc</span></code> contains:</p>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Example</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">uri</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;ip:192.168.1.1&quot;</span></code></p></td>
+<td><p>libiio connection URI</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">type</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;ip&quot;</span></code></p></td>
+<td><p>Context transport type</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">devices</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;ad9361-phy,cf-ad9361-lpc&quot;</span></code></p></td>
+<td><p>Comma-separated IIO driver names found in the context</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hw</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;adrv9361&quot;</span></code></p></td>
+<td><p>Hardware name resolved from the hardware map</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </section>
 </section>
@@ -439,16 +534,26 @@ description.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="fixtures.html">
+          <a class="next-page" href="emulation.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Fixtures</div>
+                <div class="title">Emulation</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          
+          <a class="prev-page" href="index.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Home</div>
+                
+              </div>
+            </a>
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -479,13 +584,12 @@ description.</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">pytest-libiio</a><ul>
-<li><a class="reference internal" href="#requirements">Requirements</a></li>
-<li><a class="reference internal" href="#installation">Installation</a></li>
-<li><a class="reference internal" href="#usage">Usage</a></li>
-<li><a class="reference internal" href="#contributing">Contributing</a></li>
-<li><a class="reference internal" href="#license">License</a></li>
-<li><a class="reference internal" href="#issues">Issues</a></li>
+<li><a class="reference internal" href="#">Fixtures</a><ul>
+<li><a class="reference internal" href="#iio-uri"><code class="docutils literal notranslate"><span class="pre">iio_uri</span></code></a></li>
+<li><a class="reference internal" href="#single-ctx-desc"><code class="docutils literal notranslate"><span class="pre">single_ctx_desc</span></code></a></li>
+<li><a class="reference internal" href="#context-desc"><code class="docutils literal notranslate"><span class="pre">context_desc</span></code></a></li>
+<li><a class="reference internal" href="#pytest-mark-iio-hardware-marker"><code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.iio_hardware</span></code> marker</a></li>
+<li><a class="reference internal" href="#context-dict-schema">Context dict schema</a></li>
 </ul>
 </li>
 </ul>

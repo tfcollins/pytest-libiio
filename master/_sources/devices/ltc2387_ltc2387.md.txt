@@ -1,0 +1,29 @@
+# ltc2387
+
+
+
+## Channel Attributes
+
+### voltage
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ltc2387 voltage 
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ltc2387")
+chan = dev.find_channel("voltage")
+rval = chan.attrs[""].value
+```
+
+***

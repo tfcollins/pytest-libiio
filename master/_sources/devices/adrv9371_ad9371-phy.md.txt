@@ -1,0 +1,455 @@
+# ad9371-phy
+
+
+## Device Attributes
+
+| Name | Default value |
+| ---- | ------------- |
+| calibrate |  |
+| calibrate_rx_qec_en |  |
+| calibrate_tx_lol_en |  |
+| calibrate_tx_lol_ext_en |  |
+| calibrate_tx_qec_en |  |
+| ensm_mode |  |
+| ensm_mode_available |  |
+| gain_table_config |  |
+| profile_config |  |
+
+
+
+
+## Channel Attributes
+
+### altvoltage0
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| RX_LO_frequency | out_altvoltage0_RX_LO_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9371-phy altvoltage0 RX_LO_frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9371-phy")
+chan = dev.find_channel("altvoltage0")
+rval = chan.attrs["RX_LO_frequency"].value
+```
+
+***
+### altvoltage1
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| TX_LO_frequency | out_altvoltage1_TX_LO_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9371-phy altvoltage1 TX_LO_frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9371-phy")
+chan = dev.find_channel("altvoltage1")
+rval = chan.attrs["TX_LO_frequency"].value
+```
+
+***
+### altvoltage2
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| RX_SN_LO_frequency | out_altvoltage2_RX_SN_LO_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9371-phy altvoltage2 RX_SN_LO_frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9371-phy")
+chan = dev.find_channel("altvoltage2")
+rval = chan.attrs["RX_SN_LO_frequency"].value
+```
+
+***
+### temp
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| raw | in_temp_raw |  |
+| scale | in_temp_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9371-phy temp raw
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9371-phy")
+chan = dev.find_channel("temp")
+rval = chan.attrs["raw"].value
+```
+
+***
+### voltage0
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| gain_control_mode | in_voltage0_gain_control_mode |  |
+| gain_control_mode_available | in_voltage_gain_control_mode_available |  |
+| hardwaregain | in_voltage0_hardwaregain |  |
+| quadrature_tracking_en | in_voltage0_quadrature_tracking_en |  |
+| rf_bandwidth | in_voltage0_rf_bandwidth |  |
+| rf_port_select_available | in_voltage_rf_port_select_available |  |
+| rssi | in_voltage0_rssi |  |
+| sampling_frequency | in_voltage0_sampling_frequency |  |
+| temp_comp_gain | in_voltage0_temp_comp_gain |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9371-phy voltage0 gain_control_mode
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9371-phy")
+chan = dev.find_channel("voltage0")
+rval = chan.attrs["gain_control_mode"].value
+```
+
+***
+### voltage1
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| hardwaregain | out_voltage1_hardwaregain |  |
+| lo_leakage_tracking_en | out_voltage1_lo_leakage_tracking_en |  |
+| quadrature_tracking_en | out_voltage1_quadrature_tracking_en |  |
+| rf_bandwidth | out_voltage1_rf_bandwidth |  |
+| sampling_frequency | out_voltage_sampling_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9371-phy voltage1 hardwaregain
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9371-phy")
+chan = dev.find_channel("voltage1")
+rval = chan.attrs["hardwaregain"].value
+```
+
+***
+### voltage10
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| offset | out_voltage10_offset |  |
+| raw | out_voltage10_raw |  |
+| sampling_frequency | out_voltage_sampling_frequency |  |
+| scale | out_voltage10_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9371-phy voltage10 offset
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9371-phy")
+chan = dev.find_channel("voltage10")
+rval = chan.attrs["offset"].value
+```
+
+***
+### voltage11
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| offset | out_voltage11_offset |  |
+| raw | out_voltage11_raw |  |
+| sampling_frequency | out_voltage_sampling_frequency |  |
+| scale | out_voltage11_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9371-phy voltage11 offset
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9371-phy")
+chan = dev.find_channel("voltage11")
+rval = chan.attrs["offset"].value
+```
+
+***
+### voltage2
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| gain_control_mode | in_voltage2_gain_control_mode |  |
+| gain_control_mode_available | in_voltage_gain_control_mode_available |  |
+| hardwaregain | in_voltage2_hardwaregain |  |
+| quadrature_tracking_en | in_voltage2_quadrature_tracking_en |  |
+| rf_bandwidth | in_voltage2_rf_bandwidth |  |
+| rf_port_select | in_voltage2_rf_port_select |  |
+| rf_port_select_available | in_voltage_rf_port_select_available |  |
+| rssi | in_voltage2_rssi |  |
+| sampling_frequency | in_voltage2_sampling_frequency |  |
+| temp_comp_gain | in_voltage2_temp_comp_gain |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9371-phy voltage2 gain_control_mode
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9371-phy")
+chan = dev.find_channel("voltage2")
+rval = chan.attrs["gain_control_mode"].value
+```
+
+***
+### voltage3
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| offset | out_voltage3_offset |  |
+| raw | out_voltage3_raw |  |
+| sampling_frequency | out_voltage_sampling_frequency |  |
+| scale | out_voltage3_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9371-phy voltage3 offset
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9371-phy")
+chan = dev.find_channel("voltage3")
+rval = chan.attrs["offset"].value
+```
+
+***
+### voltage4
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| offset | out_voltage4_offset |  |
+| raw | out_voltage4_raw |  |
+| sampling_frequency | out_voltage_sampling_frequency |  |
+| scale | out_voltage4_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9371-phy voltage4 offset
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9371-phy")
+chan = dev.find_channel("voltage4")
+rval = chan.attrs["offset"].value
+```
+
+***
+### voltage5
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| offset | out_voltage5_offset |  |
+| raw | out_voltage5_raw |  |
+| sampling_frequency | out_voltage_sampling_frequency |  |
+| scale | out_voltage5_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9371-phy voltage5 offset
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9371-phy")
+chan = dev.find_channel("voltage5")
+rval = chan.attrs["offset"].value
+```
+
+***
+### voltage6
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| offset | out_voltage6_offset |  |
+| raw | out_voltage6_raw |  |
+| sampling_frequency | out_voltage_sampling_frequency |  |
+| scale | out_voltage6_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9371-phy voltage6 offset
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9371-phy")
+chan = dev.find_channel("voltage6")
+rval = chan.attrs["offset"].value
+```
+
+***
+### voltage7
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| offset | out_voltage7_offset |  |
+| raw | out_voltage7_raw |  |
+| sampling_frequency | out_voltage_sampling_frequency |  |
+| scale | out_voltage7_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9371-phy voltage7 offset
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9371-phy")
+chan = dev.find_channel("voltage7")
+rval = chan.attrs["offset"].value
+```
+
+***
+### voltage8
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| offset | out_voltage8_offset |  |
+| raw | out_voltage8_raw |  |
+| sampling_frequency | out_voltage_sampling_frequency |  |
+| scale | out_voltage8_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9371-phy voltage8 offset
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9371-phy")
+chan = dev.find_channel("voltage8")
+rval = chan.attrs["offset"].value
+```
+
+***
+### voltage9
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| offset | out_voltage9_offset |  |
+| raw | out_voltage9_raw |  |
+| sampling_frequency | out_voltage_sampling_frequency |  |
+| scale | out_voltage9_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9371-phy voltage9 offset
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9371-phy")
+chan = dev.find_channel("voltage9")
+rval = chan.attrs["offset"].value
+```
+
+***

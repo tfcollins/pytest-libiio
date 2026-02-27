@@ -1,0 +1,223 @@
+# adrv9002-phy
+
+
+## Device Attributes
+
+| Name | Default value |
+| ---- | ------------- |
+| profile_config |  |
+| stream_config |  |
+
+
+
+
+## Channel Attributes
+
+### altvoltage0
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| RX1_LO_frequency | out_altvoltage0_RX1_LO_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c adrv9002-phy altvoltage0 RX1_LO_frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("adrv9002-phy")
+chan = dev.find_channel("altvoltage0")
+rval = chan.attrs["RX1_LO_frequency"].value
+```
+
+***
+### altvoltage1
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| RX2_LO_frequency | out_altvoltage1_RX2_LO_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c adrv9002-phy altvoltage1 RX2_LO_frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("adrv9002-phy")
+chan = dev.find_channel("altvoltage1")
+rval = chan.attrs["RX2_LO_frequency"].value
+```
+
+***
+### altvoltage2
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| TX1_LO_frequency | out_altvoltage2_TX1_LO_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c adrv9002-phy altvoltage2 TX1_LO_frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("adrv9002-phy")
+chan = dev.find_channel("altvoltage2")
+rval = chan.attrs["TX1_LO_frequency"].value
+```
+
+***
+### altvoltage3
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| TX2_LO_frequency | out_altvoltage3_TX2_LO_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c adrv9002-phy altvoltage3 TX2_LO_frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("adrv9002-phy")
+chan = dev.find_channel("altvoltage3")
+rval = chan.attrs["TX2_LO_frequency"].value
+```
+
+***
+### temp0
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| input | in_temp0_input |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c adrv9002-phy temp0 input
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("adrv9002-phy")
+chan = dev.find_channel("temp0")
+rval = chan.attrs["input"].value
+```
+
+***
+### voltage0
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| agc_tracking_en | in_voltage0_agc_tracking_en |  |
+| bbdc_rejection_en | in_voltage0_bbdc_rejection_en |  |
+| bbdc_rejection_tracking_en | in_voltage0_bbdc_rejection_tracking_en |  |
+| decimated_power | in_voltage0_decimated_power |  |
+| digital_gain_control_mode | in_voltage0_digital_gain_control_mode |  |
+| digital_gain_control_mode_available | in_voltage0_digital_gain_control_mode_available |  |
+| dynamic_adc_switch_en | in_voltage0_dynamic_adc_switch_en |  |
+| en | in_voltage0_en |  |
+| ensm_mode | in_voltage0_ensm_mode |  |
+| ensm_mode_available | in_voltage0_ensm_mode_available |  |
+| gain_control_mode | in_voltage0_gain_control_mode |  |
+| gain_control_mode_available | in_voltage0_gain_control_mode_available |  |
+| hardwaregain | in_voltage0_hardwaregain |  |
+| hd_tracking_en | in_voltage0_hd_tracking_en |  |
+| interface_gain | in_voltage0_interface_gain |  |
+| interface_gain_available | in_voltage0_interface_gain_available |  |
+| nco_frequency | in_voltage0_nco_frequency |  |
+| port_en_mode | in_voltage0_port_en_mode |  |
+| port_en_mode_available | in_voltage0_port_en_mode_available |  |
+| quadrature_fic_tracking_en | in_voltage0_quadrature_fic_tracking_en |  |
+| quadrature_w_poly_tracking_en | in_voltage0_quadrature_w_poly_tracking_en |  |
+| rf_bandwidth | in_voltage0_rf_bandwidth |  |
+| rfdc_tracking_en | in_voltage0_rfdc_tracking_en |  |
+| rssi | in_voltage0_rssi |  |
+| rssi_tracking_en | in_voltage0_rssi_tracking_en |  |
+| sampling_frequency | in_voltage0_sampling_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c adrv9002-phy voltage0 agc_tracking_en
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("adrv9002-phy")
+chan = dev.find_channel("voltage0")
+rval = chan.attrs["agc_tracking_en"].value
+```
+
+***
+### voltage1
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| atten_control_mode | out_voltage1_atten_control_mode |  |
+| atten_control_mode_available | out_voltage1_atten_control_mode_available |  |
+| close_loop_gain_tracking_en | out_voltage1_close_loop_gain_tracking_en |  |
+| en | out_voltage1_en |  |
+| ensm_mode | out_voltage1_ensm_mode |  |
+| ensm_mode_available | out_voltage1_ensm_mode_available |  |
+| hardwaregain | out_voltage1_hardwaregain |  |
+| lo_leakage_tracking_en | out_voltage1_lo_leakage_tracking_en |  |
+| loopback_delay_tracking_en | out_voltage1_loopback_delay_tracking_en |  |
+| nco_frequency | out_voltage1_nco_frequency |  |
+| pa_correction_tracking_en | out_voltage1_pa_correction_tracking_en |  |
+| port_en_mode | out_voltage1_port_en_mode |  |
+| port_en_mode_available | out_voltage1_port_en_mode_available |  |
+| quadrature_tracking_en | out_voltage1_quadrature_tracking_en |  |
+| rf_bandwidth | out_voltage1_rf_bandwidth |  |
+| sampling_frequency | out_voltage1_sampling_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c adrv9002-phy voltage1 atten_control_mode
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("adrv9002-phy")
+chan = dev.find_channel("voltage1")
+rval = chan.attrs["atten_control_mode"].value
+```
+
+***

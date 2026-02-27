@@ -1,0 +1,62 @@
+# axi-ad9680-hpc
+
+
+
+## Channel Attributes
+
+### voltage0
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| sampling_frequency | in_voltage_sampling_frequency |  |
+| scale | in_voltage_scale |  |
+| scale_available | in_voltage_scale_available |  |
+| test_mode | in_voltage0_test_mode |  |
+| test_mode_available | in_voltage_test_mode_available |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9680-hpc voltage0 sampling_frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9680-hpc")
+chan = dev.find_channel("voltage0")
+rval = chan.attrs["sampling_frequency"].value
+```
+
+***
+### voltage1
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| sampling_frequency | in_voltage_sampling_frequency |  |
+| scale | in_voltage_scale |  |
+| scale_available | in_voltage_scale_available |  |
+| test_mode | in_voltage1_test_mode |  |
+| test_mode_available | in_voltage_test_mode_available |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9680-hpc voltage1 sampling_frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9680-hpc")
+chan = dev.find_channel("voltage1")
+rval = chan.attrs["sampling_frequency"].value
+```
+
+***

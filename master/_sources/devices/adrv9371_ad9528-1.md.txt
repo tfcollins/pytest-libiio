@@ -1,0 +1,126 @@
+# ad9528-1
+
+
+## Device Attributes
+
+| Name | Default value |
+| ---- | ------------- |
+| pll1_feedback_clk_present |  |
+| pll1_locked |  |
+| pll1_reference_clk_a_present |  |
+| pll1_reference_clk_ab_missing |  |
+| pll1_reference_clk_b_present |  |
+| pll2_feedback_clk_present |  |
+| pll2_locked |  |
+| sync_dividers |  |
+| vcxo_clk_present |  |
+
+
+
+
+## Channel Attributes
+
+### FMC_CLK
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage1_FMC_CLK_frequency |  |
+| phase | out_altvoltage1_FMC_CLK_phase |  |
+| raw | out_altvoltage1_FMC_CLK_raw |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9528-1 FMC_CLK frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9528-1")
+chan = dev.find_channel("FMC_CLK")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### DEV_SYSREF
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage12_DEV_SYSREF_frequency |  |
+| phase | out_altvoltage12_DEV_SYSREF_phase |  |
+| raw | out_altvoltage12_DEV_SYSREF_raw |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9528-1 DEV_SYSREF frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9528-1")
+chan = dev.find_channel("DEV_SYSREF")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### DEV_CLK
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage13_DEV_CLK_frequency |  |
+| phase | out_altvoltage13_DEV_CLK_phase |  |
+| raw | out_altvoltage13_DEV_CLK_raw |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9528-1 DEV_CLK frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9528-1")
+chan = dev.find_channel("DEV_CLK")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### FMC_SYSREF
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage3_FMC_SYSREF_frequency |  |
+| phase | out_altvoltage3_FMC_SYSREF_phase |  |
+| raw | out_altvoltage3_FMC_SYSREF_raw |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9528-1 FMC_SYSREF frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9528-1")
+chan = dev.find_channel("FMC_SYSREF")
+rval = chan.attrs["frequency"].value
+```
+
+***

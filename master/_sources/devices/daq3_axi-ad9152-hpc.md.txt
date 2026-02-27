@@ -1,0 +1,195 @@
+# axi-ad9152-hpc
+
+
+
+## Channel Attributes
+
+### 1A
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage0_1A_frequency |  |
+| phase | out_altvoltage0_1A_phase |  |
+| raw | out_altvoltage0_1A_raw |  |
+| sampling_frequency | out_altvoltage_sampling_frequency |  |
+| scale | out_altvoltage0_1A_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9152-hpc 1A frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9152-hpc")
+chan = dev.find_channel("1A")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### 1B
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage1_1B_frequency |  |
+| phase | out_altvoltage1_1B_phase |  |
+| raw | out_altvoltage1_1B_raw |  |
+| sampling_frequency | out_altvoltage_sampling_frequency |  |
+| scale | out_altvoltage1_1B_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9152-hpc 1B frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9152-hpc")
+chan = dev.find_channel("1B")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### 2A
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage2_2A_frequency |  |
+| phase | out_altvoltage2_2A_phase |  |
+| raw | out_altvoltage2_2A_raw |  |
+| sampling_frequency | out_altvoltage_sampling_frequency |  |
+| scale | out_altvoltage2_2A_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9152-hpc 2A frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9152-hpc")
+chan = dev.find_channel("2A")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### 2B
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage3_2B_frequency |  |
+| phase | out_altvoltage3_2B_phase |  |
+| raw | out_altvoltage3_2B_raw |  |
+| sampling_frequency | out_altvoltage_sampling_frequency |  |
+| scale | out_altvoltage3_2B_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9152-hpc 2B frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9152-hpc")
+chan = dev.find_channel("2B")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### temp0
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| calibbias | in_temp0_calibbias |  |
+| input | in_temp0_input |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9152-hpc temp0 calibbias
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9152-hpc")
+chan = dev.find_channel("temp0")
+rval = chan.attrs["calibbias"].value
+```
+
+***
+### voltage0
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| calibphase | out_voltage0_calibphase |  |
+| calibscale | out_voltage0_calibscale |  |
+| sampling_frequency | out_voltage_sampling_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9152-hpc voltage0 calibphase
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9152-hpc")
+chan = dev.find_channel("voltage0")
+rval = chan.attrs["calibphase"].value
+```
+
+***
+### voltage1
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| calibphase | out_voltage1_calibphase |  |
+| calibscale | out_voltage1_calibscale |  |
+| sampling_frequency | out_voltage_sampling_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9152-hpc voltage1 calibphase
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9152-hpc")
+chan = dev.find_channel("voltage1")
+rval = chan.attrs["calibphase"].value
+```
+
+***

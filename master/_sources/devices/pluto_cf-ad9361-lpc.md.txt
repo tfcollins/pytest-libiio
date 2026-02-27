@@ -1,0 +1,64 @@
+# cf-ad9361-lpc
+
+
+
+## Channel Attributes
+
+### voltage0
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| calibbias | in_voltage0_calibbias |  |
+| calibphase | in_voltage0_calibphase |  |
+| calibscale | in_voltage0_calibscale |  |
+| samples_pps | in_voltage_samples_pps |  |
+| sampling_frequency | in_voltage_sampling_frequency |  |
+| sampling_frequency_available | in_voltage_sampling_frequency_available |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c cf-ad9361-lpc voltage0 calibbias
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("cf-ad9361-lpc")
+chan = dev.find_channel("voltage0")
+rval = chan.attrs["calibbias"].value
+```
+
+***
+### voltage1
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| calibbias | in_voltage1_calibbias |  |
+| calibphase | in_voltage1_calibphase |  |
+| calibscale | in_voltage1_calibscale |  |
+| samples_pps | in_voltage_samples_pps |  |
+| sampling_frequency | in_voltage_sampling_frequency |  |
+| sampling_frequency_available | in_voltage_sampling_frequency_available |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c cf-ad9361-lpc voltage1 calibbias
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("cf-ad9361-lpc")
+chan = dev.find_channel("voltage1")
+rval = chan.attrs["calibbias"].value
+```
+
+***

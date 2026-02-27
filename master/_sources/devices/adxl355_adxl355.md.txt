@@ -1,0 +1,145 @@
+# adxl355
+
+
+
+## Channel Attributes
+
+### accel_x
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| calibbias | in_accel_x_calibbias |  |
+| filter_high_pass_3db_frequency | in_accel_filter_high_pass_3db_frequency |  |
+| filter_high_pass_3db_frequency_available | in_accel_filter_high_pass_3db_frequency_available |  |
+| raw | in_accel_x_raw |  |
+| sampling_frequency | in_accel_sampling_frequency |  |
+| sampling_frequency_available | in_accel_sampling_frequency_available |  |
+| scale | in_accel_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c adxl355 accel_x calibbias
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("adxl355")
+chan = dev.find_channel("accel_x")
+rval = chan.attrs["calibbias"].value
+```
+
+***
+### accel_y
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| calibbias | in_accel_y_calibbias |  |
+| filter_high_pass_3db_frequency | in_accel_filter_high_pass_3db_frequency |  |
+| filter_high_pass_3db_frequency_available | in_accel_filter_high_pass_3db_frequency_available |  |
+| raw | in_accel_y_raw |  |
+| sampling_frequency | in_accel_sampling_frequency |  |
+| sampling_frequency_available | in_accel_sampling_frequency_available |  |
+| scale | in_accel_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c adxl355 accel_y calibbias
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("adxl355")
+chan = dev.find_channel("accel_y")
+rval = chan.attrs["calibbias"].value
+```
+
+***
+### accel_z
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| calibbias | in_accel_z_calibbias |  |
+| filter_high_pass_3db_frequency | in_accel_filter_high_pass_3db_frequency |  |
+| filter_high_pass_3db_frequency_available | in_accel_filter_high_pass_3db_frequency_available |  |
+| raw | in_accel_z_raw |  |
+| sampling_frequency | in_accel_sampling_frequency |  |
+| sampling_frequency_available | in_accel_sampling_frequency_available |  |
+| scale | in_accel_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c adxl355 accel_z calibbias
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("adxl355")
+chan = dev.find_channel("accel_z")
+rval = chan.attrs["calibbias"].value
+```
+
+***
+### temp
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| offset | in_temp_offset |  |
+| raw | in_temp_raw |  |
+| scale | in_temp_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c adxl355 temp offset
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("adxl355")
+chan = dev.find_channel("temp")
+rval = chan.attrs["offset"].value
+```
+
+***
+### timestamp
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c adxl355 timestamp 
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("adxl355")
+chan = dev.find_channel("timestamp")
+rval = chan.attrs[""].value
+```
+
+***

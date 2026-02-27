@@ -1,0 +1,102 @@
+# axi-adrv9002-rx-lpc
+
+
+
+## Channel Attributes
+
+### voltage0_i
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| sampling_frequency | in_voltage_sampling_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-adrv9002-rx-lpc voltage0_i sampling_frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-adrv9002-rx-lpc")
+chan = dev.find_channel("voltage0_i")
+rval = chan.attrs["sampling_frequency"].value
+```
+
+***
+### voltage0_q
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| sampling_frequency | in_voltage_sampling_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-adrv9002-rx-lpc voltage0_q sampling_frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-adrv9002-rx-lpc")
+chan = dev.find_channel("voltage0_q")
+rval = chan.attrs["sampling_frequency"].value
+```
+
+***
+### voltage1_i
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| sampling_frequency | in_voltage_sampling_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-adrv9002-rx-lpc voltage1_i sampling_frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-adrv9002-rx-lpc")
+chan = dev.find_channel("voltage1_i")
+rval = chan.attrs["sampling_frequency"].value
+```
+
+***
+### voltage1_q
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| sampling_frequency | in_voltage_sampling_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-adrv9002-rx-lpc voltage1_q sampling_frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-adrv9002-rx-lpc")
+chan = dev.find_channel("voltage1_q")
+rval = chan.attrs["sampling_frequency"].value
+```
+
+***

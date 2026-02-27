@@ -1,0 +1,58 @@
+# adf4355
+
+
+
+## Channel Attributes
+
+### altvoltage0
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage_frequency |  |
+| powerdown | out_altvoltage0_powerdown |  |
+| refin_frequency | out_altvoltage_refin_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c adf4355 altvoltage0 frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("adf4355")
+chan = dev.find_channel("altvoltage0")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### altvoltage1
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage_frequency |  |
+| powerdown | out_altvoltage1_powerdown |  |
+| refin_frequency | out_altvoltage_refin_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c adf4355 altvoltage1 frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("adf4355")
+chan = dev.find_channel("altvoltage1")
+rval = chan.attrs["frequency"].value
+```
+
+***

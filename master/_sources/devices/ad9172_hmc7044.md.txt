@@ -1,0 +1,120 @@
+# hmc7044
+
+
+## Device Attributes
+
+| Name | Default value |
+| ---- | ------------- |
+| mute_request |  |
+| reseed_request |  |
+| reset_dividers_request |  |
+| sleep_request |  |
+| sync_pin_mode |  |
+| sync_pin_mode_available |  |
+| sysref_request |  |
+
+
+
+
+## Channel Attributes
+
+### FPGA_CLK
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage12_FPGA_CLK_frequency |  |
+| phase | out_altvoltage12_FPGA_CLK_phase |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c hmc7044 FPGA_CLK frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("hmc7044")
+chan = dev.find_channel("FPGA_CLK")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### FPGA_SYSREF
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage13_FPGA_SYSREF_frequency |  |
+| phase | out_altvoltage13_FPGA_SYSREF_phase |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c hmc7044 FPGA_SYSREF frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("hmc7044")
+chan = dev.find_channel("FPGA_SYSREF")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### DAC_CLK
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage2_DAC_CLK_frequency |  |
+| phase | out_altvoltage2_DAC_CLK_phase |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c hmc7044 DAC_CLK frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("hmc7044")
+chan = dev.find_channel("DAC_CLK")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### DAC_SYSREF
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage3_DAC_SYSREF_frequency |  |
+| phase | out_altvoltage3_DAC_SYSREF_phase |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c hmc7044 DAC_SYSREF frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("hmc7044")
+chan = dev.find_channel("DAC_SYSREF")
+rval = chan.attrs["frequency"].value
+```
+
+***
