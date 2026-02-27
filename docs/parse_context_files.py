@@ -90,25 +90,23 @@ def render_template(dev_info, output_filename):
     return output_filename
 
 
-def render_template_mkdocs(devices):
-    template_filename = "mkdocs.tmpl"
-    output_filename = "mkdocs.yml"
+def render_devices_index(xmls):
+    """Write docs/devices/index.md with a MyST toctree for all generated device pages."""
+    lines = ["# Emulated Driver Contexts\n", "\n"]
+    lines.append("```{toctree}\n")
+    lines.append(":maxdepth: 1\n")
+    lines.append("\n")
+    for hw_name in sorted(xmls.keys()):
+        for dev_name, path in xmls[hw_name].items():
+            # path is like "devices/pluto_ad9361-phy.md" — strip the dir and extension
+            basename = os.path.splitext(os.path.basename(path))[0]
+            lines.append(f"{basename}\n")
+    lines.append("```\n")
 
-    # Import template
-    loc = os.path.dirname(__file__)
-    loc = os.path.join(loc, "_templates")
-    file_loader = FileSystemLoader(loc)
-    env = Environment(loader=file_loader)
-
-    loc = os.path.join(template_filename)
-    template = env.get_template(loc)
-    output = template.render(xmls=devices)
-
-    loc = os.path.dirname(__file__)
-    output_filename = os.path.join(loc, "..", output_filename)
-
-    with open(output_filename, "w") as f:
-        f.write(output)
+    output_path = os.path.join("devices", "index.md")
+    print("Rendering:", output_path)
+    with open(output_path, "w") as f:
+        f.writelines(lines)
 
 
 def parse_all_library_context(root=None):
@@ -132,7 +130,7 @@ def parse_all_library_context(root=None):
             devices[device_info["name"]] = path
 
         xmls[cfg] = devices
-    render_template_mkdocs(xmls)
+    render_devices_index(xmls)
 
 
 if __name__ == "__main__":
