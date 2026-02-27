@@ -1,6 +1,10 @@
+import pathlib
+
 import nox
 
 nox.options.default_venv_backend = "uv"
+
+HERE = pathlib.Path(__file__).parent
 
 PYTHON_VERSIONS = ["3.9", "3.10", "3.11", "3.12"]
 
@@ -26,7 +30,7 @@ def tests(session):
         "--cov=pytest_libiio",
         "--cov-append",
         "--cov-report=term-missing",
-        "--resource-dir=tests/resources",
+        f"--resource-dir={HERE / 'tests' / 'resources'}",
         *session.posargs,
     )
 
@@ -71,3 +75,30 @@ def docs(session):
     )
     session.install("-e", ".")
     session.run("sphinx-build", "-b", "html", "docs", "docs/_build/html")
+
+
+@nox.session(python=False, name="act")
+def act_session(session):
+    """Install act (if needed) and run the CI test workflow locally."""
+    import shutil
+
+    if not shutil.which("act"):
+        session.log("act not found — installing to ~/.local/bin")
+        session.run(
+            "bash", "-c",
+            "curl -s https://raw.githubusercontent.com/nektos/act/master/install.sh"
+            " | bash -s -- -b ~/.local/bin",
+            external=True,
+        )
+
+    # Run each Python version separately: Docker containers share network="host",
+    # so parallel matrix jobs would conflict on iio-emu's port 30431.
+    for python_version in PYTHON_VERSIONS:
+        session.run(
+            "act", "push",
+            "--job", "Test",
+            "--workflows", ".github/workflows/test.yml",
+            "--matrix", f"python-version:{python_version}",
+            external=True,
+            *session.posargs,
+        )

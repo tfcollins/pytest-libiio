@@ -1,6 +1,6 @@
 [build-system]
-requires = ["setuptools>=40.6.0"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 
 [project]
@@ -32,16 +32,6 @@ dependencies = [
     "pytest-xdist",
 ]
 
-[tool.setuptools.dynamic]
-version = { attr = "pytest_libiio.__version__" }
-readme = { file = "README.rst", content-type = "text/x-rst" }
-
-[tool.setuptools.packages.find]
-where = ["."]
-include = ["pytest_libiio*"]
-exclude = ["test*"]
-namespaces = true
-
 [project.optional-dependencies]
 ssh = ["paramiko"]
 
@@ -50,19 +40,46 @@ homepage = "https://tfcollins.github.io/pytest-libiio/"
 documentation = "https://tfcollins.github.io/pytest-libiio/"
 repository = "https://github.com/tfcollins/pytest-libiio"
 
-[tool.mypy]
-ignore_missing_imports = "true"
-
 [project.entry-points.pytest11]
 libiio = "pytest_libiio.plugin"
 
-[tool.setuptools.package-data]
-pytest_libiio = ["pytest_libiio/resources/*"]
-
 [project.scripts]
 gen_xml = "pytest_libiio.tools:gen_xml"
+
+[tool.hatch.version]
+path = "pytest_libiio/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["pytest_libiio"]
 
 [tool.pytest.ini_options]
 minversion = "6.0"
 addopts = "-vs"
 testpaths = ["tests"]
+
+[tool.mypy]
+ignore_missing_imports = "true"
+
+[tool.ruff]
+line-length = 88
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "C90", "I", "B", "T20"]
+ignore = ["E203", "E266", "E501", "F401", "F403"]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 18
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["F401", "F403"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.coverage.run]
+omit = [
+    "*/tests/*",
+    "*/pytest_libiio/__init__.py",
+]
