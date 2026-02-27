@@ -89,6 +89,7 @@ def gen_markdown_table(systems_data, filename):
             if "coverage" in attr:
                 coverage = systems_data[system][attr]
                 table += f"| {system}  | {attr} | {coverage} |\n"
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
     with open(filename, "w") as f:
         f.write(table)
 
