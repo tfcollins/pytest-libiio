@@ -1,0 +1,10 @@
+/* pytest-libiio documentation custom styles */
+
+/* Constrain the sidebar logo so the square 400x400 banana SVG
+   doesn't overwhelm the sidebar. */
+.sidebar-brand img {
+    max-width: 120px;
+    max-height: 100px;
+    width: auto;
+    height: auto;
+}

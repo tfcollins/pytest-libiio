@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="pytest-libiio logo">
+  <style>
+    .bg { fill: white; }
+    .banana-body { fill: #FDD835; }
+    .banana-tip { fill: #F9A825; }
+    .banana-shadow { fill: #F57F17; opacity: 0.35; }
+    .goggle-frame { fill: #7C3AED; }
+    .goggle-lens { fill: #A78BFA; opacity: 0.7; }
+    .goggle-shine { fill: white; opacity: 0.5; }
+    .check { fill: none; stroke: #10B981; stroke-width: 12; stroke-linecap: round; stroke-linejoin: round; }
+    .circuit { stroke: #7C3AED; stroke-width: 2; fill: none; opacity: 0.5; }
+    .circuit-dot { fill: #7C3AED; opacity: 0.6; }
+    .wave { stroke: #059669; stroke-width: 2.5; fill: none; opacity: 0.7; }
+    .label { font-family: monospace, monospace; font-size: 22px; font-weight: bold; }
+    .label-pytest { fill: #10B981; }
+    .label-libiio { fill: #7C3AED; }
+    .label-dash { fill: #FDD835; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #1F2937; }
+      .circuit { opacity: 0.35; }
+      .goggle-lens { opacity: 0.85; }
+    }
+  </style>
+
+  <!-- Background -->
+  <rect class="bg" width="400" height="400" rx="24"/>
+
+  <!-- Circuit traces (background decoration) -->
+  <g class="circuit">
+    <!-- Horizontal traces -->
+    <line x1="20" y1="60" x2="80" y2="60"/>
+    <line x1="20" y1="80" x2="60" y2="80"/>
+    <line x1="320" y1="60" x2="380" y2="60"/>
+    <line x1="340" y1="80" x2="380" y2="80"/>
+    <line x1="20" y1="340" x2="80" y2="340"/>
+    <line x1="20" y1="320" x2="60" y2="320"/>
+    <line x1="320" y1="340" x2="380" y2="340"/>
+    <line x1="340" y1="320" x2="380" y2="320"/>
+    <!-- Vertical traces -->
+    <line x1="60" y1="20" x2="60" y2="80"/>
+    <line x1="80" y1="20" x2="80" y2="60"/>
+    <line x1="340" y1="20" x2="340" y2="80"/>
+    <line x1="320" y1="20" x2="320" y2="60"/>
+    <line x1="60" y1="320" x2="60" y2="380"/>
+    <line x1="80" y1="340" x2="80" y2="380"/>
+    <line x1="340" y1="320" x2="340" y2="380"/>
+    <line x1="320" y1="340" x2="320" y2="380"/>
+  </g>
+  <!-- Circuit dots -->
+  <g class="circuit-dot">
+    <circle cx="60" cy="60" r="4"/>
+    <circle cx="80" cy="60" r="3"/>
+    <circle cx="60" cy="80" r="3"/>
+    <circle cx="340" cy="60" r="4"/>
+    <circle cx="320" cy="60" r="3"/>
+    <circle cx="340" cy="80" r="3"/>
+    <circle cx="60" cy="340" r="4"/>
+    <circle cx="80" cy="340" r="3"/>
+    <circle cx="60" cy="320" r="3"/>
+    <circle cx="340" cy="340" r="4"/>
+    <circle cx="320" cy="340" r="3"/>
+    <circle cx="340" cy="320" r="3"/>
+  </g>
+
+  <!-- Signal waveform decoration (libiio theme) -->
+  <polyline class="wave" points="28,200 48,200 56,170 64,230 72,200 92,200"/>
+  <polyline class="wave" points="308,200 328,200 336,170 344,230 352,200 372,200"/>
+
+  <!-- Banana body: curved arc shape -->
+  <g transform="translate(200,195)">
+    <!-- Main banana shape: arc pointing upper-right -->
+    <path class="banana-body" d="
+      M -20,-110
+      C -10,-115  30,-125  60,-100
+      C 90,-75   115,-30  110,20
+      C 105,60   85,95   60,110
+      C 45,120   25,120  10,105
+      C 0,95    -5,75   0,55
+      C 5,35    20,10   25,-20
+      C 30,-50   20,-80  -20,-110
+      Z
+    "/>
+    <!-- Shadow/shading stripe -->
+    <path class="banana-shadow" d="
+      M -10,-95
+      C 5,-100  35,-108  60,-85
+      C 85,-62  105,-22  100,22
+      C 95,55   78,85   55,100
+      C 45,107  30,108  18,98
+      C 10,120  25,120  40,112
+      C 68,95   90,62   96,22
+      C 105,-28  82,-72  50,-94
+      C 25,-110  -5,-105  -10,-95
+      Z
+    "/>
+    <!-- Banana tips -->
+    <path class="banana-tip" d="M -18,-108 C -28,-118 -35,-125 -30,-130 C -25,-135 -15,-128 -10,-118 Z"/>
+    <path class="banana-tip" d="M 50,112 C 48,125 42,135 36,132 C 30,129 32,118 38,108 Z"/>
+  </g>
+
+  <!-- Goggles (purple, centered on banana face area) -->
+  <g transform="translate(200,165)">
+    <!-- Goggle strap/bridge -->
+    <rect class="goggle-frame" x="-42" y="-12" width="84" height="10" rx="5"/>
+    <!-- Left lens -->
+    <ellipse class="goggle-frame" cx="-30" cy="-3" rx="22" ry="18"/>
+    <ellipse class="goggle-lens" cx="-30" cy="-3" rx="17" ry="13"/>
+    <ellipse class="goggle-shine" cx="-37" cy="-10" rx="5" ry="4"/>
+    <!-- Right lens -->
+    <ellipse class="goggle-frame" cx="30" cy="-3" rx="22" ry="18"/>
+    <ellipse class="goggle-lens" cx="30" cy="-3" rx="17" ry="13"/>
+    <ellipse class="goggle-shine" cx="23" cy="-10" rx="5" ry="4"/>
+  </g>
+
+  <!-- Green checkmarks (pytest theme) -->
+  <!-- Large checkmark right side -->
+  <polyline class="check" points="285,130 300,148 325,108"/>
+  <!-- Small checkmark lower left -->
+  <polyline class="check" points="75,265 86,278 104,250" style="stroke-width:9;"/>
+
+  <!-- Label: pytest-libiio -->
+  <text x="200" y="372" text-anchor="middle" class="label">
+    <tspan class="label-pytest">pytest</tspan><tspan class="label-dash">-</tspan><tspan class="label-libiio">libiio</tspan>
+  </text>
+</svg>

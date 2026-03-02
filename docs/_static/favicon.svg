@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="pytest-libiio favicon">
+  <style>
+    .bg { fill: white; }
+    .banana { fill: #FDD835; }
+    .banana-tip { fill: #F9A825; }
+    .banana-shad { fill: #F57F17; opacity: 0.3; }
+    .goggle { fill: #7C3AED; }
+    .goggle-lens { fill: #A78BFA; opacity: 0.75; }
+    .check { fill: none; stroke: #10B981; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #1F2937; }
+    }
+  </style>
+
+  <!-- Background rounded square -->
+  <rect class="bg" width="32" height="32" rx="6"/>
+
+  <!-- Banana body -->
+  <path class="banana" d="
+    M 10,5
+    C 11,4  16,3  20,6
+    C 24,9  27,14  26,20
+    C 25,24  22,27  19,27
+    C 17,27  15,26  14,24
+    C 13,22  13,19  14,16
+    C 15,13  16,10  14,7
+    Z
+  "/>
+  <path class="banana-shad" d="
+    M 11,6
+    C 13,5  17,4  21,7
+    C 25,10  27,15  26,21
+    C 25,24  22,27  19,27
+    C 17,27  16,25  15,23
+    C 17,25  20,25  22,22
+    C 24,19  24,14  21,10
+    C 18,6  13,5  11,6
+    Z
+  "/>
+  <!-- Tip top -->
+  <path class="banana-tip" d="M 9.5,5.5 C 8,4 7,3 7.5,2.5 C 8,2 9,3 9.5,4.5 Z"/>
+  <!-- Tip bottom -->
+  <path class="banana-tip" d="M 18.5,27.5 C 18,29 17,30 16.5,29.5 C 16,29 16.5,28 17.5,27 Z"/>
+
+  <!-- Goggles on banana -->
+  <g transform="translate(17,13)">
+    <rect class="goggle" x="-6" y="-1.5" width="12" height="2.5" rx="1.2"/>
+    <ellipse class="goggle" cx="-4" cy="0.5" rx="3.5" ry="3"/>
+    <ellipse class="goggle-lens" cx="-4" cy="0.5" rx="2.2" ry="2"/>
+    <ellipse class="goggle" cx="4" cy="0.5" rx="3.5" ry="3"/>
+    <ellipse class="goggle-lens" cx="4" cy="0.5" rx="2.2" ry="2"/>
+  </g>
+
+  <!-- Green checkmark (bottom-right) -->
+  <polyline class="check" points="20,22 22.5,25 27,18"/>
+</svg>
