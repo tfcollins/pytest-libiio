@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220" role="img" aria-label="pytest-libiio nano banana mascot">
+  <defs>
+    <style>
+      .stem { fill: #6D4C41; }
+      .banana-body { fill: #FFD600; }
+      .banana-inner { fill: #FFC107; }
+      .eye { fill: #1A1A1A; }
+      .face-line { fill: none; stroke: #6D4C41; stroke-linecap: round; stroke-width: 2.5; }
+      .signal { fill: none; stroke: #388E3C; stroke-linecap: round; stroke-width: 2; }
+      .signal-label { font-family: 'Courier New', monospace; font-weight: bold; font-size: 12px; fill: #388E3C; }
+      .cheek { fill: #EF9A9A; opacity: 0.4; }
+      @media (prefers-color-scheme: dark) {
+        .stem { fill: #A1887F; }
+        .eye { fill: #FAFAFA; }
+        .face-line { stroke: #A1887F; }
+        .signal { stroke: #66BB6A; }
+        .signal-label { fill: #66BB6A; }
+      }
+    </style>
+  </defs>
+
+  <!-- Stem -->
+  <path class="stem" d="M 87 44 C 87 28 98 20 106 25 C 111 28 109 43 105 47 Z"/>
+
+  <!-- Banana body - main crescent shape -->
+  <path class="banana-body" d="
+    M 103 47
+    C 132 44 170 78 167 128
+    C 165 163 148 192 128 194
+    C 112 196 101 184 100 173
+    C 99 158 108 144 110 128
+    C 113 107 108 84 97 68
+    C 90 56 86 50 103 47 Z
+  "/>
+
+  <!-- Inner lighter ridge along the concave side -->
+  <path class="banana-inner" d="
+    M 103 47
+    C 122 49 150 82 148 128
+    C 146 158 133 184 118 190
+    C 110 183 109 170 111 156
+    C 113 136 113 108 104 88
+    C 98 72 96 57 103 47 Z
+  "/>
+
+  <!-- Eyes on the inner/concave face side -->
+  <circle class="eye" cx="102" cy="104" r="6"/>
+  <circle fill="white" cx="104.5" cy="101.5" r="2.2" opacity="0.6"/>
+  <circle class="eye" cx="111" cy="132" r="6"/>
+  <circle fill="white" cx="113.5" cy="129.5" r="2.2" opacity="0.6"/>
+
+  <!-- Rosy cheeks -->
+  <ellipse class="cheek" cx="94" cy="115" rx="8" ry="5"/>
+  <ellipse class="cheek" cx="119" cy="142" rx="8" ry="5"/>
+
+  <!-- Smile -->
+  <path class="face-line" d="M 96 120 Q 107 132 118 126"/>
+
+  <!-- IIO signal-wave decoration (lower-left) -->
+  <g transform="translate(15, 152)" opacity="0.8">
+    <path class="signal" d="M 0 10 Q 7 0 14 10 Q 21 20 28 10 Q 35 0 42 10"/>
+    <text class="signal-label" x="5" y="30">nano</text>
+  </g>
+</svg>
