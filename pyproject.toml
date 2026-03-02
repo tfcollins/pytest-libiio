@@ -58,7 +58,7 @@ addopts = "-vs"
 testpaths = ["tests"]
 
 [tool.mypy]
-ignore_missing_imports = "true"
+ignore_missing_imports = true
 
 [tool.ruff]
 line-length = 88
