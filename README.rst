@@ -38,13 +38,11 @@ Requirements
 
 For development the following are also needed:
 
-* tox
+* nox
+* ruff
 * pytest-mock
 * pre-commit
-* isort
-* flake8
 * codespell
-* black
 
 
 Installation
@@ -99,8 +97,9 @@ Mock testing is common with libiio's python library since hardware is needed oth
 
 Contributing
 ------------
-Contributions are very welcome. Tests can be run with `tox`_, please ensure
-the coverage at least stays the same before you submit a pull request.
+Contributions are very welcome. Tests can be run with `nox`_, and code should
+be formatted and linted with `nox -s format` and `nox -s lint` respectively.
+Please ensure the coverage at least stays the same before you submit a pull request.
 
 License
 -------
@@ -122,6 +121,6 @@ If you encounter any problems, please `file an issue`_ along with a detailed des
 .. _`cookiecutter-pytest-plugin`: https://github.com/pytest-dev/cookiecutter-pytest-plugin
 .. _`file an issue`: https://github.com/tfcollins/pytest-libiio/issues
 .. _`pytest`: https://github.com/pytest-dev/pytest
-.. _`tox`: https://tox.readthedocs.io/en/latest/
+.. _`nox`: https://nox.thea.codes/en/stable/
 .. _`pip`: https://pypi.org/project/pip/
 .. _`PyPI`: https://pypi.org/project
