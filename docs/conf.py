@@ -10,6 +10,8 @@ extensions = [
 ]
 
 html_theme = "furo"
+html_static_path = ['_static']
+html_logo = '_static/logo.svg'
 
 myst_enable_extensions = ["colon_fence"]
 

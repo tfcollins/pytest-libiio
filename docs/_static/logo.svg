@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <style>
+    .bg { fill: #f0f0f0; }
+    .text { font-family: sans-serif; font-size: 24px; fill: #333; text-anchor: middle; }
+    .banana { fill: #FFD700; stroke: #DAA520; stroke-width: 2; }
+  </style>
+  <rect class="bg" width="200" height="200" rx="10"/>
+  <text x="100" y="90" class="text">pytest-libiio</text>
+  <g transform="translate(80 120) scale(0.3)">
+    <path class="banana" d="M 10 80 C 20 20, 80 20, 90 80 Q 50 110, 10 80 Z" />
+  </g>
+</svg>

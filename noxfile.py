@@ -43,6 +43,13 @@ def lint(session):
 
 
 @nox.session(python="3.9")
+def format(session):
+    """Format with ruff format."""
+    session.install("ruff")
+    session.run("ruff", "format", "pytest_libiio", "tests")
+
+
+@nox.session(python="3.9")
 def format_check(session):
     """Check formatting with ruff format."""
     session.install("ruff")
