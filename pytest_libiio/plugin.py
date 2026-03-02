@@ -9,6 +9,7 @@ import socket
 import subprocess
 import time
 from shutil import which
+from typing import Optional
 
 import iio
 import pytest
@@ -26,9 +27,9 @@ class iio_emu_manager:
         self,
         xml_path: str,
         auto: bool = True,
-        rx_dev: str = None,
-        tx_dev: str = None,
-        custom_port: int = None,
+        rx_dev: Optional[str] = None,
+        tx_dev: Optional[str] = None,
+        custom_port: Optional[int] = None,
     ):
         self.xml_path = xml_path
         self.rx_dev = rx_dev
@@ -48,8 +49,9 @@ class iio_emu_manager:
         if self.custom_port:
             self.uri += f":{self.custom_port}"
         self.p = None
-        if os.getenv("IIO_EMU_URI"):
-            self.uri = os.getenv("IIO_EMU_URI")
+        env_uri = os.getenv("IIO_EMU_URI")
+        if env_uri:
+            self.uri = env_uri
 
     def __del__(self):
         if self.p:

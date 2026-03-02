@@ -70,8 +70,14 @@ def clean(session):
 def docs(session):
     """Build Sphinx documentation."""
     session.install(
-        "sphinx", "furo", "myst-parser", "sphinx-click",
-        "jinja2", "pyyaml", "pylibiio", "paramiko",
+        "sphinx",
+        "furo",
+        "myst-parser",
+        "sphinx-click",
+        "jinja2",
+        "pyyaml",
+        "pylibiio",
+        "paramiko",
     )
     session.install("-e", ".")
     session.run("sphinx-build", "-b", "html", "docs", "docs/_build/html")
@@ -85,7 +91,8 @@ def act_session(session):
     if not shutil.which("act"):
         session.log("act not found — installing to ~/.local/bin")
         session.run(
-            "bash", "-c",
+            "bash",
+            "-c",
             "curl -s https://raw.githubusercontent.com/nektos/act/master/install.sh"
             " | bash -s -- -b ~/.local/bin",
             external=True,
@@ -95,10 +102,14 @@ def act_session(session):
     # so parallel matrix jobs would conflict on iio-emu's port 30431.
     for python_version in PYTHON_VERSIONS:
         session.run(
-            "act", "push",
-            "--job", "Test",
-            "--workflows", ".github/workflows/test.yml",
-            "--matrix", f"python-version:{python_version}",
+            "act",
+            "push",
+            "--job",
+            "Test",
+            "--workflows",
+            ".github/workflows/test.yml",
+            "--matrix",
+            f"python-version:{python_version}",
             external=True,
             *session.posargs,
         )

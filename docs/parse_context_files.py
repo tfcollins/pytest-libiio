@@ -2,7 +2,6 @@ import os
 from glob import glob
 
 import iio
-
 import yaml
 from jinja2 import Environment, FileSystemLoader
 
@@ -20,7 +19,6 @@ def parse_hw_map(map_filename=None):
     vconfigs = {}
     for cfg in map:
         for item in map[cfg]:
-
             if "emulate" in item:
                 esettings = item["emulate"]
                 for setting in esettings:
