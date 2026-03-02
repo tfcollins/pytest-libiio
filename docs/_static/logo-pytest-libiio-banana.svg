@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" role="img" aria-label="pytest-libiio nano-banana logo">
+  <style>
+    /* Light mode defaults */
+    .banana-body { fill: #FFD700; }
+    .banana-tip { fill: #8B6914; }
+    .banana-shadow { fill: #E6B800; }
+    .banana-shine { fill: #FFF9C4; opacity: 0.6; }
+    .text-label { fill: #3D3D3D; font-family: monospace; font-size: 14px; font-weight: bold; }
+    .text-sub { fill: #666666; font-family: monospace; font-size: 9px; }
+
+    /* Dark mode overrides */
+    @media (prefers-color-scheme: dark) {
+      .banana-body { fill: #F5C518; }
+      .banana-tip { fill: #C8A040; }
+      .banana-shadow { fill: #D4A900; }
+      .banana-shine { fill: #FFFDE7; opacity: 0.5; }
+      .text-label { fill: #F0F0F0; }
+      .text-sub { fill: #AAAAAA; }
+    }
+  </style>
+
+  <!-- Banana body: curved crescent shape -->
+  <path class="banana-body"
+    d="M 60 140
+       Q 40 100 55 55
+       Q 70 20 110 30
+       Q 150 38 160 65
+       Q 170 90 145 120
+       Q 120 148 85 150
+       Z"
+  />
+
+  <!-- Shadow/underside of banana -->
+  <path class="banana-shadow"
+    d="M 85 150
+       Q 120 148 145 120
+       Q 155 108 150 95
+       Q 130 130 95 138
+       Q 80 142 65 136
+       Q 72 145 85 150
+       Z"
+  />
+
+  <!-- Shine highlight -->
+  <path class="banana-shine"
+    d="M 80 50
+       Q 100 35 120 42
+       Q 108 38 88 52
+       Z"
+  />
+
+  <!-- Stem tip (top) -->
+  <path class="banana-tip"
+    d="M 108 28
+       Q 112 18 118 15
+       Q 116 22 114 30
+       Q 111 29 108 28
+       Z"
+  />
+
+  <!-- Bottom tip -->
+  <path class="banana-tip"
+    d="M 60 138
+       Q 52 148 48 155
+       Q 55 150 65 144
+       Z"
+  />
+
+  <!-- Text: "nano" above banana label -->
+  <text class="text-label" x="100" y="175" text-anchor="middle">🍌 pytest-libiio</text>
+  <text class="text-sub" x="100" y="190" text-anchor="middle">nano-banana edition</text>
+</svg>
