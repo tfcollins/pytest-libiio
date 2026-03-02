@@ -11,6 +11,17 @@ extensions = [
 
 html_theme = "furo"
 
+html_logo = "_static/logo-pytest-libiio-banana.svg"
+
+html_theme_options = {
+    "light_logo": "logo-pytest-libiio-banana.svg",
+    "dark_logo": "logo-pytest-libiio-banana.svg",
+}
+
+html_static_path = ["_static"]
+
+html_css_files = ["custom.css"]
+
 myst_enable_extensions = ["colon_fence"]
 
 source_suffix = {".rst": "restructuredtext", ".md": "markdown"}

@@ -1,0 +1,6 @@
+/* pytest-libiio documentation custom styles */
+
+/* Constrain the sidebar logo to a sensible width */
+.sidebar-brand img {
+    max-width: 200px;
+}

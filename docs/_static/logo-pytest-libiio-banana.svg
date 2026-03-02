@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="pytest-libiio nano-banana mascot">
+  <title>pytest-libiio nano-banana</title>
+  <style>
+    .banana-body { fill: #f5c518; }
+    .banana-tip  { fill: #6b4c11; }
+    .banana-shine { fill: rgba(255,255,255,0.35); }
+    .text-label  { fill: #3a3a3a; font-family: monospace, sans-serif; font-size: 9px; font-weight: bold; }
+    @media (prefers-color-scheme: dark) {
+      .banana-body { fill: #e6b800; }
+      .banana-tip  { fill: #8a6020; }
+      .banana-shine { fill: rgba(255,255,255,0.20); }
+      .text-label  { fill: #d0d0d0; }
+    }
+  </style>
+
+  <!-- Banana body: curved crescent shape -->
+  <path class="banana-body"
+        d="M 30 85
+           C 20 65, 18 40, 38 22
+           C 50 12, 65 10, 78 18
+           C 88 24, 92 34, 88 46
+           C 84 58, 72 66, 60 70
+           C 48 74, 36 78, 30 85 Z"
+  />
+
+  <!-- Inner highlight/shine -->
+  <path class="banana-shine"
+        d="M 42 26
+           C 34 36, 30 50, 34 62
+           C 36 58, 40 52, 46 46
+           C 52 40, 60 36, 68 34
+           C 62 26, 52 22, 42 26 Z"
+  />
+
+  <!-- Stem tip (top) -->
+  <ellipse class="banana-tip" cx="37" cy="21" rx="5" ry="4" transform="rotate(-30 37 21)"/>
+
+  <!-- Bottom tip -->
+  <ellipse class="banana-tip" cx="29" cy="86" rx="4" ry="5" transform="rotate(20 29 86)"/>
+
+  <!-- Label -->
+  <text class="text-label" x="22" y="108" text-anchor="middle" transform="rotate(-5 60 108)">pytest-libiio</text>
+</svg>
