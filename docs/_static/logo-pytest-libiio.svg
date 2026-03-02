@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="pytest-libiio logo">
+  <title>pytest-libiio</title>
+  <defs>
+    <style>
+      /* pytest green checkmark */
+      .ck {
+        fill: none;
+        stroke: #10B981;
+        stroke-width: 24;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      /* libiio IIO waveform */
+      .wv {
+        fill: none;
+        stroke: #0055B3;
+        stroke-width: 8;
+        stroke-linecap: round;
+      }
+      /* circuit node dots on waveform */
+      .wn { fill: #0055B3; }
+      /* text colours */
+      .tp { fill: #059669; }
+      .td { fill: #888888; }
+      .tl { fill: #0055B3; }
+
+      @media (prefers-color-scheme: dark) {
+        .ck { stroke: #34D399; }
+        .wv { stroke: #60A5FA; }
+        .wn { fill: #60A5FA; }
+        .tp { fill: #34D399; }
+        .td { fill: #9CA3AF; }
+        .tl { fill: #60A5FA; }
+      }
+    </style>
+  </defs>
+
+  <!--
+    pytest identity: large green checkmark occupying the upper two-thirds.
+    Left arm is shorter (≈ 1/2 the length of the right arm), matching the
+    classic pytest proportions.
+  -->
+  <polyline class="ck" points="55,180 148,258 345,65" />
+
+  <!--
+    libiio identity: 2.5 periods of a sine wave positioned below the
+    checkmark, suggesting the IIO (Industrial I/O) signal flow motif.
+    Centre line y=308, amplitude ±20 px, half-period ≈ 69 px.
+    Cubic-bezier approximation of a sine wave (control-point offset
+    ≈ 0.276 × half-period ≈ 19 px).
+  -->
+  <path class="wv"
+    d="M 28,308
+       C 47,288 78,288 97,308
+       C 116,328 147,328 166,308
+       C 185,288 216,288 235,308
+       C 254,328 285,328 304,308
+       C 323,288 354,288 373,308" />
+
+  <!-- zero-crossing dots evoke IIO circuit node connections -->
+  <circle class="wn" cx="97"  cy="308" r="5" />
+  <circle class="wn" cx="166" cy="308" r="5" />
+  <circle class="wn" cx="235" cy="308" r="5" />
+  <circle class="wn" cx="304" cy="308" r="5" />
+
+  <!-- combined label centred below the graphic elements -->
+  <text x="200" y="375"
+        font-family="'Helvetica Neue', Arial, Helvetica, sans-serif"
+        font-size="44"
+        text-anchor="middle"
+  ><tspan class="tp" font-weight="700">pytest</tspan
+  ><tspan class="td" font-weight="300"> · </tspan
+  ><tspan class="tl" font-weight="700">libiio</tspan
+  ></text>
+</svg>
