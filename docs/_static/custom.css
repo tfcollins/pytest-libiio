@@ -1,0 +1,4 @@
+/* Limit the sidebar logo width for the Furo theme */
+.sidebar-brand img {
+    max-width: 200px;
+}

@@ -10,6 +10,13 @@ extensions = [
 ]
 
 html_theme = "furo"
+html_logo = "_static/logo-pytest-libiio-banana.svg"
+html_static_path = ["_static"]
+html_css_files = ["custom.css"]
+html_theme_options = {
+    "light_logo": "logo-pytest-libiio-banana.svg",
+    "dark_logo": "logo-pytest-libiio-banana.svg",
+}
 
 myst_enable_extensions = ["colon_fence"]
 

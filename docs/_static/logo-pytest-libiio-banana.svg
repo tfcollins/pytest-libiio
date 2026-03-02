@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" role="img" aria-label="pytest-libiio nano-banana mascot">
+  <style>
+    /* Light mode defaults */
+    .banana-body { fill: #FFD700; }
+    .banana-tip  { fill: #8B6914; }
+    .banana-shadow { fill: #C8A200; }
+    .banana-highlight { fill: #FFEC6E; }
+    .eye { fill: #1A1A1A; }
+    .smile { stroke: #1A1A1A; fill: none; stroke-width: 2.5; stroke-linecap: round; }
+    .label { fill: #333333; font-family: sans-serif; font-size: 13px; font-weight: bold; }
+
+    /* Dark mode overrides */
+    @media (prefers-color-scheme: dark) {
+      .banana-body    { fill: #E6C200; }
+      .banana-tip     { fill: #A07820; }
+      .banana-shadow  { fill: #B09000; }
+      .banana-highlight { fill: #FFF0A0; }
+      .eye            { fill: #F0F0F0; }
+      .smile          { stroke: #F0F0F0; }
+      .label          { fill: #E0E0E0; }
+    }
+  </style>
+
+  <!-- Banana body: curved crescent shape -->
+  <path class="banana-body"
+    d="M 60,150
+       C 40,120 35,80 55,55
+       C 70,35 100,28 120,38
+       C 140,48 155,70 150,100
+       C 145,125 130,145 110,155
+       C 90,165 70,165 60,150 Z" />
+
+  <!-- Shadow/depth on banana -->
+  <path class="banana-shadow"
+    d="M 65,148
+       C 50,120 48,85 65,62
+       C 72,52 82,46 90,46
+       C 78,55 68,75 65,100
+       C 62,120 65,140 72,155
+       C 70,154 67,152 65,148 Z" />
+
+  <!-- Highlight on banana -->
+  <path class="banana-highlight"
+    d="M 95,38
+       C 108,36 120,42 128,52
+       C 116,46 103,44 92,50
+       C 95,46 95,42 95,38 Z" />
+
+  <!-- Top tip -->
+  <ellipse class="banana-tip" cx="113" cy="37" rx="7" ry="5" transform="rotate(-20,113,37)" />
+
+  <!-- Bottom tip -->
+  <ellipse class="banana-tip" cx="65" cy="152" rx="6" ry="4" transform="rotate(30,65,152)" />
+
+  <!-- Face: left eye -->
+  <circle class="eye" cx="93" cy="85" r="5" />
+
+  <!-- Face: right eye -->
+  <circle class="eye" cx="115" cy="80" r="5" />
+
+  <!-- Face: smile -->
+  <path class="smile" d="M 89,100 Q 104,115 121,97" />
+
+  <!-- Label -->
+  <text class="label" x="100" y="185" text-anchor="middle">pytest-libiio</text>
+</svg>
