@@ -10,7 +10,7 @@ import iio
 import lxml.etree as etree
 
 try:
-    import paramiko
+    import paramiko  # type: ignore[import-untyped]
 
     useSSH = True
 except ImportError:
