@@ -2,6 +2,7 @@ import importlib
 import json
 import sys
 import types
+from unittest.mock import MagicMock
 
 import pytest
 
@@ -53,7 +54,7 @@ def import_coverage_module(monkeypatch, fake_iio):
     return importlib.import_module("pytest_libiio.coverage")
 
 
-def test_multicontext_add_instance_set_tracker_and_duplicate(monkeypatch, mocker, fake_iio):
+def test_multicontext_add_instance_set_tracker_and_duplicate(monkeypatch, fake_iio):
     fake_mkpatch = types.ModuleType("pytest_libiio.mkpatch")
     fake_mkpatch.reset_coverage_tracker = lambda: None
     fake_mkpatch.set_coverage_tracker = lambda tracker=None: None
@@ -62,8 +63,10 @@ def test_multicontext_add_instance_set_tracker_and_duplicate(monkeypatch, mocker
     coverage = import_coverage_module(monkeypatch, fake_iio)
     mkpatch = sys.modules["pytest_libiio.mkpatch"]
 
-    reset_mock = mocker.patch.object(mkpatch, "reset_coverage_tracker")
-    set_mock = mocker.patch.object(mkpatch, "set_coverage_tracker")
+    reset_mock = MagicMock()
+    set_mock = MagicMock()
+    monkeypatch.setattr(mkpatch, "reset_coverage_tracker", reset_mock)
+    monkeypatch.setattr(mkpatch, "set_coverage_tracker", set_mock)
 
     tracker = coverage.MultiContextTracker()
     tracker.track_context_props = True
@@ -165,7 +168,9 @@ def test_calculate_coverage_with_context_and_debug(monkeypatch, fake_iio):
     )
     tracker.context_attr_reads_writes = {"uri": 1, "hw": 1}
     tracker.device_attr_reads_writes = {"dev0": {"dev_attr": 2}}
-    tracker.channel_attr_reads_writes = {"dev0": {"output": {"ch_out": {"out_attr": 3}}}}
+    tracker.channel_attr_reads_writes = {
+        "dev0": {"output": {"ch_out": {"out_attr": 3}}}
+    }
     tracker.debug_attr_reads_writes = {"dev0": {"dbg_attr": 4}}
 
     result = tracker.calculate_coverage()

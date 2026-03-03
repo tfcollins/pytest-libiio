@@ -1,7 +1,6 @@
 import importlib
 import sys
 import types
-from pathlib import Path
 
 from click.testing import CliRunner
 
@@ -17,13 +16,15 @@ def import_tools_with_fake_iio(monkeypatch, context_factory):
     return importlib.import_module("pytest_libiio.tools")
 
 
-def test_gen_xml_prints_to_stdout(monkeypatch, mocker):
+def test_gen_xml_prints_to_stdout(monkeypatch):
     class FakeContext:
         def __init__(self, uri):
             self.uri = uri
 
     tools = import_tools_with_fake_iio(monkeypatch, FakeContext)
-    mocker.patch.object(tools.meta, "get_emulated_context", return_value="<xml>abc</xml>")
+    monkeypatch.setattr(
+        tools.meta, "get_emulated_context", lambda ctx: "<xml>abc</xml>"
+    )
 
     runner = CliRunner()
     result = runner.invoke(tools.gen_xml, ["--uri", "ip:1.2.3.4"])
@@ -32,14 +33,14 @@ def test_gen_xml_prints_to_stdout(monkeypatch, mocker):
     assert "<xml>abc</xml>" in result.output
 
 
-def test_gen_xml_writes_file(monkeypatch, mocker, tmp_path):
+def test_gen_xml_writes_file(monkeypatch, tmp_path):
     class FakeContext:
         def __init__(self, uri):
             self.uri = uri
 
     tools = import_tools_with_fake_iio(monkeypatch, FakeContext)
-    mocker.patch.object(
-        tools.meta, "get_emulated_context", return_value="<xml>to-file</xml>"
+    monkeypatch.setattr(
+        tools.meta, "get_emulated_context", lambda ctx: "<xml>to-file</xml>"
     )
 
     out_file = tmp_path / "ctx.xml"
