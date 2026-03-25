@@ -99,6 +99,6 @@ def act_session(session):
             "--job", "Test",
             "--workflows", ".github/workflows/test.yml",
             "--matrix", f"python-version:{python_version}",
-            external=True,
             *session.posargs,
+            external=True,
         )

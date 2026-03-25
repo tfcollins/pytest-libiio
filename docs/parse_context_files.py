@@ -42,7 +42,7 @@ def parse_device(dev: iio.Device):
         try:
             print(at.value)
             v = str(at.value)
-        except:
+        except Exception:
             v = ""
         dev_attributes[at.name] = {"filename": fn, "value": v}
 
@@ -57,7 +57,7 @@ def parse_device(dev: iio.Device):
             try:
                 print(at.value)
                 v = str(at.value)
-            except:
+            except Exception:
                 v = ""
             channel[at.name] = {"filename": fn, "value": v}
 
@@ -96,7 +96,7 @@ def render_devices_index(xmls):
     lines.append(":maxdepth: 1\n")
     lines.append("\n")
     for hw_name in sorted(xmls.keys()):
-        for dev_name, path in xmls[hw_name].items():
+        for _dev_name, path in xmls[hw_name].items():
             # path is like "devices/pluto_ad9361-phy.md" — strip the dir and extension
             basename = os.path.splitext(os.path.basename(path))[0]
             lines.append(f"{basename}\n")
@@ -120,7 +120,6 @@ def parse_all_library_context(root=None):
     for cfg in cfgs:
         file = os.path.join(loc, cfgs[cfg])
         print(file)
-        fn = os.path.split(file)[-1]
         ctx = iio.XMLContext(file)
         devices = {}
         for dev in ctx.devices:
