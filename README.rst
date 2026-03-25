@@ -10,17 +10,17 @@ pytest-libiio
     :target: https://pypi.org/project/pytest-libiio
     :alt: Python versions
 
-.. image:: https://travis-ci.org/tfcollins/pytest-libiio.svg?branch=master
-    :target: https://travis-ci.org/tfcollins/pytest-libiio
-    :alt: See Build Status on Travis CI
+.. image:: https://github.com/tfcollins/pytest-libiio/actions/workflows/test.yml/badge.svg
+    :target: https://github.com/tfcollins/pytest-libiio/actions/workflows/test.yml
+    :alt: See Build Status on GitHub Actions
 
 .. image:: https://coveralls.io/repos/github/tfcollins/pytest-libiio/badge.svg?branch=master
     :target: https://coveralls.io/github/tfcollins/pytest-libiio?branch=master
     :alt: See Coverage Status on Coveralls
 
-.. image:: https://readthedocs.org/projects/pytest-libiio/badge/?version=latest
-    :target: https://pytest-libiio.readthedocs.io/en/latest/?badge=latest
-    :alt: Documentation Status
+.. image:: https://github.com/tfcollins/pytest-libiio/actions/workflows/doc.yml/badge.svg
+    :target: https://github.com/tfcollins/pytest-libiio/actions/workflows/doc.yml
+    :alt: Documentation Build Status
 
 A pytest plugin to manage interfacing with libiio contexts
 
