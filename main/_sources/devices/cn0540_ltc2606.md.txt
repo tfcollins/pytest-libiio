@@ -1,0 +1,34 @@
+# ltc2606
+
+
+
+## Channel Attributes
+
+### voltage0
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| powerdown | out_voltage0_powerdown |  |
+| powerdown_mode | out_voltage0_powerdown_mode |  |
+| powerdown_mode_available | out_voltage_powerdown_mode_available |  |
+| raw | out_voltage0_raw |  |
+| scale | out_voltage0_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ltc2606 voltage0 powerdown
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ltc2606")
+chan = dev.find_channel("voltage0")
+rval = chan.attrs["powerdown"].value
+```
+
+***

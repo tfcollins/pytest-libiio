@@ -1,0 +1,220 @@
+# hmc7044
+
+
+## Device Attributes
+
+| Name | Default value |
+| ---- | ------------- |
+| mute_request |  |
+| reseed_request |  |
+| reset_dividers_request |  |
+| sleep_request |  |
+| sync_pin_mode |  |
+| sync_pin_mode_available |  |
+| sysref_request |  |
+
+
+
+
+## Channel Attributes
+
+### CORE_CLK_RX
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage0_CORE_CLK_RX_frequency |  |
+| phase | out_altvoltage0_CORE_CLK_RX_phase |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c hmc7044 CORE_CLK_RX frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("hmc7044")
+chan = dev.find_channel("CORE_CLK_RX")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### CORE_CLK_RX_ALT
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage10_CORE_CLK_RX_ALT_frequency |  |
+| phase | out_altvoltage10_CORE_CLK_RX_ALT_phase |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c hmc7044 CORE_CLK_RX_ALT frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("hmc7044")
+chan = dev.find_channel("CORE_CLK_RX_ALT")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### FPGA_REFCLK2
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage12_FPGA_REFCLK2_frequency |  |
+| phase | out_altvoltage12_FPGA_REFCLK2_phase |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c hmc7044 FPGA_REFCLK2 frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("hmc7044")
+chan = dev.find_channel("FPGA_REFCLK2")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### FPGA_SYSREF
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage13_FPGA_SYSREF_frequency |  |
+| phase | out_altvoltage13_FPGA_SYSREF_phase |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c hmc7044 FPGA_SYSREF frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("hmc7044")
+chan = dev.find_channel("FPGA_SYSREF")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### DEV_REFCLK
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage2_DEV_REFCLK_frequency |  |
+| phase | out_altvoltage2_DEV_REFCLK_phase |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c hmc7044 DEV_REFCLK frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("hmc7044")
+chan = dev.find_channel("DEV_REFCLK")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### DEV_SYSREF
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage3_DEV_SYSREF_frequency |  |
+| phase | out_altvoltage3_DEV_SYSREF_phase |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c hmc7044 DEV_SYSREF frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("hmc7044")
+chan = dev.find_channel("DEV_SYSREF")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### CORE_CLK_TX
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage6_CORE_CLK_TX_frequency |  |
+| phase | out_altvoltage6_CORE_CLK_TX_phase |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c hmc7044 CORE_CLK_TX frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("hmc7044")
+chan = dev.find_channel("CORE_CLK_TX")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### FPGA_REFCLK1
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage8_FPGA_REFCLK1_frequency |  |
+| phase | out_altvoltage8_FPGA_REFCLK1_phase |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c hmc7044 FPGA_REFCLK1 frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("hmc7044")
+chan = dev.find_channel("FPGA_REFCLK1")
+rval = chan.attrs["frequency"].value
+```
+
+***

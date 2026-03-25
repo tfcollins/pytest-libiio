@@ -1,0 +1,131 @@
+# axi-ad9371-rx-hpc
+
+
+## Device Attributes
+
+| Name | Default value |
+| ---- | ------------- |
+| sync_start_enable |  |
+| sync_start_enable_available |  |
+
+
+
+
+## Channel Attributes
+
+### voltage0_i
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| calibbias | in_voltage0_i_calibbias |  |
+| calibphase | in_voltage0_i_calibphase |  |
+| calibscale | in_voltage0_i_calibscale |  |
+| label | in_voltage0_i_label |  |
+| sampling_frequency | in_voltage_sampling_frequency |  |
+| sampling_frequency_available | in_voltage_sampling_frequency_available |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9371-rx-hpc voltage0_i calibbias
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9371-rx-hpc")
+chan = dev.find_channel("voltage0_i")
+rval = chan.attrs["calibbias"].value
+```
+
+***
+### voltage0_q
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| calibbias | in_voltage0_q_calibbias |  |
+| calibphase | in_voltage0_q_calibphase |  |
+| calibscale | in_voltage0_q_calibscale |  |
+| label | in_voltage0_q_label |  |
+| sampling_frequency | in_voltage_sampling_frequency |  |
+| sampling_frequency_available | in_voltage_sampling_frequency_available |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9371-rx-hpc voltage0_q calibbias
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9371-rx-hpc")
+chan = dev.find_channel("voltage0_q")
+rval = chan.attrs["calibbias"].value
+```
+
+***
+### voltage1_i
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| calibbias | in_voltage1_i_calibbias |  |
+| calibphase | in_voltage1_i_calibphase |  |
+| calibscale | in_voltage1_i_calibscale |  |
+| label | in_voltage1_i_label |  |
+| sampling_frequency | in_voltage_sampling_frequency |  |
+| sampling_frequency_available | in_voltage_sampling_frequency_available |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9371-rx-hpc voltage1_i calibbias
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9371-rx-hpc")
+chan = dev.find_channel("voltage1_i")
+rval = chan.attrs["calibbias"].value
+```
+
+***
+### voltage1_q
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| calibbias | in_voltage1_q_calibbias |  |
+| calibphase | in_voltage1_q_calibphase |  |
+| calibscale | in_voltage1_q_calibscale |  |
+| label | in_voltage1_q_label |  |
+| sampling_frequency | in_voltage_sampling_frequency |  |
+| sampling_frequency_available | in_voltage_sampling_frequency_available |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9371-rx-hpc voltage1_q calibbias
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9371-rx-hpc")
+chan = dev.find_channel("voltage1_q")
+rval = chan.attrs["calibbias"].value
+```
+
+***

@@ -1,0 +1,195 @@
+# axi-ad9162-hpc
+
+
+
+## Channel Attributes
+
+### TX1_I_F1
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage0_TX1_I_F1_frequency |  |
+| phase | out_altvoltage0_TX1_I_F1_phase |  |
+| raw | out_altvoltage0_TX1_I_F1_raw |  |
+| sampling_frequency | out_altvoltage_sampling_frequency |  |
+| scale | out_altvoltage0_TX1_I_F1_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9162-hpc TX1_I_F1 frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9162-hpc")
+chan = dev.find_channel("TX1_I_F1")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### TX1_I_F2
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage1_TX1_I_F2_frequency |  |
+| phase | out_altvoltage1_TX1_I_F2_phase |  |
+| raw | out_altvoltage1_TX1_I_F2_raw |  |
+| sampling_frequency | out_altvoltage_sampling_frequency |  |
+| scale | out_altvoltage1_TX1_I_F2_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9162-hpc TX1_I_F2 frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9162-hpc")
+chan = dev.find_channel("TX1_I_F2")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### TX1_Q_F1
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage2_TX1_Q_F1_frequency |  |
+| phase | out_altvoltage2_TX1_Q_F1_phase |  |
+| raw | out_altvoltage2_TX1_Q_F1_raw |  |
+| sampling_frequency | out_altvoltage_sampling_frequency |  |
+| scale | out_altvoltage2_TX1_Q_F1_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9162-hpc TX1_Q_F1 frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9162-hpc")
+chan = dev.find_channel("TX1_Q_F1")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### TX1_Q_F2
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage3_TX1_Q_F2_frequency |  |
+| phase | out_altvoltage3_TX1_Q_F2_phase |  |
+| raw | out_altvoltage3_TX1_Q_F2_raw |  |
+| sampling_frequency | out_altvoltage_sampling_frequency |  |
+| scale | out_altvoltage3_TX1_Q_F2_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9162-hpc TX1_Q_F2 frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9162-hpc")
+chan = dev.find_channel("TX1_Q_F2")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### altvoltage4
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency_nco | out_altvoltage4_frequency_nco |  |
+| sampling_frequency | out_altvoltage_sampling_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9162-hpc altvoltage4 frequency_nco
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9162-hpc")
+chan = dev.find_channel("altvoltage4")
+rval = chan.attrs["frequency_nco"].value
+```
+
+***
+### voltage0_i
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| fir85_enable | out_voltage_fir85_enable |  |
+| sampling_frequency | out_voltage_sampling_frequency |  |
+| scale | out_voltage0_i_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9162-hpc voltage0_i fir85_enable
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9162-hpc")
+chan = dev.find_channel("voltage0_i")
+rval = chan.attrs["fir85_enable"].value
+```
+
+***
+### voltage0_q
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| fir85_enable | out_voltage_fir85_enable |  |
+| sampling_frequency | out_voltage_sampling_frequency |  |
+| scale | out_voltage0_q_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9162-hpc voltage0_q fir85_enable
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9162-hpc")
+chan = dev.find_channel("voltage0_q")
+rval = chan.attrs["fir85_enable"].value
+```
+
+***

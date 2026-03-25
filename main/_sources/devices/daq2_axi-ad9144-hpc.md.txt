@@ -1,0 +1,359 @@
+# axi-ad9144-hpc
+
+
+
+## Channel Attributes
+
+### 1A
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage0_1A_frequency |  |
+| phase | out_altvoltage0_1A_phase |  |
+| raw | out_altvoltage0_1A_raw |  |
+| sampling_frequency | out_altvoltage_sampling_frequency |  |
+| scale | out_altvoltage0_1A_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9144-hpc 1A frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9144-hpc")
+chan = dev.find_channel("1A")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### 1B
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage1_1B_frequency |  |
+| phase | out_altvoltage1_1B_phase |  |
+| raw | out_altvoltage1_1B_raw |  |
+| sampling_frequency | out_altvoltage_sampling_frequency |  |
+| scale | out_altvoltage1_1B_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9144-hpc 1B frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9144-hpc")
+chan = dev.find_channel("1B")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### 2A
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage2_2A_frequency |  |
+| phase | out_altvoltage2_2A_phase |  |
+| raw | out_altvoltage2_2A_raw |  |
+| sampling_frequency | out_altvoltage_sampling_frequency |  |
+| scale | out_altvoltage2_2A_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9144-hpc 2A frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9144-hpc")
+chan = dev.find_channel("2A")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### 2B
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage3_2B_frequency |  |
+| phase | out_altvoltage3_2B_phase |  |
+| raw | out_altvoltage3_2B_raw |  |
+| sampling_frequency | out_altvoltage_sampling_frequency |  |
+| scale | out_altvoltage3_2B_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9144-hpc 2B frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9144-hpc")
+chan = dev.find_channel("2B")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### 3A
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage4_3A_frequency |  |
+| phase | out_altvoltage4_3A_phase |  |
+| raw | out_altvoltage4_3A_raw |  |
+| sampling_frequency | out_altvoltage_sampling_frequency |  |
+| scale | out_altvoltage4_3A_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9144-hpc 3A frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9144-hpc")
+chan = dev.find_channel("3A")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### 3B
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage5_3B_frequency |  |
+| phase | out_altvoltage5_3B_phase |  |
+| raw | out_altvoltage5_3B_raw |  |
+| sampling_frequency | out_altvoltage_sampling_frequency |  |
+| scale | out_altvoltage5_3B_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9144-hpc 3B frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9144-hpc")
+chan = dev.find_channel("3B")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### 4A
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage6_4A_frequency |  |
+| phase | out_altvoltage6_4A_phase |  |
+| raw | out_altvoltage6_4A_raw |  |
+| sampling_frequency | out_altvoltage_sampling_frequency |  |
+| scale | out_altvoltage6_4A_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9144-hpc 4A frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9144-hpc")
+chan = dev.find_channel("4A")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### 4B
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage7_4B_frequency |  |
+| phase | out_altvoltage7_4B_phase |  |
+| raw | out_altvoltage7_4B_raw |  |
+| sampling_frequency | out_altvoltage_sampling_frequency |  |
+| scale | out_altvoltage7_4B_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9144-hpc 4B frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9144-hpc")
+chan = dev.find_channel("4B")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### temp0
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| calibbias | in_temp0_calibbias |  |
+| input | in_temp0_input |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9144-hpc temp0 calibbias
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9144-hpc")
+chan = dev.find_channel("temp0")
+rval = chan.attrs["calibbias"].value
+```
+
+***
+### voltage0
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| calibphase | out_voltage0_calibphase |  |
+| calibscale | out_voltage0_calibscale |  |
+| sampling_frequency | out_voltage_sampling_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9144-hpc voltage0 calibphase
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9144-hpc")
+chan = dev.find_channel("voltage0")
+rval = chan.attrs["calibphase"].value
+```
+
+***
+### voltage1
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| calibphase | out_voltage1_calibphase |  |
+| calibscale | out_voltage1_calibscale |  |
+| sampling_frequency | out_voltage_sampling_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9144-hpc voltage1 calibphase
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9144-hpc")
+chan = dev.find_channel("voltage1")
+rval = chan.attrs["calibphase"].value
+```
+
+***
+### voltage2
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| calibphase | out_voltage2_calibphase |  |
+| calibscale | out_voltage2_calibscale |  |
+| sampling_frequency | out_voltage_sampling_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9144-hpc voltage2 calibphase
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9144-hpc")
+chan = dev.find_channel("voltage2")
+rval = chan.attrs["calibphase"].value
+```
+
+***
+### voltage3
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| calibphase | out_voltage3_calibphase |  |
+| calibscale | out_voltage3_calibscale |  |
+| sampling_frequency | out_voltage_sampling_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9144-hpc voltage3 calibphase
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9144-hpc")
+chan = dev.find_channel("voltage3")
+rval = chan.attrs["calibphase"].value
+```
+
+***

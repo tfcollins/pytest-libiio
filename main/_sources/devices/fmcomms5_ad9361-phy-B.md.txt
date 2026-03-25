@@ -1,0 +1,279 @@
+# ad9361-phy-B
+
+
+## Device Attributes
+
+| Name | Default value |
+| ---- | ------------- |
+| calib_mode |  |
+| calib_mode_available |  |
+| dcxo_tune_coarse |  |
+| dcxo_tune_coarse_available |  |
+| dcxo_tune_fine |  |
+| dcxo_tune_fine_available |  |
+| ensm_mode |  |
+| ensm_mode_available |  |
+| filter_fir_config |  |
+| gain_table_config |  |
+| multichip_sync |  |
+| rssi_gain_step_error |  |
+| rx_path_rates |  |
+| trx_rate_governor |  |
+| trx_rate_governor_available |  |
+| tx_path_rates |  |
+| xo_correction |  |
+| xo_correction_available |  |
+
+
+
+
+## Channel Attributes
+
+### RX_LO
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| external | out_altvoltage0_RX_LO_external |  |
+| fastlock_load | out_altvoltage0_RX_LO_fastlock_load |  |
+| fastlock_recall | out_altvoltage0_RX_LO_fastlock_recall |  |
+| fastlock_save | out_altvoltage0_RX_LO_fastlock_save |  |
+| fastlock_store | out_altvoltage0_RX_LO_fastlock_store |  |
+| frequency | out_altvoltage0_RX_LO_frequency |  |
+| frequency_available | out_altvoltage0_RX_LO_frequency_available |  |
+| powerdown | out_altvoltage0_RX_LO_powerdown |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9361-phy-B RX_LO external
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9361-phy-B")
+chan = dev.find_channel("RX_LO")
+rval = chan.attrs["external"].value
+```
+
+***
+### TX_LO
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| external | out_altvoltage1_TX_LO_external |  |
+| fastlock_load | out_altvoltage1_TX_LO_fastlock_load |  |
+| fastlock_recall | out_altvoltage1_TX_LO_fastlock_recall |  |
+| fastlock_save | out_altvoltage1_TX_LO_fastlock_save |  |
+| fastlock_store | out_altvoltage1_TX_LO_fastlock_store |  |
+| frequency | out_altvoltage1_TX_LO_frequency |  |
+| frequency_available | out_altvoltage1_TX_LO_frequency_available |  |
+| powerdown | out_altvoltage1_TX_LO_powerdown |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9361-phy-B TX_LO external
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9361-phy-B")
+chan = dev.find_channel("TX_LO")
+rval = chan.attrs["external"].value
+```
+
+***
+### out
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| voltage_filter_fir_en | in_out_voltage_filter_fir_en |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9361-phy-B out voltage_filter_fir_en
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9361-phy-B")
+chan = dev.find_channel("out")
+rval = chan.attrs["voltage_filter_fir_en"].value
+```
+
+***
+### temp0
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| input | in_temp0_input |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9361-phy-B temp0 input
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9361-phy-B")
+chan = dev.find_channel("temp0")
+rval = chan.attrs["input"].value
+```
+
+***
+### voltage0
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| filter_fir_en | out_voltage_filter_fir_en |  |
+| hardwaregain | out_voltage0_hardwaregain |  |
+| hardwaregain_available | out_voltage0_hardwaregain_available |  |
+| rf_bandwidth | out_voltage_rf_bandwidth |  |
+| rf_bandwidth_available | out_voltage_rf_bandwidth_available |  |
+| rf_port_select | out_voltage0_rf_port_select |  |
+| rf_port_select_available | out_voltage_rf_port_select_available |  |
+| rssi | out_voltage0_rssi |  |
+| sampling_frequency | out_voltage_sampling_frequency |  |
+| sampling_frequency_available | out_voltage_sampling_frequency_available |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9361-phy-B voltage0 filter_fir_en
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9361-phy-B")
+chan = dev.find_channel("voltage0")
+rval = chan.attrs["filter_fir_en"].value
+```
+
+***
+### voltage1
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| bb_dc_offset_tracking_en | in_voltage_bb_dc_offset_tracking_en |  |
+| filter_fir_en | in_voltage_filter_fir_en |  |
+| gain_control_mode | in_voltage1_gain_control_mode |  |
+| gain_control_mode_available | in_voltage_gain_control_mode_available |  |
+| hardwaregain | in_voltage1_hardwaregain |  |
+| hardwaregain_available | in_voltage1_hardwaregain_available |  |
+| quadrature_tracking_en | in_voltage_quadrature_tracking_en |  |
+| rf_bandwidth | in_voltage_rf_bandwidth |  |
+| rf_bandwidth_available | in_voltage_rf_bandwidth_available |  |
+| rf_dc_offset_tracking_en | in_voltage_rf_dc_offset_tracking_en |  |
+| rf_port_select | in_voltage1_rf_port_select |  |
+| rf_port_select_available | in_voltage_rf_port_select_available |  |
+| rssi | in_voltage1_rssi |  |
+| sampling_frequency | in_voltage_sampling_frequency |  |
+| sampling_frequency_available | in_voltage_sampling_frequency_available |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9361-phy-B voltage1 bb_dc_offset_tracking_en
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9361-phy-B")
+chan = dev.find_channel("voltage1")
+rval = chan.attrs["bb_dc_offset_tracking_en"].value
+```
+
+***
+### voltage2
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| bb_dc_offset_tracking_en | in_voltage_bb_dc_offset_tracking_en |  |
+| filter_fir_en | in_voltage_filter_fir_en |  |
+| gain_control_mode_available | in_voltage_gain_control_mode_available |  |
+| offset | in_voltage2_offset |  |
+| quadrature_tracking_en | in_voltage_quadrature_tracking_en |  |
+| raw | in_voltage2_raw |  |
+| rf_bandwidth | in_voltage_rf_bandwidth |  |
+| rf_bandwidth_available | in_voltage_rf_bandwidth_available |  |
+| rf_dc_offset_tracking_en | in_voltage_rf_dc_offset_tracking_en |  |
+| rf_port_select_available | in_voltage_rf_port_select_available |  |
+| sampling_frequency | in_voltage_sampling_frequency |  |
+| sampling_frequency_available | in_voltage_sampling_frequency_available |  |
+| scale | in_voltage2_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9361-phy-B voltage2 bb_dc_offset_tracking_en
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9361-phy-B")
+chan = dev.find_channel("voltage2")
+rval = chan.attrs["bb_dc_offset_tracking_en"].value
+```
+
+***
+### voltage3
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| filter_fir_en | out_voltage_filter_fir_en |  |
+| raw | out_voltage3_raw |  |
+| rf_bandwidth | out_voltage_rf_bandwidth |  |
+| rf_bandwidth_available | out_voltage_rf_bandwidth_available |  |
+| rf_port_select_available | out_voltage_rf_port_select_available |  |
+| sampling_frequency | out_voltage_sampling_frequency |  |
+| sampling_frequency_available | out_voltage_sampling_frequency_available |  |
+| scale | out_voltage3_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9361-phy-B voltage3 filter_fir_en
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9361-phy-B")
+chan = dev.find_channel("voltage3")
+rval = chan.attrs["filter_fir_en"].value
+```
+
+***

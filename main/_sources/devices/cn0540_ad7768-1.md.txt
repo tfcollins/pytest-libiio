@@ -1,0 +1,42 @@
+# ad7768-1
+
+
+## Device Attributes
+
+| Name | Default value |
+| ---- | ------------- |
+| common_mode_voltage |  |
+| common_mode_voltage_available |  |
+| sampling_frequency |  |
+| sampling_frequency_available |  |
+
+
+
+
+## Channel Attributes
+
+### voltage0
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| raw | in_voltage0_raw |  |
+| scale | in_voltage_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad7768-1 voltage0 raw
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad7768-1")
+chan = dev.find_channel("voltage0")
+rval = chan.attrs["raw"].value
+```
+
+***

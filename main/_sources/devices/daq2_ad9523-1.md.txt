@@ -1,0 +1,231 @@
+# ad9523-1
+
+
+## Device Attributes
+
+| Name | Default value |
+| ---- | ------------- |
+| pll1_locked |  |
+| pll1_reference_clk_a_present |  |
+| pll1_reference_clk_b_present |  |
+| pll1_reference_clk_test_present |  |
+| pll2_feedback_clk_present |  |
+| pll2_locked |  |
+| pll2_reference_clk_present |  |
+| store_eeprom |  |
+| sync_dividers |  |
+| vcxo_clk_present |  |
+
+
+
+
+## Channel Attributes
+
+### DAC_CLK
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage1_DAC_CLK_frequency |  |
+| phase | out_altvoltage1_DAC_CLK_phase |  |
+| raw | out_altvoltage1_DAC_CLK_raw |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9523-1 DAC_CLK frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9523-1")
+chan = dev.find_channel("DAC_CLK")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### ADC_CLK
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage13_ADC_CLK_frequency |  |
+| phase | out_altvoltage13_ADC_CLK_phase |  |
+| raw | out_altvoltage13_ADC_CLK_raw |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9523-1 ADC_CLK frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9523-1")
+chan = dev.find_channel("ADC_CLK")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### ADC_CLK_FMC
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage4_ADC_CLK_FMC_frequency |  |
+| phase | out_altvoltage4_ADC_CLK_FMC_phase |  |
+| raw | out_altvoltage4_ADC_CLK_FMC_raw |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9523-1 ADC_CLK_FMC frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9523-1")
+chan = dev.find_channel("ADC_CLK_FMC")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### ADC_SYSREF
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage5_ADC_SYSREF_frequency |  |
+| phase | out_altvoltage5_ADC_SYSREF_phase |  |
+| raw | out_altvoltage5_ADC_SYSREF_raw |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9523-1 ADC_SYSREF frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9523-1")
+chan = dev.find_channel("ADC_SYSREF")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### CLKD_ADC_SYSREF
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage6_CLKD_ADC_SYSREF_frequency |  |
+| phase | out_altvoltage6_CLKD_ADC_SYSREF_phase |  |
+| raw | out_altvoltage6_CLKD_ADC_SYSREF_raw |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9523-1 CLKD_ADC_SYSREF frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9523-1")
+chan = dev.find_channel("CLKD_ADC_SYSREF")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### CLKD_DAC_SYSREF
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage7_CLKD_DAC_SYSREF_frequency |  |
+| phase | out_altvoltage7_CLKD_DAC_SYSREF_phase |  |
+| raw | out_altvoltage7_CLKD_DAC_SYSREF_raw |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9523-1 CLKD_DAC_SYSREF frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9523-1")
+chan = dev.find_channel("CLKD_DAC_SYSREF")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### DAC_SYSREF
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage8_DAC_SYSREF_frequency |  |
+| phase | out_altvoltage8_DAC_SYSREF_phase |  |
+| raw | out_altvoltage8_DAC_SYSREF_raw |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9523-1 DAC_SYSREF frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9523-1")
+chan = dev.find_channel("DAC_SYSREF")
+rval = chan.attrs["frequency"].value
+```
+
+***
+### FMC_DAC_REF_CLK
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage9_FMC_DAC_REF_CLK_frequency |  |
+| phase | out_altvoltage9_FMC_DAC_REF_CLK_phase |  |
+| raw | out_altvoltage9_FMC_DAC_REF_CLK_raw |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9523-1 FMC_DAC_REF_CLK frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9523-1")
+chan = dev.find_channel("FMC_DAC_REF_CLK")
+rval = chan.attrs["frequency"].value
+```
+
+***

@@ -1,0 +1,121 @@
+# ina226
+
+
+## Device Attributes
+
+| Name | Default value |
+| ---- | ------------- |
+| shunt_resistor |  |
+| update_interval |  |
+
+
+
+
+## Channel Attributes
+
+### curr1
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| input | curr1_input |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ina226 curr1 input
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ina226")
+chan = dev.find_channel("curr1")
+rval = chan.attrs["input"].value
+```
+
+***
+### in0
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| crit | in0_crit |  |
+| crit_alarm | in0_crit_alarm |  |
+| input | in0_input |  |
+| lcrit | in0_lcrit |  |
+| lcrit_alarm | in0_lcrit_alarm |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ina226 in0 crit
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ina226")
+chan = dev.find_channel("in0")
+rval = chan.attrs["crit"].value
+```
+
+***
+### in1
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| crit | in1_crit |  |
+| crit_alarm | in1_crit_alarm |  |
+| input | in1_input |  |
+| lcrit | in1_lcrit |  |
+| lcrit_alarm | in1_lcrit_alarm |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ina226 in1 crit
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ina226")
+chan = dev.find_channel("in1")
+rval = chan.attrs["crit"].value
+```
+
+***
+### power1
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| crit | power1_crit |  |
+| crit_alarm | power1_crit_alarm |  |
+| input | power1_input |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ina226 power1 crit
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ina226")
+chan = dev.find_channel("power1")
+rval = chan.attrs["crit"].value
+```
+
+***

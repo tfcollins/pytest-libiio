@@ -1,0 +1,66 @@
+# ad9166
+
+
+## Device Attributes
+
+| Name | Default value |
+| ---- | ------------- |
+| fir85_enable |  |
+| sampling_frequency |  |
+
+
+
+
+## Channel Attributes
+
+### altvoltage0
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| nco_frequency | out_altvoltage0_nco_frequency |  |
+| raw | out_altvoltage0_raw |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9166 altvoltage0 nco_frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9166")
+chan = dev.find_channel("altvoltage0")
+rval = chan.attrs["nco_frequency"].value
+```
+
+***
+### temp0
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| input | in_temp0_input |  |
+| raw | in_temp0_raw |  |
+| single_point_calib | in_temp0_single_point_calib |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad9166 temp0 input
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad9166")
+chan = dev.find_channel("temp0")
+rval = chan.attrs["input"].value
+```
+
+***

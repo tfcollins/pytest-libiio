@@ -1,0 +1,15 @@
+# iio_sysfs_trigger
+
+
+## Device Attributes
+
+| Name | Default value |
+| ---- | ------------- |
+| add_trigger |  |
+| remove_trigger |  |
+
+
+
+
+## Channel Attributes
+

@@ -1,0 +1,34 @@
+# adt7420
+
+
+
+## Channel Attributes
+
+### temp
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| temp | in_temp_temp |  |
+| temp_max | in_temp_temp_max |  |
+| temp_min | in_temp_temp_min |  |
+| temp_crit | in_temp_temp_crit |  |
+| temp_hyst | in_temp_temp_hyst |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c adt7420 temp temp
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("adt7420")
+chan = dev.find_channel("temp")
+rval = chan.attrs["temp"].value
+```
+
+***

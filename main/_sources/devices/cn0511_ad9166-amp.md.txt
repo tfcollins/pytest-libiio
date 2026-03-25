@@ -1,0 +1,20 @@
+# ad9166-amp
+
+
+## Device Attributes
+
+| Name | Default value |
+| ---- | ------------- |
+| amp_adc_pwr_down |  |
+| amp_cm |  |
+| amp_vout_trim |  |
+| en |  |
+| pwr_down_dac_current |  |
+| pwr_down_n_mir |  |
+| pwr_down_p_mir |  |
+
+
+
+
+## Channel Attributes
+

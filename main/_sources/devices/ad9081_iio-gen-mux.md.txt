@@ -1,0 +1,15 @@
+# iio-gen-mux
+
+
+## Device Attributes
+
+| Name | Default value |
+| ---- | ------------- |
+| mux_select |  |
+| mux_select_available |  |
+
+
+
+
+## Channel Attributes
+

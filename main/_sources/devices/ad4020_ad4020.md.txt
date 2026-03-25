@@ -1,0 +1,32 @@
+# ad4020
+
+
+
+## Channel Attributes
+
+### voltage0
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| offset | in_voltage0_offset |  |
+| raw | in_voltage0_raw |  |
+| scale | in_voltage0_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ad4020 voltage0 offset
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ad4020")
+chan = dev.find_channel("voltage0")
+rval = chan.attrs["offset"].value
+```
+
+***

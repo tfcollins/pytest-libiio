@@ -1,0 +1,30 @@
+# hmc1119
+
+
+
+## Channel Attributes
+
+### voltage0
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| hardwaregain | out_voltage0_hardwaregain |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c hmc1119 voltage0 hardwaregain
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("hmc1119")
+chan = dev.find_channel("voltage0")
+rval = chan.attrs["hardwaregain"].value
+```
+
+***

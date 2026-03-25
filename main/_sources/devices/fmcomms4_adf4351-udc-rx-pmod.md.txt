@@ -1,0 +1,33 @@
+# adf4351-udc-rx-pmod
+
+
+
+## Channel Attributes
+
+### altvoltage0
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| frequency | out_altvoltage0_frequency |  |
+| frequency_resolution | out_altvoltage0_frequency_resolution |  |
+| powerdown | out_altvoltage0_powerdown |  |
+| refin_frequency | out_altvoltage0_refin_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c adf4351-udc-rx-pmod altvoltage0 frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("adf4351-udc-rx-pmod")
+chan = dev.find_channel("altvoltage0")
+rval = chan.attrs["frequency"].value
+```
+
+***

@@ -1,0 +1,403 @@
+# axi-ad9081-rx-hpc
+
+
+## Device Attributes
+
+| Name | Default value |
+| ---- | ------------- |
+| adc_clk_powerdown |  |
+| filter_fir_config |  |
+| jesd204_fsm_ctrl |  |
+| jesd204_fsm_error |  |
+| jesd204_fsm_paused |  |
+| jesd204_fsm_resume |  |
+| jesd204_fsm_state |  |
+| loopback_mode |  |
+| loopback_mode_available |  |
+| multichip_sync |  |
+| powerdown |  |
+| sync_start_enable |  |
+| sync_start_enable_available |  |
+
+
+
+
+## Channel Attributes
+
+### temp0
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| input | in_temp0_input |  |
+| label | in_temp0_label |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9081-rx-hpc temp0 input
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9081-rx-hpc")
+chan = dev.find_channel("temp0")
+rval = chan.attrs["input"].value
+```
+
+***
+### voltage0_i
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| channel_nco_frequency | out_voltage0_i_channel_nco_frequency |  |
+| channel_nco_frequency_available | out_voltage_channel_nco_frequency_available |  |
+| channel_nco_gain_scale | out_voltage0_i_channel_nco_gain_scale |  |
+| channel_nco_phase | out_voltage0_i_channel_nco_phase |  |
+| channel_nco_test_tone_en | out_voltage0_i_channel_nco_test_tone_en |  |
+| channel_nco_test_tone_scale | out_voltage0_i_channel_nco_test_tone_scale |  |
+| dac_frequency | out_voltage_dac_frequency |  |
+| en | out_voltage0_i_en |  |
+| label | out_voltage0_i_label |  |
+| main_ffh_gpio_mode_en | out_voltage_main_ffh_gpio_mode_en |  |
+| main_ffh_mode | out_voltage0_i_main_ffh_mode |  |
+| main_ffh_mode_available | out_voltage_main_ffh_mode_available |  |
+| main_nco_ffh_frequency | out_voltage0_i_main_nco_ffh_frequency |  |
+| main_nco_ffh_index | out_voltage0_i_main_nco_ffh_index |  |
+| main_nco_ffh_select | out_voltage0_i_main_nco_ffh_select |  |
+| main_nco_frequency | out_voltage0_i_main_nco_frequency |  |
+| main_nco_frequency_available | out_voltage_main_nco_frequency_available |  |
+| main_nco_phase | out_voltage0_i_main_nco_phase |  |
+| main_nco_test_tone_en | out_voltage0_i_main_nco_test_tone_en |  |
+| main_nco_test_tone_scale | out_voltage0_i_main_nco_test_tone_scale |  |
+| sampling_frequency | out_voltage_sampling_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9081-rx-hpc voltage0_i channel_nco_frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9081-rx-hpc")
+chan = dev.find_channel("voltage0_i")
+rval = chan.attrs["channel_nco_frequency"].value
+```
+
+***
+### voltage0_q
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| channel_nco_frequency | out_voltage0_q_channel_nco_frequency |  |
+| channel_nco_frequency_available | out_voltage_channel_nco_frequency_available |  |
+| channel_nco_gain_scale | out_voltage0_q_channel_nco_gain_scale |  |
+| channel_nco_phase | out_voltage0_q_channel_nco_phase |  |
+| channel_nco_test_tone_en | out_voltage0_q_channel_nco_test_tone_en |  |
+| channel_nco_test_tone_scale | out_voltage0_q_channel_nco_test_tone_scale |  |
+| dac_frequency | out_voltage_dac_frequency |  |
+| en | out_voltage0_q_en |  |
+| label | out_voltage0_q_label |  |
+| main_ffh_gpio_mode_en | out_voltage_main_ffh_gpio_mode_en |  |
+| main_ffh_mode | out_voltage0_q_main_ffh_mode |  |
+| main_ffh_mode_available | out_voltage_main_ffh_mode_available |  |
+| main_nco_ffh_frequency | out_voltage0_q_main_nco_ffh_frequency |  |
+| main_nco_ffh_index | out_voltage0_q_main_nco_ffh_index |  |
+| main_nco_ffh_select | out_voltage0_q_main_nco_ffh_select |  |
+| main_nco_frequency | out_voltage0_q_main_nco_frequency |  |
+| main_nco_frequency_available | out_voltage_main_nco_frequency_available |  |
+| main_nco_phase | out_voltage0_q_main_nco_phase |  |
+| main_nco_test_tone_en | out_voltage0_q_main_nco_test_tone_en |  |
+| main_nco_test_tone_scale | out_voltage0_q_main_nco_test_tone_scale |  |
+| sampling_frequency | out_voltage_sampling_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9081-rx-hpc voltage0_q channel_nco_frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9081-rx-hpc")
+chan = dev.find_channel("voltage0_q")
+rval = chan.attrs["channel_nco_frequency"].value
+```
+
+***
+### voltage1_i
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| channel_nco_frequency | out_voltage1_i_channel_nco_frequency |  |
+| channel_nco_frequency_available | out_voltage_channel_nco_frequency_available |  |
+| channel_nco_gain_scale | out_voltage1_i_channel_nco_gain_scale |  |
+| channel_nco_phase | out_voltage1_i_channel_nco_phase |  |
+| channel_nco_test_tone_en | out_voltage1_i_channel_nco_test_tone_en |  |
+| channel_nco_test_tone_scale | out_voltage1_i_channel_nco_test_tone_scale |  |
+| dac_frequency | out_voltage_dac_frequency |  |
+| en | out_voltage1_i_en |  |
+| label | out_voltage1_i_label |  |
+| main_ffh_gpio_mode_en | out_voltage_main_ffh_gpio_mode_en |  |
+| main_ffh_mode | out_voltage1_i_main_ffh_mode |  |
+| main_ffh_mode_available | out_voltage_main_ffh_mode_available |  |
+| main_nco_ffh_frequency | out_voltage1_i_main_nco_ffh_frequency |  |
+| main_nco_ffh_index | out_voltage1_i_main_nco_ffh_index |  |
+| main_nco_ffh_select | out_voltage1_i_main_nco_ffh_select |  |
+| main_nco_frequency | out_voltage1_i_main_nco_frequency |  |
+| main_nco_frequency_available | out_voltage_main_nco_frequency_available |  |
+| main_nco_phase | out_voltage1_i_main_nco_phase |  |
+| main_nco_test_tone_en | out_voltage1_i_main_nco_test_tone_en |  |
+| main_nco_test_tone_scale | out_voltage1_i_main_nco_test_tone_scale |  |
+| sampling_frequency | out_voltage_sampling_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9081-rx-hpc voltage1_i channel_nco_frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9081-rx-hpc")
+chan = dev.find_channel("voltage1_i")
+rval = chan.attrs["channel_nco_frequency"].value
+```
+
+***
+### voltage1_q
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| channel_nco_frequency | out_voltage1_q_channel_nco_frequency |  |
+| channel_nco_frequency_available | out_voltage_channel_nco_frequency_available |  |
+| channel_nco_gain_scale | out_voltage1_q_channel_nco_gain_scale |  |
+| channel_nco_phase | out_voltage1_q_channel_nco_phase |  |
+| channel_nco_test_tone_en | out_voltage1_q_channel_nco_test_tone_en |  |
+| channel_nco_test_tone_scale | out_voltage1_q_channel_nco_test_tone_scale |  |
+| dac_frequency | out_voltage_dac_frequency |  |
+| en | out_voltage1_q_en |  |
+| label | out_voltage1_q_label |  |
+| main_ffh_gpio_mode_en | out_voltage_main_ffh_gpio_mode_en |  |
+| main_ffh_mode | out_voltage1_q_main_ffh_mode |  |
+| main_ffh_mode_available | out_voltage_main_ffh_mode_available |  |
+| main_nco_ffh_frequency | out_voltage1_q_main_nco_ffh_frequency |  |
+| main_nco_ffh_index | out_voltage1_q_main_nco_ffh_index |  |
+| main_nco_ffh_select | out_voltage1_q_main_nco_ffh_select |  |
+| main_nco_frequency | out_voltage1_q_main_nco_frequency |  |
+| main_nco_frequency_available | out_voltage_main_nco_frequency_available |  |
+| main_nco_phase | out_voltage1_q_main_nco_phase |  |
+| main_nco_test_tone_en | out_voltage1_q_main_nco_test_tone_en |  |
+| main_nco_test_tone_scale | out_voltage1_q_main_nco_test_tone_scale |  |
+| sampling_frequency | out_voltage_sampling_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9081-rx-hpc voltage1_q channel_nco_frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9081-rx-hpc")
+chan = dev.find_channel("voltage1_q")
+rval = chan.attrs["channel_nco_frequency"].value
+```
+
+***
+### voltage2_i
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| channel_nco_frequency | out_voltage2_i_channel_nco_frequency |  |
+| channel_nco_frequency_available | out_voltage_channel_nco_frequency_available |  |
+| channel_nco_gain_scale | out_voltage2_i_channel_nco_gain_scale |  |
+| channel_nco_phase | out_voltage2_i_channel_nco_phase |  |
+| channel_nco_test_tone_en | out_voltage2_i_channel_nco_test_tone_en |  |
+| channel_nco_test_tone_scale | out_voltage2_i_channel_nco_test_tone_scale |  |
+| dac_frequency | out_voltage_dac_frequency |  |
+| en | out_voltage2_i_en |  |
+| label | out_voltage2_i_label |  |
+| main_ffh_gpio_mode_en | out_voltage_main_ffh_gpio_mode_en |  |
+| main_ffh_mode | out_voltage2_i_main_ffh_mode |  |
+| main_ffh_mode_available | out_voltage_main_ffh_mode_available |  |
+| main_nco_ffh_frequency | out_voltage2_i_main_nco_ffh_frequency |  |
+| main_nco_ffh_index | out_voltage2_i_main_nco_ffh_index |  |
+| main_nco_ffh_select | out_voltage2_i_main_nco_ffh_select |  |
+| main_nco_frequency | out_voltage2_i_main_nco_frequency |  |
+| main_nco_frequency_available | out_voltage_main_nco_frequency_available |  |
+| main_nco_phase | out_voltage2_i_main_nco_phase |  |
+| main_nco_test_tone_en | out_voltage2_i_main_nco_test_tone_en |  |
+| main_nco_test_tone_scale | out_voltage2_i_main_nco_test_tone_scale |  |
+| sampling_frequency | out_voltage_sampling_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9081-rx-hpc voltage2_i channel_nco_frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9081-rx-hpc")
+chan = dev.find_channel("voltage2_i")
+rval = chan.attrs["channel_nco_frequency"].value
+```
+
+***
+### voltage2_q
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| channel_nco_frequency | out_voltage2_q_channel_nco_frequency |  |
+| channel_nco_frequency_available | out_voltage_channel_nco_frequency_available |  |
+| channel_nco_gain_scale | out_voltage2_q_channel_nco_gain_scale |  |
+| channel_nco_phase | out_voltage2_q_channel_nco_phase |  |
+| channel_nco_test_tone_en | out_voltage2_q_channel_nco_test_tone_en |  |
+| channel_nco_test_tone_scale | out_voltage2_q_channel_nco_test_tone_scale |  |
+| dac_frequency | out_voltage_dac_frequency |  |
+| en | out_voltage2_q_en |  |
+| label | out_voltage2_q_label |  |
+| main_ffh_gpio_mode_en | out_voltage_main_ffh_gpio_mode_en |  |
+| main_ffh_mode | out_voltage2_q_main_ffh_mode |  |
+| main_ffh_mode_available | out_voltage_main_ffh_mode_available |  |
+| main_nco_ffh_frequency | out_voltage2_q_main_nco_ffh_frequency |  |
+| main_nco_ffh_index | out_voltage2_q_main_nco_ffh_index |  |
+| main_nco_ffh_select | out_voltage2_q_main_nco_ffh_select |  |
+| main_nco_frequency | out_voltage2_q_main_nco_frequency |  |
+| main_nco_frequency_available | out_voltage_main_nco_frequency_available |  |
+| main_nco_phase | out_voltage2_q_main_nco_phase |  |
+| main_nco_test_tone_en | out_voltage2_q_main_nco_test_tone_en |  |
+| main_nco_test_tone_scale | out_voltage2_q_main_nco_test_tone_scale |  |
+| sampling_frequency | out_voltage_sampling_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9081-rx-hpc voltage2_q channel_nco_frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9081-rx-hpc")
+chan = dev.find_channel("voltage2_q")
+rval = chan.attrs["channel_nco_frequency"].value
+```
+
+***
+### voltage3_i
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| channel_nco_frequency | out_voltage3_i_channel_nco_frequency |  |
+| channel_nco_frequency_available | out_voltage_channel_nco_frequency_available |  |
+| channel_nco_gain_scale | out_voltage3_i_channel_nco_gain_scale |  |
+| channel_nco_phase | out_voltage3_i_channel_nco_phase |  |
+| channel_nco_test_tone_en | out_voltage3_i_channel_nco_test_tone_en |  |
+| channel_nco_test_tone_scale | out_voltage3_i_channel_nco_test_tone_scale |  |
+| dac_frequency | out_voltage_dac_frequency |  |
+| en | out_voltage3_i_en |  |
+| label | out_voltage3_i_label |  |
+| main_ffh_gpio_mode_en | out_voltage_main_ffh_gpio_mode_en |  |
+| main_ffh_mode | out_voltage3_i_main_ffh_mode |  |
+| main_ffh_mode_available | out_voltage_main_ffh_mode_available |  |
+| main_nco_ffh_frequency | out_voltage3_i_main_nco_ffh_frequency |  |
+| main_nco_ffh_index | out_voltage3_i_main_nco_ffh_index |  |
+| main_nco_ffh_select | out_voltage3_i_main_nco_ffh_select |  |
+| main_nco_frequency | out_voltage3_i_main_nco_frequency |  |
+| main_nco_frequency_available | out_voltage_main_nco_frequency_available |  |
+| main_nco_phase | out_voltage3_i_main_nco_phase |  |
+| main_nco_test_tone_en | out_voltage3_i_main_nco_test_tone_en |  |
+| main_nco_test_tone_scale | out_voltage3_i_main_nco_test_tone_scale |  |
+| sampling_frequency | out_voltage_sampling_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9081-rx-hpc voltage3_i channel_nco_frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9081-rx-hpc")
+chan = dev.find_channel("voltage3_i")
+rval = chan.attrs["channel_nco_frequency"].value
+```
+
+***
+### voltage3_q
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| channel_nco_frequency | out_voltage3_q_channel_nco_frequency |  |
+| channel_nco_frequency_available | out_voltage_channel_nco_frequency_available |  |
+| channel_nco_gain_scale | out_voltage3_q_channel_nco_gain_scale |  |
+| channel_nco_phase | out_voltage3_q_channel_nco_phase |  |
+| channel_nco_test_tone_en | out_voltage3_q_channel_nco_test_tone_en |  |
+| channel_nco_test_tone_scale | out_voltage3_q_channel_nco_test_tone_scale |  |
+| dac_frequency | out_voltage_dac_frequency |  |
+| en | out_voltage3_q_en |  |
+| label | out_voltage3_q_label |  |
+| main_ffh_gpio_mode_en | out_voltage_main_ffh_gpio_mode_en |  |
+| main_ffh_mode | out_voltage3_q_main_ffh_mode |  |
+| main_ffh_mode_available | out_voltage_main_ffh_mode_available |  |
+| main_nco_ffh_frequency | out_voltage3_q_main_nco_ffh_frequency |  |
+| main_nco_ffh_index | out_voltage3_q_main_nco_ffh_index |  |
+| main_nco_ffh_select | out_voltage3_q_main_nco_ffh_select |  |
+| main_nco_frequency | out_voltage3_q_main_nco_frequency |  |
+| main_nco_frequency_available | out_voltage_main_nco_frequency_available |  |
+| main_nco_phase | out_voltage3_q_main_nco_phase |  |
+| main_nco_test_tone_en | out_voltage3_q_main_nco_test_tone_en |  |
+| main_nco_test_tone_scale | out_voltage3_q_main_nco_test_tone_scale |  |
+| sampling_frequency | out_voltage_sampling_frequency |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-ad9081-rx-hpc voltage3_q channel_nco_frequency
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-ad9081-rx-hpc")
+chan = dev.find_channel("voltage3_q")
+rval = chan.attrs["channel_nco_frequency"].value
+```
+
+***

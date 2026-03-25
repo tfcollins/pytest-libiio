@@ -1,0 +1,82 @@
+# axi-adrv9002-core-tdd-lpc
+
+
+## Device Attributes
+
+| Name | Default value |
+| ---- | ------------- |
+| burst_count |  |
+| counter_int |  |
+| dma_gateing_mode |  |
+| dma_gateing_mode_available |  |
+| en |  |
+| en_mode |  |
+| en_mode_available |  |
+| frame_length_ms |  |
+| label |  |
+| secondary |  |
+| sync_terminal_type |  |
+
+
+
+
+## Channel Attributes
+
+### data0
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| dp_off_ms | in_data0_dp_off_ms |  |
+| dp_on_ms | in_data0_dp_on_ms |  |
+| off_ms | in_data0_off_ms |  |
+| on_ms | in_data0_on_ms |  |
+| vco_off_ms | in_data0_vco_off_ms |  |
+| vco_on_ms | in_data0_vco_on_ms |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-adrv9002-core-tdd-lpc data0 dp_off_ms
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-adrv9002-core-tdd-lpc")
+chan = dev.find_channel("data0")
+rval = chan.attrs["dp_off_ms"].value
+```
+
+***
+### data1
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| dp_off_ms | in_data1_dp_off_ms |  |
+| dp_on_ms | in_data1_dp_on_ms |  |
+| off_ms | in_data1_off_ms |  |
+| on_ms | in_data1_on_ms |  |
+| vco_off_ms | in_data1_vco_off_ms |  |
+| vco_on_ms | in_data1_vco_on_ms |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c axi-adrv9002-core-tdd-lpc data1 dp_off_ms
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("axi-adrv9002-core-tdd-lpc")
+chan = dev.find_channel("data1")
+rval = chan.attrs["dp_off_ms"].value
+```
+
+***

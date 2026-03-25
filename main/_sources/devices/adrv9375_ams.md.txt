@@ -1,0 +1,685 @@
+# ams
+
+
+
+## Channel Attributes
+
+### ps_temp
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| label | in_temp0_ps_temp_label |  |
+| offset | in_temp0_ps_temp_offset |  |
+| raw | in_temp0_ps_temp_raw |  |
+| scale | in_temp0_ps_temp_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ams ps_temp label
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ams")
+chan = dev.find_channel("ps_temp")
+rval = chan.attrs["label"].value
+```
+
+***
+### remote_temp
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| label | in_temp1_remote_temp_label |  |
+| offset | in_temp1_remote_temp_offset |  |
+| raw | in_temp1_remote_temp_raw |  |
+| scale | in_temp1_remote_temp_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ams remote_temp label
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ams")
+chan = dev.find_channel("remote_temp")
+rval = chan.attrs["label"].value
+```
+
+***
+### pl_temp
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| label | in_temp2_pl_temp_label |  |
+| offset | in_temp2_pl_temp_offset |  |
+| raw | in_temp2_pl_temp_raw |  |
+| scale | in_temp2_pl_temp_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ams pl_temp label
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ams")
+chan = dev.find_channel("pl_temp")
+rval = chan.attrs["label"].value
+```
+
+***
+### vcc_pspll0
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| label | in_voltage0_vcc_pspll0_label |  |
+| raw | in_voltage0_vcc_pspll0_raw |  |
+| scale | in_voltage0_vcc_pspll0_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ams vcc_pspll0 label
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ams")
+chan = dev.find_channel("vcc_pspll0")
+rval = chan.attrs["label"].value
+```
+
+***
+### vcc_psbatt
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| label | in_voltage1_vcc_psbatt_label |  |
+| raw | in_voltage1_vcc_psbatt_raw |  |
+| scale | in_voltage1_vcc_psbatt_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ams vcc_psbatt label
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ams")
+chan = dev.find_channel("vcc_psbatt")
+rval = chan.attrs["label"].value
+```
+
+***
+### vccpsddr
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| label | in_voltage10_vccpsddr_label |  |
+| raw | in_voltage10_vccpsddr_raw |  |
+| scale | in_voltage10_vccpsddr_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ams vccpsddr label
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ams")
+chan = dev.find_channel("vccpsddr")
+rval = chan.attrs["label"].value
+```
+
+***
+### vccpsio3
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| label | in_voltage11_vccpsio3_label |  |
+| raw | in_voltage11_vccpsio3_raw |  |
+| scale | in_voltage11_vccpsio3_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ams vccpsio3 label
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ams")
+chan = dev.find_channel("vccpsio3")
+rval = chan.attrs["label"].value
+```
+
+***
+### vccpsio0
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| label | in_voltage12_vccpsio0_label |  |
+| raw | in_voltage12_vccpsio0_raw |  |
+| scale | in_voltage12_vccpsio0_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ams vccpsio0 label
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ams")
+chan = dev.find_channel("vccpsio0")
+rval = chan.attrs["label"].value
+```
+
+***
+### vccpsio1
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| label | in_voltage13_vccpsio1_label |  |
+| raw | in_voltage13_vccpsio1_raw |  |
+| scale | in_voltage13_vccpsio1_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ams vccpsio1 label
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ams")
+chan = dev.find_channel("vccpsio1")
+rval = chan.attrs["label"].value
+```
+
+***
+### vccpsio2
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| label | in_voltage14_vccpsio2_label |  |
+| raw | in_voltage14_vccpsio2_raw |  |
+| scale | in_voltage14_vccpsio2_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ams vccpsio2 label
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ams")
+chan = dev.find_channel("vccpsio2")
+rval = chan.attrs["label"].value
+```
+
+***
+### psmgtravcc
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| label | in_voltage15_psmgtravcc_label |  |
+| raw | in_voltage15_psmgtravcc_raw |  |
+| scale | in_voltage15_psmgtravcc_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ams psmgtravcc label
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ams")
+chan = dev.find_channel("psmgtravcc")
+rval = chan.attrs["label"].value
+```
+
+***
+### psmgtravtt
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| label | in_voltage16_psmgtravtt_label |  |
+| raw | in_voltage16_psmgtravtt_raw |  |
+| scale | in_voltage16_psmgtravtt_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ams psmgtravtt label
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ams")
+chan = dev.find_channel("psmgtravtt")
+rval = chan.attrs["label"].value
+```
+
+***
+### vccams
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| label | in_voltage26_vccams_label |  |
+| raw | in_voltage26_vccams_raw |  |
+| scale | in_voltage26_vccams_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ams vccams label
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ams")
+chan = dev.find_channel("vccams")
+rval = chan.attrs["label"].value
+```
+
+***
+### vccint
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| label | in_voltage2_vccint_label |  |
+| raw | in_voltage2_vccint_raw |  |
+| scale | in_voltage2_vccint_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ams vccint label
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ams")
+chan = dev.find_channel("vccint")
+rval = chan.attrs["label"].value
+```
+
+***
+### vccaux
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| label | in_voltage4_vccaux_label |  |
+| raw | in_voltage4_vccaux_raw |  |
+| scale | in_voltage4_vccaux_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ams vccaux label
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ams")
+chan = dev.find_channel("vccaux")
+rval = chan.attrs["label"].value
+```
+
+***
+### vccvrefp
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| label | in_voltage20_vccvrefp_label |  |
+| raw | in_voltage20_vccvrefp_raw |  |
+| scale | in_voltage20_vccvrefp_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ams vccvrefp label
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ams")
+chan = dev.find_channel("vccvrefp")
+rval = chan.attrs["label"].value
+```
+
+***
+### vccvrefn
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| label | in_voltage21_vccvrefn_label |  |
+| raw | in_voltage21_vccvrefn_raw |  |
+| scale | in_voltage21_vccvrefn_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ams vccvrefn label
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ams")
+chan = dev.find_channel("vccvrefn")
+rval = chan.attrs["label"].value
+```
+
+***
+### vccbram
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| label | in_voltage3_vccbram_label |  |
+| raw | in_voltage3_vccbram_raw |  |
+| scale | in_voltage3_vccbram_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ams vccbram label
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ams")
+chan = dev.find_channel("vccbram")
+rval = chan.attrs["label"].value
+```
+
+***
+### vccplintlp
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| label | in_voltage23_vccplintlp_label |  |
+| raw | in_voltage23_vccplintlp_raw |  |
+| scale | in_voltage23_vccplintlp_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ams vccplintlp label
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ams")
+chan = dev.find_channel("vccplintlp")
+rval = chan.attrs["label"].value
+```
+
+***
+### vccplintfp
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| label | in_voltage24_vccplintfp_label |  |
+| raw | in_voltage24_vccplintfp_raw |  |
+| scale | in_voltage24_vccplintfp_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ams vccplintfp label
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ams")
+chan = dev.find_channel("vccplintfp")
+rval = chan.attrs["label"].value
+```
+
+***
+### vccplaux
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| label | in_voltage25_vccplaux_label |  |
+| raw | in_voltage25_vccplaux_raw |  |
+| scale | in_voltage25_vccplaux_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ams vccplaux label
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ams")
+chan = dev.find_channel("vccplaux")
+rval = chan.attrs["label"].value
+```
+
+***
+### vcc_psddrpll
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| label | in_voltage5_vcc_psddrpll_label |  |
+| raw | in_voltage5_vcc_psddrpll_raw |  |
+| scale | in_voltage5_vcc_psddrpll_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ams vcc_psddrpll label
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ams")
+chan = dev.find_channel("vcc_psddrpll")
+rval = chan.attrs["label"].value
+```
+
+***
+### vccpsintfpddr
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| label | in_voltage6_vccpsintfpddr_label |  |
+| raw | in_voltage6_vccpsintfpddr_raw |  |
+| scale | in_voltage6_vccpsintfpddr_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ams vccpsintfpddr label
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ams")
+chan = dev.find_channel("vccpsintfpddr")
+rval = chan.attrs["label"].value
+```
+
+***
+### vccpsintlp
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| label | in_voltage7_vccpsintlp_label |  |
+| raw | in_voltage7_vccpsintlp_raw |  |
+| scale | in_voltage7_vccpsintlp_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ams vccpsintlp label
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ams")
+chan = dev.find_channel("vccpsintlp")
+rval = chan.attrs["label"].value
+```
+
+***
+### vccpsintfp
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| label | in_voltage8_vccpsintfp_label |  |
+| raw | in_voltage8_vccpsintfp_raw |  |
+| scale | in_voltage8_vccpsintfp_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ams vccpsintfp label
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ams")
+chan = dev.find_channel("vccpsintfp")
+rval = chan.attrs["label"].value
+```
+
+***
+### vccpsaux
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| label | in_voltage9_vccpsaux_label |  |
+| raw | in_voltage9_vccpsaux_raw |  |
+| scale | in_voltage9_vccpsaux_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c ams vccpsaux label
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("ams")
+chan = dev.find_channel("vccpsaux")
+rval = chan.attrs["label"].value
+```
+
+***

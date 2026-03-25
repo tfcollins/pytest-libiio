@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="pytest-libiio favicon">
+  <title>pytest-libiio</title>
+  <defs>
+    <style>
+      /* pytest green checkmark */
+      .ck {
+        fill: none;
+        stroke: #10B981;
+        stroke-width: 2.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      /* libiio sine wave */
+      .wv {
+        fill: none;
+        stroke: #0055B3;
+        stroke-width: 1.5;
+        stroke-linecap: round;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .ck { stroke: #34D399; }
+        .wv { stroke: #60A5FA; }
+      }
+    </style>
+  </defs>
+
+  <!--
+    Simplified checkmark occupying the top ~65 % of the 32×32 canvas.
+    Left arm shorter (≈ half) than right arm.
+  -->
+  <polyline class="ck" points="3,14 11,22 29,4" />
+
+  <!--
+    1.5 periods of sine wave at the bottom, suggesting IIO signal flow.
+    Centre y=27, amplitude ±4 px, half-period=10 px.
+    Cubic-bezier control-point offset ≈ 0.276×10 ≈ 3 px.
+  -->
+  <path class="wv"
+    d="M 2,27
+       C 5,23 9,23 12,27
+       C 15,31 19,31 22,27
+       C 25,23 29,23 32,27" />
+</svg>

@@ -1,0 +1,232 @@
+# xadc
+
+
+
+## Channel Attributes
+
+### temp0
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| offset | in_temp0_offset |  |
+| raw | in_temp0_raw |  |
+| scale | in_temp0_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c xadc temp0 offset
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("xadc")
+chan = dev.find_channel("temp0")
+rval = chan.attrs["offset"].value
+```
+
+***
+### vccint
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| raw | in_voltage0_vccint_raw |  |
+| scale | in_voltage0_vccint_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c xadc vccint raw
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("xadc")
+chan = dev.find_channel("vccint")
+rval = chan.attrs["raw"].value
+```
+
+***
+### vccaux
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| raw | in_voltage1_vccaux_raw |  |
+| scale | in_voltage1_vccaux_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c xadc vccaux raw
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("xadc")
+chan = dev.find_channel("vccaux")
+rval = chan.attrs["raw"].value
+```
+
+***
+### vccbram
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| raw | in_voltage2_vccbram_raw |  |
+| scale | in_voltage2_vccbram_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c xadc vccbram raw
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("xadc")
+chan = dev.find_channel("vccbram")
+rval = chan.attrs["raw"].value
+```
+
+***
+### vccpint
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| raw | in_voltage3_vccpint_raw |  |
+| scale | in_voltage3_vccpint_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c xadc vccpint raw
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("xadc")
+chan = dev.find_channel("vccpint")
+rval = chan.attrs["raw"].value
+```
+
+***
+### vccpaux
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| raw | in_voltage4_vccpaux_raw |  |
+| scale | in_voltage4_vccpaux_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c xadc vccpaux raw
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("xadc")
+chan = dev.find_channel("vccpaux")
+rval = chan.attrs["raw"].value
+```
+
+***
+### vccoddr
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| raw | in_voltage5_vccoddr_raw |  |
+| scale | in_voltage5_vccoddr_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c xadc vccoddr raw
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("xadc")
+chan = dev.find_channel("vccoddr")
+rval = chan.attrs["raw"].value
+```
+
+***
+### vrefp
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| raw | in_voltage6_vrefp_raw |  |
+| scale | in_voltage6_vrefp_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c xadc vrefp raw
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("xadc")
+chan = dev.find_channel("vrefp")
+rval = chan.attrs["raw"].value
+```
+
+***
+### vrefn
+
+| Name | sysfs filename | Default value |
+| ---- | -------------- | ------------- |
+| raw | in_voltage7_vrefn_raw |  |
+| scale | in_voltage7_vrefn_scale |  |
+
+
+**iio_attr example:**
+
+```bash
+iio_attr -u ip:analog -c xadc vrefn raw
+```
+
+**Python bindings example:**
+
+```python
+import iio
+ctx = iio.Context("ip:analog")
+dev = ctx.find_device("xadc")
+chan = dev.find_channel("vrefn")
+rval = chan.attrs["raw"].value
+```
+
+***
