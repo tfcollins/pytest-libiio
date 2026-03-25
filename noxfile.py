@@ -19,20 +19,27 @@ TEST_DEPS = [
 ]
 
 
-@nox.session(python=PYTHON_VERSIONS)
+@nox.session(python=PYTHON_VERSIONS, name="tests")
 def tests(session):
-    """Run the test suite."""
+    """Run the offline unit test subset."""
     session.install(*TEST_DEPS)
     session.install("-e", ".")
     session.run(
+        "python",
+        "-m",
         "pytest",
-        "tests",
-        "--cov=pytest_libiio",
-        "--cov-append",
-        "--cov-report=term-missing",
-        f"--resource-dir={HERE / 'tests' / 'resources'}",
+        "tests/test_coverage.py",
+        "tests/test_tools.py",
+        env={"PYTEST_DISABLE_PLUGIN_AUTOLOAD": "1"},
         *session.posargs,
     )
+
+
+@nox.session(python=False, name="check")
+def check(session):
+    """Run lint and format checks."""
+    session.run("ruff", "check", "pytest_libiio", "tests")
+    session.run("ruff", "format", "--check", "pytest_libiio", "tests")
 
 
 @nox.session(python="3.9")
