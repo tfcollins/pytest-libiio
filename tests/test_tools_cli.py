@@ -1,5 +1,4 @@
 from click.testing import CliRunner
-import pytest
 
 from pytest_libiio.tools import gen_xml
 
