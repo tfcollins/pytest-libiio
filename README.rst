@@ -26,7 +26,7 @@ A pytest plugin to manage interfacing with libiio contexts
 
 ----
 
-pytest-libiio is pytest plugin to manage interfacing with libiio contexts. This plugin is handy for leveraging the (new) zeroconf features of libiio to find, filter, and map libiio contexts to tests. It was created for `pyadi-iio <https://pypi.org/project/pyadi-iio/>`_ testing but is used in other applications that need an organized way to handle libiio contexts without hardcoding URIs or lots of boilerplate code.
+pytest-libiio is pytest plugin to manage interfacing with libiio contexts. This plugin is handy for leveraging the zeroconf features of libiio to find, filter, and map libiio contexts to tests. It was created for `pyadi-iio <https://pypi.org/project/pyadi-iio/>`_ testing but is used in other applications that need an organized way to handle libiio contexts without hardcoding URIs or lots of boilerplate code.
 
 
 Requirements
@@ -36,15 +36,20 @@ Requirements
 * pytest
 * pyyaml
 
+Optional for emulation support:
+
+* `iio-emu <https://github.com/analogdevicesinc/iio-emu>`_
+
+Optional for SSH telemetry collection:
+
+* `paramiko <https://pypi.org/project/paramiko/>`_ (or install with ``pip install pytest-libiio[ssh]``)
+
 For development the following are also needed:
 
-* tox
+* nox
 * pytest-mock
 * pre-commit
-* isort
-* flake8
-* codespell
-* black
+* ruff
 
 
 Installation
@@ -63,7 +68,7 @@ This plugin is used to make the access of libiio contexts easier and to provide 
 Accessing contexts
 ^^^^^^^^^^^^^^^^^^
 
-Get list of context descriptions of all found contained
+Get list of context descriptions of all found contexts:
 
 .. code-block:: python
 
@@ -79,7 +84,7 @@ Get list of context descriptions of all found contained
       if not ctx:
           pytest.skip("No required hardware found")
 
-Require certain hardware through marks
+Require certain hardware through marks:
 
 .. code-block:: python
 
@@ -93,13 +98,10 @@ Require certain hardware through marks
           ctx = iio.Context(ctx_desc["uri"])
           ...
 
-Future ideas
-------------
-Mock testing is common with libiio's python library since hardware is needed otherwise. In future releases we hope to extend features in pytest-mock through this plugin to make mocking libiio more streamlined.
-
 Contributing
 ------------
-Contributions are very welcome. Tests can be run with `tox`_, please ensure
+
+Contributions are very welcome. Tests can be run with `nox`_, please ensure
 the coverage at least stays the same before you submit a pull request.
 
 License
@@ -113,15 +115,8 @@ Issues
 
 If you encounter any problems, please `file an issue`_ along with a detailed description.
 
-.. _`Cookiecutter`: https://github.com/audreyr/cookiecutter
-.. _`@hackebrot`: https://github.com/hackebrot
-.. _`MIT`: http://opensource.org/licenses/MIT
 .. _`BSD-3`: http://opensource.org/licenses/BSD-3-Clause
-.. _`GNU GPL v3.0`: http://www.gnu.org/licenses/gpl-3.0.txt
-.. _`Apache Software License 2.0`: http://www.apache.org/licenses/LICENSE-2.0
-.. _`cookiecutter-pytest-plugin`: https://github.com/pytest-dev/cookiecutter-pytest-plugin
 .. _`file an issue`: https://github.com/tfcollins/pytest-libiio/issues
-.. _`pytest`: https://github.com/pytest-dev/pytest
-.. _`tox`: https://tox.readthedocs.io/en/latest/
+.. _`nox`: https://nox.thea.codes/en/stable/
 .. _`pip`: https://pypi.org/project/pip/
 .. _`PyPI`: https://pypi.org/project
