@@ -121,7 +121,9 @@ def test_coverage_tracker_reset_and_zero_attribute_paths(monkeypatch):
         attrs = {}
         devices = [FakeDevice("dev", {}, [])]
 
-    monkeypatch.setattr("pytest_libiio.coverage.iio.Context", lambda uri: EmptyContext())
+    monkeypatch.setattr(
+        "pytest_libiio.coverage.iio.Context", lambda uri: EmptyContext()
+    )
 
     tracker = coverage.CoverageTracker("dut", "ip:1.2.3.4")
     with pytest.raises(ZeroDivisionError):

@@ -120,9 +120,7 @@ def test_gen_markdown_table_and_filename_helpers(tmp_path):
     assert "foo" not in text
 
     hw_map = {
-        "pluto": [
-            {"emulate": [{"filename": "pluto.xml"}, {"data_devices": ["d0"]}]}
-        ]
+        "pluto": [{"emulate": [{"filename": "pluto.xml"}, {"data_devices": ["d0"]}]}]
     }
     assert plugin.get_filename(hw_map, "pluto") == ("pluto.xml", ["d0"])
 
@@ -178,7 +176,11 @@ def test_handle_iio_emu_restart_and_skip(monkeypatch, tmp_path):
     emu = Emu()
     req = types.SimpleNamespace(config=FakeConfig({"--emu-xml-dir": str(tmp_path)}))
 
-    monkeypatch.setattr(plugin, "get_hw_map", lambda request: {"pluto": [{"emulate": [{"filename": "p.xml"}]}]})
+    monkeypatch.setattr(
+        plugin,
+        "get_hw_map",
+        lambda request: {"pluto": [{"emulate": [{"filename": "p.xml"}]}]},
+    )
 
     # file missing => skip
     with pytest.raises(pytest.skip.Exception):
@@ -218,7 +220,11 @@ def test_pytest_configure_and_collection(monkeypatch):
     plugin.pytest_configure(config)
     assert "filename" in called and called["filename"] == "tests_gw1.log"
 
-    monkeypatch.setattr(plugin, "find_contexts", lambda config, hw_map, request: [{"uri": "u", "hw": "pluto"}])
+    monkeypatch.setattr(
+        plugin,
+        "find_contexts",
+        lambda config, hw_map, request: [{"uri": "u", "hw": "pluto"}],
+    )
     monkeypatch.setattr(plugin, "get_hw_map", lambda request: {"pluto": []})
 
     marker = types.SimpleNamespace(name="iio_hardware", args=("pluto",))
@@ -286,7 +292,15 @@ def test_iio_uri_single_context_and_context_desc(monkeypatch):
         marker,
     )
 
-    tracker = types.SimpleNamespace(trackers={}, add_instance=lambda n, u: request.config.pytest_libiio.coverage_tracker.trackers.setdefault(n, object()), set_tracker=lambda n: None)
+    tracker = types.SimpleNamespace(
+        trackers={},
+        add_instance=lambda n, u: (
+            request.config.pytest_libiio.coverage_tracker.trackers.setdefault(
+                n, object()
+            )
+        ),
+        set_tracker=lambda n: None,
+    )
     request.config.pytest_libiio = types.SimpleNamespace(coverage_tracker=tracker)
 
     monkeypatch.setattr(plugin, "get_telemetry_data", lambda *args, **kwargs: None)
@@ -304,19 +318,27 @@ def test_iio_uri_single_context_and_context_desc(monkeypatch):
 
     contexts = [{"hw": "pluto", "uri": "u1"}, {"hw": "ad9081", "uri": "u2"}]
     assert plugin.single_ctx_desc.__wrapped__(request, contexts)["hw"] == "pluto"
-    assert plugin.context_desc.__wrapped__(request, contexts) == [{"hw": "pluto", "uri": "u1"}]
+    assert plugin.context_desc.__wrapped__(request, contexts) == [
+        {"hw": "pluto", "uri": "u1"}
+    ]
 
 
 def test_iio_emu_func_and_emu_fixture(monkeypatch, tmp_path):
     marker_skip = types.SimpleNamespace(name="iio_hardware", args=("pluto", True))
     request = FakeRequest({"--emu": True}, marker_skip)
     with pytest.raises(pytest.skip.Exception):
-        plugin._iio_emu_func.__wrapped__(request, [{"hw": "pluto", "uri": "u"}], object())
+        plugin._iio_emu_func.__wrapped__(
+            request, [{"hw": "pluto", "uri": "u"}], object()
+        )
 
     marker = types.SimpleNamespace(name="iio_hardware", args=("pluto",))
     request = FakeRequest({"--emu": False}, marker)
-    monkeypatch.setattr(plugin, "handle_iio_emu", lambda dec, request, emu: {**dec, "handled": True})
-    out = plugin._iio_emu_func.__wrapped__(request, [{"hw": "pluto", "uri": "u"}], object())
+    monkeypatch.setattr(
+        plugin, "handle_iio_emu", lambda dec, request, emu: {**dec, "handled": True}
+    )
+    out = plugin._iio_emu_func.__wrapped__(
+        request, [{"hw": "pluto", "uri": "u"}], object()
+    )
     assert out["handled"]
 
     # _iio_emu fixture: no emu
@@ -345,7 +367,14 @@ def test_iio_emu_func_and_emu_fixture(monkeypatch, tmp_path):
     xml = tmp_path / "ctx.xml"
     xml.write_text("<x/>")
     request = types.SimpleNamespace(
-        config=FakeConfig({"--emu": True, "--emu-xml": str(xml), "--adi-hw-map": False, "--custom-hw-map": None})
+        config=FakeConfig(
+            {
+                "--emu": True,
+                "--emu-xml": str(xml),
+                "--adi-hw-map": False,
+                "--custom-hw-map": None,
+            }
+        )
     )
     gen = plugin._iio_emu.__wrapped__(request, "gw2")
     emu = next(gen)
@@ -357,8 +386,12 @@ def test_iio_emu_func_and_emu_fixture(monkeypatch, tmp_path):
 
 def test_contexts_fixture_cleanup_and_telemetry(tmp_path, monkeypatch):
     # _contexts with auto emu
-    req = types.SimpleNamespace(config=FakeConfig({"--uri": None, "--scan-verbose": False, "--hw": None}))
-    emu = types.SimpleNamespace(auto=True, uri="ip:emu", hw={"pluto": {"devices": ["d0"]}})
+    req = types.SimpleNamespace(
+        config=FakeConfig({"--uri": None, "--scan-verbose": False, "--hw": None})
+    )
+    emu = types.SimpleNamespace(
+        auto=True, uri="ip:emu", hw={"pluto": {"devices": ["d0"]}}
+    )
     rows = plugin._contexts.__wrapped__(req, emu)
     assert rows[0]["type"] == "emu"
 
@@ -400,7 +433,9 @@ def test_contexts_fixture_cleanup_and_telemetry(tmp_path, monkeypatch):
 
     # save telemetry logs fixture
     plugin.pytest.hw_telemetry = {"u": {"test_a": {"k": 1}}}
-    req = types.SimpleNamespace(config=FakeConfig({"--telm-data-folder": str(tmp_path / "telm")}))
+    req = types.SimpleNamespace(
+        config=FakeConfig({"--telm-data-folder": str(tmp_path / "telm")})
+    )
     gen = plugin.save_telemtry_logs_to_files.__wrapped__(req)
     next(gen)
     with pytest.raises(StopIteration):
@@ -418,13 +453,19 @@ def test_contexts_fixture_cleanup_and_telemetry(tmp_path, monkeypatch):
     request = FakeRequest({"--telm": True, "--emu": True}, test_name="test_telem")
     plugin.get_telemetry_data(request, {"uri": "ip:1.1.1.1"}, before_test=True)
     plugin.get_telemetry_data(request, {"uri": "ip:1.1.1.1"}, before_test=False)
-    assert plugin.pytest.hw_telemetry["ip:1.1.1.1"]["test_telem"]["before_test"] == {"ok": True}
-    assert plugin.pytest.hw_telemetry["ip:1.1.1.1"]["test_telem"]["after_test"] == {"ok": True}
+    assert plugin.pytest.hw_telemetry["ip:1.1.1.1"]["test_telem"]["before_test"] == {
+        "ok": True
+    }
+    assert plugin.pytest.hw_telemetry["ip:1.1.1.1"]["test_telem"]["after_test"] == {
+        "ok": True
+    }
 
 
 def test_import_lookup_and_find_contexts(tmp_path, monkeypatch, capsys):
     hw_map_file = tmp_path / "hw.yml"
-    hw_map_file.write_text("pluto:\n  - ad9361-phy,1\n  - ctx_attr:\n    - hw_model: Demo\n")
+    hw_map_file.write_text(
+        "pluto:\n  - ad9361-phy,1\n  - ctx_attr:\n    - hw_model: Demo\n"
+    )
 
     data = plugin.import_hw_map(str(hw_map_file))
     assert "pluto" in data
@@ -445,7 +486,9 @@ def test_import_lookup_and_find_contexts(tmp_path, monkeypatch, capsys):
     assert plugin.find_contexts(config, data, request) is False
 
     request = types.SimpleNamespace(config=FakeConfig({"--skip-scan": False}))
-    monkeypatch.setattr(plugin.iio, "scan_contexts", lambda: {"ip:1.1.1.1": "demo(ad9361-phy)"})
+    monkeypatch.setattr(
+        plugin.iio, "scan_contexts", lambda: {"ip:1.1.1.1": "demo(ad9361-phy)"}
+    )
 
     class Ctx:
         attrs = {"uri": "ip:1.1.1.1"}
@@ -458,7 +501,9 @@ def test_import_lookup_and_find_contexts(tmp_path, monkeypatch, capsys):
     class BusyError(Exception):
         errno = 16
 
-    monkeypatch.setattr(plugin.iio, "Context", lambda uri: (_ for _ in ()).throw(BusyError("busy")))
+    monkeypatch.setattr(
+        plugin.iio, "Context", lambda uri: (_ for _ in ()).throw(BusyError("busy"))
+    )
     rows = plugin.find_contexts(config, data, request)
     assert rows == []
     assert "not reachable" in capsys.readouterr().out
@@ -466,6 +511,8 @@ def test_import_lookup_and_find_contexts(tmp_path, monkeypatch, capsys):
     class FatalError(Exception):
         errno = 1
 
-    monkeypatch.setattr(plugin.iio, "Context", lambda uri: (_ for _ in ()).throw(FatalError("fatal")))
+    monkeypatch.setattr(
+        plugin.iio, "Context", lambda uri: (_ for _ in ()).throw(FatalError("fatal"))
+    )
     with pytest.raises(FatalError):
         plugin.find_contexts(config, data, request)
