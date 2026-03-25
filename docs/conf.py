@@ -12,7 +12,6 @@ extensions = [
 html_theme = "furo"
 
 html_static_path = ["_static"]
-html_logo = "_static/logo-pytest-libiio.svg"
 html_favicon = "_static/favicon-pytest-libiio.svg"
 html_theme_options = {
     "light_logo": "logo-pytest-libiio.svg",
