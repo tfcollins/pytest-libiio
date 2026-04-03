@@ -84,6 +84,7 @@ def docs(session):
 
 
 PYADI_IIO_DIR = HERE.parent / "pyadi-iio"
+PYADI_IIO_REPO = "https://github.com/analogdevicesinc/pyadi-iio.git"
 
 PYADI_IIO_DEPS = [
     "pyadi-iio",
@@ -94,9 +95,46 @@ PYADI_IIO_DEPS = [
 ]
 
 
+def _ensure_pyadi_iio(session):
+    """Clone pyadi-iio at the latest release tag if not already present."""
+    import subprocess
+
+    if PYADI_IIO_DIR.is_dir():
+        session.log(f"Using existing pyadi-iio at {PYADI_IIO_DIR}")
+        return
+    session.log(f"Cloning pyadi-iio into {PYADI_IIO_DIR} ...")
+    subprocess.check_call(
+        ["git", "clone", "--depth=1", PYADI_IIO_REPO, str(PYADI_IIO_DIR)],
+    )
+    # Fetch tags and check out the latest release
+    subprocess.check_call(
+        ["git", "-C", str(PYADI_IIO_DIR), "fetch", "--tags", "--depth=1"],
+    )
+    latest_tag = (
+        subprocess.check_output(
+            ["git", "-C", str(PYADI_IIO_DIR), "tag", "--sort=-v:refname"],
+        )
+        .decode()
+        .split("\n")[0]
+        .strip()
+    )
+    if latest_tag:
+        session.log(f"Checking out latest release: {latest_tag}")
+        subprocess.check_call(
+            ["git", "-C", str(PYADI_IIO_DIR), "checkout", latest_tag],
+        )
+
+
 @nox.session(python="3.12", name="stress")
 def stress(session):
-    """Stress-test xdist port allocation with pyadi-iio emulation tests."""
+    """Stress-test xdist port allocation with pyadi-iio emulation tests.
+
+    Clones pyadi-iio at the latest release if not found at ../pyadi-iio.
+    Pass the number of xdist workers as a positional arg (default: 4):
+
+        nox -s stress -- 8
+    """
+    _ensure_pyadi_iio(session)
     session.install(*TEST_DEPS, *PYADI_IIO_DEPS)
     session.install("-e", ".")
     num_workers = session.posargs[0] if session.posargs else "4"

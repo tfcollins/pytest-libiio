@@ -10,7 +10,7 @@ import pytest
 import pytest_libiio.plugin as plugin
 
 PYADI_IIO_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "pyadi-iio")
-PYADI_IIO_AVAILABLE = os.path.isdir(os.path.join(PYADI_IIO_DIR, "test"))
+PYADI_IIO_REPO = "https://github.com/analogdevicesinc/pyadi-iio.git"
 
 # ---------------------------------------------------------------------------
 # Helpers (duplicated from test_plugin_unit to avoid cross-test coupling)
@@ -370,10 +370,38 @@ def test_xdist_emulation_repeated_device(testdir, num_workers):
 # ---------------------------------------------------------------------------
 
 
-@pytest.mark.skipif(
-    not PYADI_IIO_AVAILABLE,
-    reason="pyadi-iio repo not found at ../pyadi-iio",
-)
+def _ensure_pyadi_iio():
+    """Clone pyadi-iio at the latest release tag if not already present."""
+    import subprocess
+
+    repo_dir = os.path.abspath(PYADI_IIO_DIR)
+    if os.path.isdir(os.path.join(repo_dir, "test")):
+        return repo_dir
+
+    print(f"Cloning pyadi-iio into {repo_dir} ...")
+    subprocess.check_call(
+        ["git", "clone", "--depth=1", PYADI_IIO_REPO, repo_dir],
+    )
+    # Fetch tags and check out the latest release
+    subprocess.check_call(
+        ["git", "-C", repo_dir, "fetch", "--tags", "--depth=1"],
+    )
+    latest_tag = (
+        subprocess.check_output(
+            ["git", "-C", repo_dir, "tag", "--sort=-v:refname"],
+        )
+        .decode()
+        .split("\n")[0]
+        .strip()
+    )
+    if latest_tag:
+        print(f"Checking out latest release: {latest_tag}")
+        subprocess.check_call(
+            ["git", "-C", repo_dir, "checkout", latest_tag],
+        )
+    return repo_dir
+
+
 @pytest.mark.parametrize("num_workers", [2, 4])
 def test_xdist_pyadi_iio_emulation(num_workers):
     """Run pyadi-iio emulation tests with xdist parallel workers.
@@ -381,8 +409,13 @@ def test_xdist_pyadi_iio_emulation(num_workers):
     This is the most rigorous stress test: it exercises the full pytest-libiio
     plugin with real pyadi-iio device driver tests, real iio-emu instances,
     and xdist parallelism across multiple workers.
+
+    Automatically clones pyadi-iio at the latest release tag if not found
+    at ../pyadi-iio.
     """
     import subprocess
+
+    repo_dir = _ensure_pyadi_iio()
 
     result = subprocess.run(
         [
@@ -406,7 +439,7 @@ def test_xdist_pyadi_iio_emulation(num_workers):
             "--tb=short",
             f"-n={num_workers}",
         ],
-        cwd=os.path.abspath(PYADI_IIO_DIR),
+        cwd=repo_dir,
         capture_output=True,
         text=True,
         timeout=300,
