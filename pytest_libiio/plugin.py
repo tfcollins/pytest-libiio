@@ -56,12 +56,14 @@ class iio_emu_manager:
             self.stop()
 
     def start(self):
-        with open("data.bin", "w"):
+        port_suffix = f"_{self.custom_port}" if self.custom_port else ""
+        self.data_file = f"data{port_suffix}.bin"
+        with open(self.data_file, "w"):
             pass
         cmd = ["iio-emu", "generic", self.xml_path]
         if self.data_devices:
             for dev in self.data_devices:
-                cmd.append(f"{dev}@data.bin")
+                cmd.append(f"{dev}@{self.data_file}")
         if self.custom_port:
             cmd.append("-p")
             cmd.append(f"{self.custom_port}")
@@ -75,6 +77,8 @@ class iio_emu_manager:
         if self.p:
             self.p.send_signal(signal.SIGINT)
         self.p = None
+        if hasattr(self, "data_file") and os.path.exists(self.data_file):
+            os.remove(self.data_file)
 
 
 def gen_markdown_table(systems_data, filename):
