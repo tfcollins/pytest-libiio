@@ -272,6 +272,17 @@ def test_port_range_bounds(num_workers):
 # ---------------------------------------------------------------------------
 
 
+_LOCALHOST_CONFTEST = """
+import pytest_libiio.plugin as _plugin
+import socket as _socket
+
+# Force iio-emu to bind to localhost so tests work in CI where
+# socket.gethostbyname(socket.gethostname()) may return an unreachable IP.
+_orig_gethostbyname = _socket.gethostbyname
+_plugin.socket.gethostbyname = lambda h: "127.0.0.1"
+"""
+
+
 @pytest.mark.parametrize("num_workers", [2, 4])
 def test_xdist_emulation_with_multiple_workers(testdir, num_workers):
     """Run multiple emulated device tests in parallel via xdist.
@@ -280,6 +291,7 @@ def test_xdist_emulation_with_multiple_workers(testdir, num_workers):
     the full integration: port allocation, iio-emu lifecycle, and parallel
     test execution with real IIO contexts.
     """
+    testdir.makeconftest(_LOCALHOST_CONFTEST)
     testdir.makepyfile(
         """
         import pytest
@@ -325,6 +337,7 @@ def test_xdist_emulation_repeated_device(testdir, num_workers):
     iio-emu instance on a separate port, testing that multiple identical
     emulations can run concurrently.
     """
+    testdir.makeconftest(_LOCALHOST_CONFTEST)
     testdir.makepyfile(
         """
         import pytest
