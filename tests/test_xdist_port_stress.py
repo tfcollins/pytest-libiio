@@ -402,6 +402,10 @@ def _ensure_pyadi_iio():
     return repo_dir
 
 
+@pytest.mark.skipif(
+    not os.environ.get("PYADI_IIO_STRESS"),
+    reason="Set PYADI_IIO_STRESS=1 to run (requires numpy, scipy, pyadi-iio)",
+)
 @pytest.mark.parametrize("num_workers", [2, 4])
 def test_xdist_pyadi_iio_emulation(num_workers):
     """Run pyadi-iio emulation tests with xdist parallel workers.
@@ -414,12 +418,13 @@ def test_xdist_pyadi_iio_emulation(num_workers):
     at ../pyadi-iio.
     """
     import subprocess
+    import sys
 
     repo_dir = _ensure_pyadi_iio()
 
     result = subprocess.run(
         [
-            "python3",
+            sys.executable,
             "-m",
             "pytest",
             "test/test_pluto_p.py",
