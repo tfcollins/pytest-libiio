@@ -9,6 +9,17 @@ path = pathlib.Path(__file__).parent.absolute()
 default_resource_dir = os.path.join(path, "..", "pytest_libiio", "resources", "devices")
 
 
+@pytest.fixture
+def testdir(testdir):
+    """Override testdir to disable labgrid plugin in pytester subprocesses.
+
+    labgrid's pytest_configure hook asserts StepLogger is not already started,
+    which fails when pytester spawns a subprocess that inherits the plugin.
+    """
+    testdir.makeini("[pytest]\naddopts = -p no:labgrid -p no:asyncio -p no:anyio")
+    return testdir
+
+
 def pytest_addoption(parser):
     parser.addoption(
         "--disable_mock",
@@ -63,4 +74,4 @@ def uri_select(request):
 
 @pytest.fixture(scope="session")
 def resource_folder(request):
-    return request.config.getoption("--resource-dir")
+    return os.path.abspath(request.config.getoption("--resource-dir"))

@@ -70,11 +70,60 @@ def clean(session):
 def docs(session):
     """Build Sphinx documentation."""
     session.install(
-        "sphinx", "furo", "myst-parser", "sphinx-click",
-        "jinja2", "pyyaml", "pylibiio", "paramiko",
+        "sphinx",
+        "furo",
+        "myst-parser",
+        "sphinx-click",
+        "jinja2",
+        "pyyaml",
+        "pylibiio",
+        "paramiko",
     )
     session.install("-e", ".")
     session.run("sphinx-build", "-b", "html", "docs", "docs/_build/html")
+
+
+PYADI_IIO_DIR = HERE.parent / "pyadi-iio"
+
+PYADI_IIO_DEPS = [
+    "pyadi-iio",
+    "numpy",
+    "scipy",
+    "plotly",
+    "pytest-html",
+]
+
+
+@nox.session(python="3.12", name="stress")
+def stress(session):
+    """Stress-test xdist port allocation with pyadi-iio emulation tests."""
+    session.install(*TEST_DEPS, *PYADI_IIO_DEPS)
+    session.install("-e", ".")
+    num_workers = session.posargs[0] if session.posargs else "4"
+    test_files = [
+        "test/test_pluto_p.py",
+        "test/test_ad9081.py",
+        "test/test_daq2_p.py",
+        "test/test_ad9361_p.py",
+        "test/test_daq3_p.py",
+        "test/test_fmcomms5_p.py",
+        "test/test_adrv9009_p.py",
+    ]
+    session.run(
+        "pytest",
+        *test_files,
+        "--emu",
+        "--skip-scan",
+        "-k",
+        "not prod and not stress and not tx_data and not cyclic"
+        " and not sfdr and not cw and not iq and not dds"
+        " and not loopback and not gain_check and not dc",
+        "-p",
+        "no:labgrid",
+        "-v",
+        f"-n={num_workers}",
+        env={"PYTHONPATH": str(PYADI_IIO_DIR)},
+    )
 
 
 @nox.session(python=False, name="act")
@@ -85,7 +134,8 @@ def act_session(session):
     if not shutil.which("act"):
         session.log("act not found — installing to ~/.local/bin")
         session.run(
-            "bash", "-c",
+            "bash",
+            "-c",
             "curl -s https://raw.githubusercontent.com/nektos/act/master/install.sh"
             " | bash -s -- -b ~/.local/bin",
             external=True,
@@ -95,10 +145,14 @@ def act_session(session):
     # so parallel matrix jobs would conflict on iio-emu's port 30431.
     for python_version in PYTHON_VERSIONS:
         session.run(
-            "act", "push",
-            "--job", "Test",
-            "--workflows", ".github/workflows/test.yml",
-            "--matrix", f"python-version:{python_version}",
+            "act",
+            "push",
+            "--job",
+            "Test",
+            "--workflows",
+            ".github/workflows/test.yml",
+            "--matrix",
+            f"python-version:{python_version}",
             *session.posargs,
             external=True,
         )
