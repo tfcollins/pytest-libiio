@@ -83,6 +83,78 @@ def docs(session):
     session.run("sphinx-build", "-b", "html", "docs", "docs/_build/html")
 
 
+VERSION_FILE = HERE / "pytest_libiio" / "__init__.py"
+
+
+@nox.session(python="3.12", name="release")
+def release(session):
+    """Bump version, commit, tag, and optionally push.
+
+    Usage:
+        nox -s release -- patch          # 0.0.27 -> 0.0.28 (default)
+        nox -s release -- minor          # 0.0.27 -> 0.1.0
+        nox -s release -- major          # 0.0.27 -> 1.0.0
+        nox -s release -- 0.1.0          # explicit version
+        nox -s release -- patch --push   # bump + push to remote
+    """
+    import re
+    import subprocess
+
+    args = list(session.posargs)
+    push = "--push" in args
+    if push:
+        args.remove("--push")
+
+    bump = args[0] if args else "patch"
+
+    # Read current version
+    text = VERSION_FILE.read_text()
+    match = re.search(r'__version__\s*=\s*"([^"]+)"', text)
+    if not match:
+        session.error("Could not find __version__ in " + str(VERSION_FILE))
+    current = match.group(1)
+    parts = [int(x) for x in current.split(".")]
+
+    # Calculate new version
+    if bump == "major":
+        parts = [parts[0] + 1, 0, 0]
+    elif bump == "minor":
+        parts = [parts[0], parts[1] + 1, 0]
+    elif bump == "patch":
+        parts = [parts[0], parts[1], parts[2] + 1]
+    elif re.match(r"^\d+\.\d+\.\d+$", bump):
+        parts = [int(x) for x in bump.split(".")]
+    else:
+        session.error(f"Invalid bump: {bump!r}  (use major/minor/patch or X.Y.Z)")
+
+    new_version = ".".join(str(p) for p in parts)
+    tag = f"v{new_version}"
+    session.log(f"Bumping version: {current} -> {new_version}")
+
+    # Update __init__.py
+    new_text = text.replace(
+        f'__version__ = "{current}"', f'__version__ = "{new_version}"'
+    )
+    VERSION_FILE.write_text(new_text)
+
+    # Verify the build works
+    session.install("build", "hatchling")
+    session.run("python", "-m", "build", "--sdist", "--wheel")
+
+    # Commit and tag
+    subprocess.check_call(["git", "add", str(VERSION_FILE)])
+    subprocess.check_call(["git", "commit", "-m", f"Release {tag}"])
+    subprocess.check_call(["git", "tag", "-a", tag, "-m", f"Release {tag}"])
+    session.log(f"Created commit and tag: {tag}")
+
+    if push:
+        subprocess.check_call(["git", "push"])
+        subprocess.check_call(["git", "push", "origin", tag])
+        session.log(f"Pushed {tag} to origin — CI will publish to PyPI")
+    else:
+        session.log(f"Run 'git push && git push origin {tag}' to trigger PyPI publish")
+
+
 PYADI_IIO_DIR = HERE.parent / "pyadi-iio"
 PYADI_IIO_REPO = "https://github.com/analogdevicesinc/pyadi-iio.git"
 
