@@ -5,12 +5,22 @@ import time
 import types
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+import iio
 import pytest
 
 import pytest_libiio.plugin as plugin
 
 PYADI_IIO_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "pyadi-iio")
 PYADI_IIO_REPO = "https://github.com/analogdevicesinc/pyadi-iio.git"
+
+# libiio < 0.24 does not support ip:host:port URIs (custom port in URI string),
+# which is required for xdist parallel emulation with per-worker ports.
+_libiio_version = iio.version[0] * 100 + iio.version[1]
+_has_uri_port_support = _libiio_version >= 24
+_skip_no_uri_port = pytest.mark.skipif(
+    not _has_uri_port_support,
+    reason=f"libiio {iio.version[:2]} does not support ip:host:port URIs",
+)
 
 # ---------------------------------------------------------------------------
 # Helpers (duplicated from test_plugin_unit to avoid cross-test coupling)
@@ -283,6 +293,7 @@ _plugin.socket.gethostbyname = lambda h: "127.0.0.1"
 """
 
 
+@_skip_no_uri_port
 @pytest.mark.parametrize("num_workers", [2, 4])
 def test_xdist_emulation_with_multiple_workers(testdir, num_workers):
     """Run multiple emulated device tests in parallel via xdist.
@@ -329,6 +340,7 @@ def test_xdist_emulation_with_multiple_workers(testdir, num_workers):
     assert result.ret == 0
 
 
+@_skip_no_uri_port
 @pytest.mark.parametrize("num_workers", [2, 4])
 def test_xdist_emulation_repeated_device(testdir, num_workers):
     """Stress the same emulated device across multiple xdist workers.
