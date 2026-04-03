@@ -90,11 +90,12 @@ def test_iio_emu_manager_start_stop_and_failure(tmp_path, monkeypatch):
     m = plugin.iio_emu_manager("ctx.xml", custom_port=30499)
     m.data_devices = ["iio:device1", "iio:device2"]
     m.start()
-    assert (tmp_path / "data.bin").exists()
-    assert "iio:device1@data.bin" in called["cmd"]
+    assert (tmp_path / "data_30499.bin").exists()
+    assert "iio:device1@data_30499.bin" in called["cmd"]
     assert "-p" in called["cmd"]
     m.stop()
     assert good_proc.signals
+    assert not (tmp_path / "data_30499.bin").exists()
 
     bad_proc = Proc(fail=True)
     monkeypatch.setattr(plugin.subprocess, "Popen", lambda cmd: bad_proc)
