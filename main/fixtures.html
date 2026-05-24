@@ -411,7 +411,7 @@ the test body.</p>
 <p><strong>Scope:</strong> function</p>
 <p>Returns a single context-description dict for the first matching hardware context.
 The test is skipped if no matching context is found.</p>
-<p><strong>Returns:</strong> <code class="docutils literal notranslate"><span class="pre">dict</span></code> — see <a class="reference internal" href="#context-dict-schema"><span class="xref myst">Context dict schema</span></a> below.</p>
+<p><strong>Returns:</strong> <code class="docutils literal notranslate"><span class="pre">dict</span></code> — see <a class="reference internal" href="#context-dict-schema">Context dict schema</a> below.</p>
 <p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">iio</span>
@@ -432,7 +432,7 @@ The test is skipped if no matching context is found.</p>
 <p>Returns a list of all matching context-description dicts. This is useful when multiple
 boards of the same type are connected simultaneously. The test is skipped if no matching
 contexts are found.</p>
-<p><strong>Returns:</strong> <code class="docutils literal notranslate"><span class="pre">list[dict]</span></code> — each element follows the <a class="reference internal" href="#context-dict-schema"><span class="xref myst">Context dict schema</span></a>.</p>
+<p><strong>Returns:</strong> <code class="docutils literal notranslate"><span class="pre">list[dict]</span></code> — each element follows the <a class="reference internal" href="#context-dict-schema">Context dict schema</a>.</p>
 <p><strong>Example — multi-board pattern:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">iio</span>
@@ -494,6 +494,185 @@ returns all found contexts and no filtering is applied.</p>
     <span class="o">...</span>
 </pre></div>
 </div>
+</section>
+<hr class="docutils" />
+<section id="scenario-emulation-mode">
+<h2>Scenario: emulation mode<a class="headerlink" href="#scenario-emulation-mode" title="Link to this heading">¶</a></h2>
+<p>Pass <code class="docutils literal notranslate"><span class="pre">--emu</span></code> together with <code class="docutils literal notranslate"><span class="pre">--adi-hw-map</span></code> to run tests against an
+<a class="reference external" href="https://github.com/analogdevicesinc/iio-emu">iio-emu</a> server instead of real
+hardware. The plugin starts and stops <code class="docutils literal notranslate"><span class="pre">iio-emu</span></code> automatically based on the
+hardware map and the markers on collected tests. <code class="docutils literal notranslate"><span class="pre">iio_uri</span></code> returns the
+emulator’s URI (e.g. <code class="docutils literal notranslate"><span class="pre">ip:127.0.0.1:30432</span></code> for an xdist worker).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest<span class="w"> </span>--emu<span class="w"> </span>--adi-hw-map
+</pre></div>
+</div>
+<p>Tests that cannot be exercised under emulation (e.g. tests that depend on real
+sample rates or signal paths) can opt out with the second marker argument:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">iio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">iio_hardware</span><span class="p">(</span><span class="s2">&quot;pluto&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># True = skip when --emu is active</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_real_pluto</span><span class="p">(</span><span class="n">iio_uri</span><span class="p">):</span>
+    <span class="n">ctx</span> <span class="o">=</span> <span class="n">iio</span><span class="o">.</span><span class="n">Context</span><span class="p">(</span><span class="n">iio_uri</span><span class="p">)</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="emulation.html"><span class="std std-doc">Emulation</span></a> for details on adding new device XML files.</p>
+</section>
+<hr class="docutils" />
+<section id="scenario-attribute-coverage">
+<h2>Scenario: attribute coverage<a class="headerlink" href="#scenario-attribute-coverage" title="Link to this heading">¶</a></h2>
+<p>When <code class="docutils literal notranslate"><span class="pre">--iio-coverage</span></code> is passed, <code class="docutils literal notranslate"><span class="pre">iio_uri</span></code> activates a per-context
+<a class="reference external" href="https://github.com/tfcollins/pytest-libiio/blob/main/pytest_libiio/coverage.py">attribute coverage tracker</a>
+that records every IIO attribute read or written during the test session via a
+monkey-patch on <code class="docutils literal notranslate"><span class="pre">iio.ChannelAttr</span></code>. No change to your test code is required.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest<span class="w"> </span>--emu<span class="w"> </span>--adi-hw-map<span class="w"> </span>--iio-coverage<span class="w"> </span>--iio-coverage-folder<span class="o">=</span>cov_out
+</pre></div>
+</div>
+<p>After the session finishes the plugin writes one <code class="docutils literal notranslate"><span class="pre">&lt;hw&gt;_coverage.json</span></code> file per
+context plus an aggregated <code class="docutils literal notranslate"><span class="pre">iio_coverage_report.md</span></code> into the coverage folder
+(default <code class="docutils literal notranslate"><span class="pre">iio_coverage_results/</span></code>). Pass <code class="docutils literal notranslate"><span class="pre">--iio-coverage-print-results</span></code> to also
+dump the per-context attribute map to stdout, or <code class="docutils literal notranslate"><span class="pre">--iio-coverage-debug-props</span></code>
+to track debug attributes too.</p>
+</section>
+<hr class="docutils" />
+<section id="scenario-telemetry-capture">
+<h2>Scenario: telemetry capture<a class="headerlink" href="#scenario-telemetry-capture" title="Link to this heading">¶</a></h2>
+<p>With <code class="docutils literal notranslate"><span class="pre">--telm</span></code>, the <code class="docutils literal notranslate"><span class="pre">iio_uri</span></code> fixture wraps each test with a before/after
+telemetry snapshot of the target hardware. Snapshots are pickled per test into
+<code class="docutils literal notranslate"><span class="pre">--telm-data-folder</span></code> (default <code class="docutils literal notranslate"><span class="pre">telm_data/</span></code>). When <code class="docutils literal notranslate"><span class="pre">pytest-libiio</span></code> is installed
+with the <code class="docutils literal notranslate"><span class="pre">[ssh]</span></code> extra and the URI is an IP context, additional metadata is
+collected over SSH.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest<span class="w"> </span>--uri<span class="w"> </span>ip:pluto.local<span class="w"> </span>--telm<span class="w"> </span>--telm-data-folder<span class="o">=</span>telm_out
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>telm_out/
+├── test_capture_loopback.pkl
+└── test_set_rx_lo.pkl
+</pre></div>
+</div>
+<p>Each pickle is a dict shaped <code class="docutils literal notranslate"><span class="pre">{&quot;before_test&quot;:</span> <span class="pre">{...},</span> <span class="pre">&quot;after_test&quot;:</span> <span class="pre">{...}}</span></code>
+with IIO context, device, and (optionally) SSH-collected metadata.</p>
+</section>
+<hr class="docutils" />
+<section id="scenario-parallel-execution-with-pytest-xdist">
+<h2>Scenario: parallel execution with pytest-xdist<a class="headerlink" href="#scenario-parallel-execution-with-pytest-xdist" title="Link to this heading">¶</a></h2>
+<p>Tests that request the same <code class="docutils literal notranslate"><span class="pre">iio_uri</span></code> must run sequentially per board — two
+parallel writers will fight over a single piece of hardware. The plugin
+handles this automatically: during collection it stamps every
+<code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.iio_hardware</span></code>-marked test with
+<code class="docutils literal notranslate"><span class="pre">xdist_group(name=f&quot;xdist_{uri}&quot;)</span></code>, so <code class="docutils literal notranslate"><span class="pre">pytest-xdist</span></code>’s <code class="docutils literal notranslate"><span class="pre">--dist=loadgroup</span></code>
+routes all tests for a given URI to a single worker.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest<span class="w"> </span>--adi-hw-map<span class="w"> </span>-n<span class="w"> </span>auto<span class="w"> </span>--dist<span class="o">=</span>loadgroup
+</pre></div>
+</div>
+<p>Under <code class="docutils literal notranslate"><span class="pre">--emu</span></code>, each xdist worker also gets its own iio-emu port allocated from
+<code class="docutils literal notranslate"><span class="pre">IIO_EMU_BASE_PORT</span> <span class="pre">=</span> <span class="pre">30431</span> <span class="pre">+</span> <span class="pre">worker_index</span></code>, so multiple workers can emulate
+independently without colliding.</p>
+</section>
+<hr class="docutils" />
+<section id="api-reference">
+<h2>API reference<a class="headerlink" href="#api-reference" title="Link to this heading">¶</a></h2>
+<p>The following docstrings are extracted directly from <code class="docutils literal notranslate"><span class="pre">pytest_libiio.plugin</span></code>:</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="pytest_libiio.plugin.iio_uri">
+<span class="sig-prename descclassname"><span class="pre">pytest_libiio.plugin.</span></span><span class="sig-name descname"><span class="pre">iio_uri</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_iio_emu_func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytest_libiio.plugin.iio_uri" title="Link to this definition">¶</a></dt>
+<dd><p>Yield the libiio URI string for the matched hardware context.</p>
+<p>The context is selected by the <code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.iio_hardware</span></code> marker.
+Without a marker, the first discovered context is used. If the marker
+lists multiple hardware names, the first matching context is returned.
+If no matching context is found, the test is skipped.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A libiio URI such as <code class="docutils literal notranslate"><span class="pre">&quot;ip:192.168.1.1&quot;</span></code> or
+<code class="docutils literal notranslate"><span class="pre">&quot;usb:1.2.3&quot;</span></code>. Under <code class="docutils literal notranslate"><span class="pre">--emu</span></code> the URI is the iio-emu server
+endpoint, e.g. <code class="docutils literal notranslate"><span class="pre">&quot;ip:127.0.0.1:30432&quot;</span></code> for an xdist worker.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">iio</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">iio_hardware</span><span class="p">(</span><span class="s2">&quot;pluto&quot;</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">def</span><span class="w"> </span><span class="nf">test_pluto</span><span class="p">(</span><span class="n">iio_uri</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">ctx</span> <span class="o">=</span> <span class="n">iio</span><span class="o">.</span><span class="n">Context</span><span class="p">(</span><span class="n">iio_uri</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">assert</span> <span class="n">ctx</span><span class="o">.</span><span class="n">find_device</span><span class="p">(</span><span class="s2">&quot;ad9361-phy&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<p>Under <code class="docutils literal notranslate"><span class="pre">--iio-coverage</span></code> this fixture activates the per-context
+attribute coverage tracker before yielding. Under <code class="docutils literal notranslate"><span class="pre">--telm</span></code> it
+captures hardware telemetry both before and after the test body.
+Neither side effect requires changes to the test itself.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytest_libiio.plugin.single_ctx_desc">
+<span class="sig-prename descclassname"><span class="pre">pytest_libiio.plugin.</span></span><span class="sig-name descname"><span class="pre">single_ctx_desc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_contexts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytest_libiio.plugin.single_ctx_desc" title="Link to this definition">¶</a></dt>
+<dd><p>Return the context-description dict for the matched hardware.</p>
+<p>Selection follows the same rules as <a class="reference internal" href="#pytest_libiio.plugin.iio_uri" title="pytest_libiio.plugin.iio_uri"><code class="xref py py-func docutils literal notranslate"><span class="pre">iio_uri()</span></code></a>: the
+<code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.iio_hardware</span></code> marker filters discovered contexts,
+with the first match returned. Tests without a marker receive the
+first discovered context. If no matching context is found, the test
+is skipped.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Keys <code class="docutils literal notranslate"><span class="pre">uri</span></code> (libiio URI), <code class="docutils literal notranslate"><span class="pre">type</span></code> (transport, e.g.
+<code class="docutils literal notranslate"><span class="pre">&quot;ip&quot;</span></code>), <code class="docutils literal notranslate"><span class="pre">devices</span></code> (comma-separated driver names), and
+<code class="docutils literal notranslate"><span class="pre">hw</span></code> (hardware name resolved from the hardware map).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">iio</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">iio_hardware</span><span class="p">(</span><span class="s2">&quot;adrv9361&quot;</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">def</span><span class="w"> </span><span class="nf">test_drivers</span><span class="p">(</span><span class="n">single_ctx_desc</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">assert</span> <span class="n">single_ctx_desc</span><span class="p">[</span><span class="s2">&quot;hw&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;adrv9361&quot;</span>
+<span class="gp">... </span>    <span class="n">ctx</span> <span class="o">=</span> <span class="n">iio</span><span class="o">.</span><span class="n">Context</span><span class="p">(</span><span class="n">single_ctx_desc</span><span class="p">[</span><span class="s2">&quot;uri&quot;</span><span class="p">])</span>
+<span class="gp">... </span>    <span class="k">assert</span> <span class="s2">&quot;ad9361-phy&quot;</span> <span class="ow">in</span> <span class="n">single_ctx_desc</span><span class="p">[</span><span class="s2">&quot;devices&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytest_libiio.plugin.context_desc">
+<span class="sig-prename descclassname"><span class="pre">pytest_libiio.plugin.</span></span><span class="sig-name descname"><span class="pre">context_desc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_contexts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytest_libiio.plugin.context_desc" title="Link to this definition">¶</a></dt>
+<dd><p>Return all matching context-description dicts as a list.</p>
+<p>Useful when multiple boards of the same type are connected, or when
+a test wants to fan out across every discovered context. The
+<code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.iio_hardware</span></code> marker filters the list; without a
+marker, every discovered context is returned. If the marker is
+present and nothing matches, the test is skipped.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>One element per matching context. Each dict has the
+same shape as <a class="reference internal" href="#pytest_libiio.plugin.single_ctx_desc" title="pytest_libiio.plugin.single_ctx_desc"><code class="xref py py-func docutils literal notranslate"><span class="pre">single_ctx_desc()</span></code></a>’s return value.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[dict]</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">iio</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">iio_hardware</span><span class="p">(</span><span class="s2">&quot;fmcomms2&quot;</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">def</span><span class="w"> </span><span class="nf">test_all_boards</span><span class="p">(</span><span class="n">context_desc</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">desc</span> <span class="ow">in</span> <span class="n">context_desc</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">ctx</span> <span class="o">=</span> <span class="n">iio</span><span class="o">.</span><span class="n">Context</span><span class="p">(</span><span class="n">desc</span><span class="p">[</span><span class="s2">&quot;uri&quot;</span><span class="p">])</span>
+<span class="gp">... </span>        <span class="k">assert</span> <span class="n">ctx</span><span class="o">.</span><span class="n">find_device</span><span class="p">(</span><span class="s2">&quot;ad9361-phy&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </section>
 <hr class="docutils" />
 <section id="context-dict-schema">
@@ -595,6 +774,16 @@ returns all found contexts and no filtering is applied.</p>
 <li><a class="reference internal" href="#single-ctx-desc"><code class="docutils literal notranslate"><span class="pre">single_ctx_desc</span></code></a></li>
 <li><a class="reference internal" href="#context-desc"><code class="docutils literal notranslate"><span class="pre">context_desc</span></code></a></li>
 <li><a class="reference internal" href="#pytest-mark-iio-hardware-marker"><code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.iio_hardware</span></code> marker</a></li>
+<li><a class="reference internal" href="#scenario-emulation-mode">Scenario: emulation mode</a></li>
+<li><a class="reference internal" href="#scenario-attribute-coverage">Scenario: attribute coverage</a></li>
+<li><a class="reference internal" href="#scenario-telemetry-capture">Scenario: telemetry capture</a></li>
+<li><a class="reference internal" href="#scenario-parallel-execution-with-pytest-xdist">Scenario: parallel execution with pytest-xdist</a></li>
+<li><a class="reference internal" href="#api-reference">API reference</a><ul>
+<li><a class="reference internal" href="#pytest_libiio.plugin.iio_uri"><code class="docutils literal notranslate"><span class="pre">iio_uri()</span></code></a></li>
+<li><a class="reference internal" href="#pytest_libiio.plugin.single_ctx_desc"><code class="docutils literal notranslate"><span class="pre">single_ctx_desc()</span></code></a></li>
+<li><a class="reference internal" href="#pytest_libiio.plugin.context_desc"><code class="docutils literal notranslate"><span class="pre">context_desc()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#context-dict-schema">Context dict schema</a></li>
 </ul>
 </li>

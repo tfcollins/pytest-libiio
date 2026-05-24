@@ -380,36 +380,82 @@
         <article role="main" id="furo-main-content">
           <section id="pytest-command-line-parameters">
 <h1>pytest Command Line Parameters<a class="headerlink" href="#pytest-command-line-parameters" title="Link to this heading">¶</a></h1>
-<p>The pytest-libiio plugin extends the pytest cli with a few options to help with debugging tests, accessing specific hardware, and adding hardware maps between drivers and tests.</p>
+<p>The pytest-libiio plugin extends the pytest cli with a few options to help with
+debugging tests, accessing specific hardware, and adding hardware maps between
+drivers and tests.</p>
 <section id="available-cli-options">
 <h2>Available CLI options<a class="headerlink" href="#available-cli-options" title="Link to this heading">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pytest -h
-...
-libiio:
-  --uri=URI             Set libiio URI to utilize
-  --scan-verbose        Print info of found contexts when
-                        scanning
-  --adi-hw-map          Use ADI hardware map to determine
-                        hardware names based on context drivers
-  --custom-hw-map=HW_MAP
-                        Path to custom hardware map for drivers
-  --hw=HW_SELECT        Define hardware name of provided URI.
-                        Will ignore scan information and
-                        requires input URI argument
-  --skip-scan           Skip avahi scan. This is usually used
-                        within CI.
-  --emu                 Enable context emulation with iio-emu.
-  --emu-xml=EMU_XML     Path or name of built-in XML for back-
-                        end context
-  --emu-xml-dir=EMU_XML_DIR
-                        Path to folder with XML files for back-
-                        end context
-  --telm                Enable hardware telemetry collection on
-                        each test
-  --telm-data-folder=TELM_DATA_FOLDER
-                        Folder to store telemetry data
-...
-</pre></div>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Flag</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--uri=URI</span></code></p></td>
+<td><p><em>(scan)</em></p></td>
+<td><p>Skip the scan and use this libiio URI directly. See <a class="reference internal" href="#uri">URI</a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--scan-verbose</span></code></p></td>
+<td><p>off</p></td>
+<td><p>Print details of every discovered context during scanning.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--adi-hw-map</span></code></p></td>
+<td><p>off</p></td>
+<td><p>Use the bundled <a class="reference external" href="https://github.com/tfcollins/pytest-libiio/blob/main/pytest_libiio/resources/adi_hardware_map.yml">ADI hardware map</a>. See <a class="reference internal" href="#hardware-maps">Hardware maps</a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--custom-hw-map=PATH</span></code></p></td>
+<td><p><em>(none)</em></p></td>
+<td><p>Path to a custom hardware map YAML. See <a class="reference internal" href="#hardware-maps">Hardware maps</a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--hw=NAME</span></code></p></td>
+<td><p><em>(none)</em></p></td>
+<td><p>Treat the <code class="docutils literal notranslate"><span class="pre">--uri</span></code> target as this hardware name, ignoring the map. Requires <code class="docutils literal notranslate"><span class="pre">--uri</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--skip-scan</span></code></p></td>
+<td><p>off</p></td>
+<td><p>Skip the Zeroconf/avahi scan. Typically used in CI together with <code class="docutils literal notranslate"><span class="pre">--uri</span></code> or <code class="docutils literal notranslate"><span class="pre">--emu</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--emu</span></code></p></td>
+<td><p>off</p></td>
+<td><p>Launch <a class="reference external" href="https://github.com/analogdevicesinc/iio-emu">iio-emu</a> and run tests against the emulator. See <a class="reference internal" href="emulation.html"><span class="std std-doc">Emulation</span></a> and <a class="reference internal" href="fixtures.html#scenario-emulation-mode"><span class="std std-ref">Scenario: emulation mode</span></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--emu-xml=PATH</span></code></p></td>
+<td><p><em>(auto)</em></p></td>
+<td><p>Path or name of an iio-emu XML to load. Without it, XML files are picked from the hardware map.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--emu-xml-dir=DIR</span></code></p></td>
+<td><p><em>(bundled)</em></p></td>
+<td><p>Override the directory that holds emulator XML files (defaults to <code class="docutils literal notranslate"><span class="pre">pytest_libiio/resources/devices</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--telm</span></code></p></td>
+<td><p>off</p></td>
+<td><p>Capture before/after telemetry for every test that uses <code class="docutils literal notranslate"><span class="pre">iio_uri</span></code>. See <a class="reference internal" href="#telemetry">Telemetry</a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--telm-data-folder=DIR</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">telm_data</span></code></p></td>
+<td><p>Folder for telemetry pickle files.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--iio-coverage</span></code></p></td>
+<td><p>off</p></td>
+<td><p>Track IIO attribute reads/writes across the session. See <a class="reference internal" href="#coverage-tracking">Coverage tracking</a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--iio-coverage-folder=DIR</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">iio_coverage_results</span></code></p></td>
+<td><p>Folder for per-context coverage JSON + the aggregated markdown report.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--iio-coverage-debug-props</span></code></p></td>
+<td><p>off</p></td>
+<td><p>Also track IIO debug attributes.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--iio-coverage-print-results</span></code></p></td>
+<td><p>off</p></td>
+<td><p>Print the per-context attribute map to stdout after the session.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </section>
 <section id="uri">
@@ -458,6 +504,25 @@ libiio:
 <section id="telemetry">
 <h2>Telemetry<a class="headerlink" href="#telemetry" title="Link to this heading">¶</a></h2>
 <p>When the flag <strong>–telm</strong> is used, hardware telemetry is collected on each test. This enables a fixture that is autouse, meaning it is automatically used by all tests. The telemetry is collected in a folder defined by <strong>–telm-data-folder=&lt;path&gt;</strong>. The folder is created if it does not exist. Telemetry data is stored in individual files that are specific to a URI. So after a test suite run there should one file for every hardware platform under test. The test files are generated at pickle files and contain different metadata. This is primarily just IIO based information. However, if the optional SSH dependency is installed, additional metadata is collected from the target hardware if it uses an IP context.</p>
+<p>For a worked example see <a class="reference internal" href="fixtures.html#scenario-telemetry-capture"><span class="std std-ref">Scenario: telemetry capture</span></a>.</p>
+</section>
+<section id="coverage-tracking">
+<h2>Coverage tracking<a class="headerlink" href="#coverage-tracking" title="Link to this heading">¶</a></h2>
+<p>When <strong>–iio-coverage</strong> is set, pytest-libiio monkey-patches <code class="docutils literal notranslate"><span class="pre">iio.ChannelAttr</span></code>
+to record every attribute read and write performed by your tests, grouped by
+the matched hardware context. The <code class="docutils literal notranslate"><span class="pre">iio_uri</span></code> fixture installs the per-context
+tracker automatically — no per-test plumbing is required.</p>
+<p>After the session finishes the plugin writes:</p>
+<ul class="simple">
+<li><p>One <code class="docutils literal notranslate"><span class="pre">&lt;hw&gt;_coverage.json</span></code> file per context with the raw per-attribute counts.</p></li>
+<li><p>One <code class="docutils literal notranslate"><span class="pre">iio_coverage_report.md</span></code> aggregating coverage percentages across all
+contexts.</p></li>
+</ul>
+<p>Both land in the directory named by <strong>–iio-coverage-folder</strong> (default
+<code class="docutils literal notranslate"><span class="pre">iio_coverage_results</span></code>). Pass <strong>–iio-coverage-print-results</strong> to also dump the
+per-context attribute map to stdout, or <strong>–iio-coverage-debug-props</strong> to
+include debug attributes in the tally.</p>
+<p>For a worked example see <a class="reference internal" href="fixtures.html#scenario-attribute-coverage"><span class="std std-ref">Scenario: attribute coverage</span></a>.</p>
 </section>
 </section>
 
@@ -521,6 +586,7 @@ libiio:
 <li><a class="reference internal" href="#uri">URI</a></li>
 <li><a class="reference internal" href="#hardware-maps">Hardware maps</a></li>
 <li><a class="reference internal" href="#telemetry">Telemetry</a></li>
+<li><a class="reference internal" href="#coverage-tracking">Coverage tracking</a></li>
 </ul>
 </li>
 </ul>
