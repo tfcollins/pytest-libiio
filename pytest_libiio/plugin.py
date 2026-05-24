@@ -361,11 +361,32 @@ def pytest_sessionfinish(session, exitstatus):
 
 @pytest.fixture(scope="function")
 def iio_uri(request, _iio_emu_func):
-    """URI fixture which provides a string of the target uri of the
-    found board filtered by iio_hardware marker. If no hardware matching
-    the required hardware is found, the test is skipped. If no iio_hardware
-    marker is applied, first context uri is returned. If list of hardware
-    markers are provided, the first matching is returned.
+    """Yield the libiio URI string for the matched hardware context.
+
+    The context is selected by the ``@pytest.mark.iio_hardware`` marker.
+    Without a marker, the first discovered context is used. If the marker
+    lists multiple hardware names, the first matching context is returned.
+    If no matching context is found, the test is skipped.
+
+    Returns:
+        str: A libiio URI such as ``"ip:192.168.1.1"`` or
+        ``"usb:1.2.3"``. Under ``--emu`` the URI is the iio-emu server
+        endpoint, e.g. ``"ip:127.0.0.1:30432"`` for an xdist worker.
+
+    Example:
+        >>> import iio
+        >>> import pytest
+        >>>
+        >>> @pytest.mark.iio_hardware("pluto")
+        ... def test_pluto(iio_uri):
+        ...     ctx = iio.Context(iio_uri)
+        ...     assert ctx.find_device("ad9361-phy")
+
+    Notes:
+        Under ``--iio-coverage`` this fixture activates the per-context
+        attribute coverage tracker before yielding. Under ``--telm`` it
+        captures hardware telemetry both before and after the test body.
+        Neither side effect requires changes to the test itself.
     """
     if isinstance(_iio_emu_func, dict):
         get_telemetry_data(request, _iio_emu_func, before_test=True)
@@ -384,11 +405,28 @@ def iio_uri(request, _iio_emu_func):
 
 @pytest.fixture(scope="function")
 def single_ctx_desc(request, _contexts):
-    """Contexts description fixture which provides a single dictionary of
-    found board filtered by iio_hardware marker. If no hardware matching
-    the required hardware is found, the test is skipped. If no iio_hardware
-    marker is applied, first context is returned. If list of hardware markers
-    are provided. First matching is returned.
+    """Return the context-description dict for the matched hardware.
+
+    Selection follows the same rules as :func:`iio_uri`: the
+    ``@pytest.mark.iio_hardware`` marker filters discovered contexts,
+    with the first match returned. Tests without a marker receive the
+    first discovered context. If no matching context is found, the test
+    is skipped.
+
+    Returns:
+        dict: Keys ``uri`` (libiio URI), ``type`` (transport, e.g.
+        ``"ip"``), ``devices`` (comma-separated driver names), and
+        ``hw`` (hardware name resolved from the hardware map).
+
+    Example:
+        >>> import iio
+        >>> import pytest
+        >>>
+        >>> @pytest.mark.iio_hardware("adrv9361")
+        ... def test_drivers(single_ctx_desc):
+        ...     assert single_ctx_desc["hw"] == "adrv9361"
+        ...     ctx = iio.Context(single_ctx_desc["uri"])
+        ...     assert "ad9361-phy" in single_ctx_desc["devices"]
     """
     marker = request.node.get_closest_marker("iio_hardware")
     if _contexts:
@@ -407,9 +445,27 @@ def single_ctx_desc(request, _contexts):
 
 @pytest.fixture(scope="function")
 def context_desc(request, _contexts):
-    """Contexts description fixture which provides a list of dictionaries of
-    found board filtered by iio_hardware marker. If no hardware matching
-    the required hardware if found, the test is skipped
+    """Return all matching context-description dicts as a list.
+
+    Useful when multiple boards of the same type are connected, or when
+    a test wants to fan out across every discovered context. The
+    ``@pytest.mark.iio_hardware`` marker filters the list; without a
+    marker, every discovered context is returned. If the marker is
+    present and nothing matches, the test is skipped.
+
+    Returns:
+        list[dict]: One element per matching context. Each dict has the
+        same shape as :func:`single_ctx_desc`'s return value.
+
+    Example:
+        >>> import iio
+        >>> import pytest
+        >>>
+        >>> @pytest.mark.iio_hardware("fmcomms2")
+        ... def test_all_boards(context_desc):
+        ...     for desc in context_desc:
+        ...         ctx = iio.Context(desc["uri"])
+        ...         assert ctx.find_device("ad9361-phy") is not None
     """
     marker = request.node.get_closest_marker("iio_hardware")
     if _contexts:

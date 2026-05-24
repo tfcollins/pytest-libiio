@@ -63,46 +63,51 @@ You can install "pytest-libiio" via `pip`_ from `PyPI`_::
 Usage
 -----
 
-This plugin is used to make the access of libiio contexts easier and to provide a unified API through fixtures.
+The plugin exposes three pytest fixtures — ``iio_uri``, ``single_ctx_desc``,
+and ``context_desc`` — plus an ``iio_hardware`` marker that filters tests by
+detected hardware. The full reference and scenario walkthroughs (emulation,
+attribute coverage, telemetry, xdist) live in the
+`hosted documentation <https://tfcollins.github.io/pytest-libiio/>`_.
 
-Accessing contexts
-^^^^^^^^^^^^^^^^^^
-
-Get list of context descriptions of all found contexts:
-
-.. code-block:: python
-
-  import pytest
-  import iio
-
-
-  def test_libiio_device(context_desc):
-      hardware = ["pluto", "adrv9361", "fmcomms2"]
-      for ctx_desc in context_desc:
-          if ctx_desc["hw"] in hardware:
-              ctx = iio.Context(ctx_desc["uri"])
-      if not ctx:
-          pytest.skip("No required hardware found")
-
-Require certain hardware through marks:
+Quickstart — get a URI for a marked board and open the context:
 
 .. code-block:: python
 
-  import pytest
   import iio
+  import pytest
 
 
-  @pytest.mark.iio_hardware("adrv9361")
-  def test_libiio_device(context_desc):
+  @pytest.mark.iio_hardware("pluto")
+  def test_pluto(iio_uri):
+      ctx = iio.Context(iio_uri)
+      assert ctx.find_device("ad9361-phy") is not None
+
+Fan out across every matching board with ``context_desc``:
+
+.. code-block:: python
+
+  import iio
+  import pytest
+
+
+  @pytest.mark.iio_hardware(["pluto", "adrv9361", "fmcomms2"])
+  def test_all_matching_boards(context_desc):
       for ctx_desc in context_desc:
           ctx = iio.Context(ctx_desc["uri"])
           ...
 
+Run against the bundled ADI hardware map so the marker names resolve:
+
+.. code-block:: bash
+
+  pytest --adi-hw-map
+
 Contributing
 ------------
 
-Contributions are very welcome. Tests can be run with `nox`_, please ensure
-the coverage at least stays the same before you submit a pull request.
+Contributions are very welcome. Tests run via `nox`_ (``nox -s tests``);
+please ensure coverage at least stays the same before submitting a pull
+request.
 
 License
 -------

@@ -105,7 +105,16 @@ def docs(session):
         "paramiko",
     )
     session.install("-e", ".")
-    session.run("sphinx-build", "-b", "html", "docs", "docs/_build/html")
+    session.run(
+        "sphinx-build",
+        "-b",
+        "html",
+        "-W",
+        "--keep-going",
+        "-n",
+        "docs",
+        "docs/_build/html",
+    )
 
 
 VERSION_FILE = HERE / "pytest_libiio" / "__init__.py"
