@@ -9,13 +9,13 @@ logger = logging.getLogger(__name__)
 coverage_tracker = None
 
 
-def _check_tracker():
-    """Check if the coverage tracker is set."""
-    global coverage_tracker  # noqa: F824
+def _get_tracker():
+    """Return the active coverage tracker, raising if not set."""
     if coverage_tracker is None:
         raise RuntimeError(
             "Coverage tracker is not set. Call set_coverage_tracker first."
         )
+    return coverage_tracker
 
 
 def _read(self):
@@ -32,23 +32,21 @@ def _read(self):
         channel_name = None
         device_name = self._name
 
-    _check_tracker()
-
-    global coverage_tracker  # noqa: F824
+    tracker = _get_tracker()
     if channel_name and device_name:
         inout = "output" if output else "input"
-        coverage_tracker.channel_attr_reads_writes[device_name][inout][channel_name][
+        tracker.channel_attr_reads_writes[device_name][inout][channel_name][
             attr_name
         ] += 1
     elif device_name:
-        coverage_tracker.device_attr_reads_writes[device_name][attr_name] += 1
+        tracker.device_attr_reads_writes[device_name][attr_name] += 1
     else:
-        coverage_tracker.context_attr_reads_writes[attr_name] += 1
+        tracker.context_attr_reads_writes[attr_name] += 1
 
     logger.debug(
         f"Reading attribute: {attr_name}, Channel: {channel_name}, Device: {device_name}"
     )
-    return self._read_org()
+    return _orig_read(self)
 
 
 def _write(self, value):
@@ -65,30 +63,29 @@ def _write(self, value):
         channel_name = None
         device_name = self._name
 
-    _check_tracker()
-
-    global coverage_tracker  # noqa: F824
+    tracker = _get_tracker()
     if channel_name and device_name:
         inout = "output" if output else "input"
-        coverage_tracker.channel_attr_reads_writes[device_name][inout][channel_name][
+        tracker.channel_attr_reads_writes[device_name][inout][channel_name][
             attr_name
         ] += 1
     elif device_name:
-        coverage_tracker.device_attr_reads_writes[device_name][attr_name] += 1
+        tracker.device_attr_reads_writes[device_name][attr_name] += 1
     else:
-        coverage_tracker.context_attr_reads_writes[attr_name] += 1
+        tracker.context_attr_reads_writes[attr_name] += 1
 
     logger.debug(
         f"Writing attribute: {attr_name}, Channel: {channel_name}, Device: {device_name}, Value: {value}"
     )
-    self._write_org(value)
+    _orig_write(self, value)
 
 
-_Attr._read_org = _Attr._read
-_Attr._read = _read
-
-_Attr._write_org = _Attr._write
-_Attr._write = _write
+_orig_read = _Attr._read
+_orig_write = _Attr._write
+# Monkey-patch ChannelAttr to capture reads/writes; setattr is intentional
+# to make the dynamic patching explicit to type checkers.
+setattr(_Attr, "_read", _read)  # noqa: B010
+setattr(_Attr, "_write", _write)  # noqa: B010
 
 
 def set_coverage_tracker(tracker):
@@ -110,8 +107,8 @@ def unset_monkey_patch():
     if coverage_tracker:
         coverage_tracker = None
 
-    _Attr._read = _Attr._read_org
-    _Attr._write = _Attr._write_org
+    setattr(_Attr, "_read", _orig_read)  # noqa: B010
+    setattr(_Attr, "_write", _orig_write)  # noqa: B010
 
 
 logger.debug("iio.py monkey patch applied")

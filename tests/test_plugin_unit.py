@@ -425,7 +425,8 @@ def test_contexts_fixture_cleanup_and_telemetry(tmp_path, monkeypatch):
         def close(self):
             close_called["count"] += 1
 
-    plugin.pytest.hw_telemetry_ssh_sessions = {"u": SSH(), "n": None}
+    plugin._hw_telemetry_ssh_sessions.clear()
+    plugin._hw_telemetry_ssh_sessions.update({"u": SSH(), "n": None})
     gen = plugin.cleanup_ssh_sessions.__wrapped__()
     next(gen)
     with pytest.raises(StopIteration):
@@ -433,7 +434,8 @@ def test_contexts_fixture_cleanup_and_telemetry(tmp_path, monkeypatch):
     assert close_called["count"] == 1
 
     # save telemetry logs fixture
-    plugin.pytest.hw_telemetry = {"u": {"test_a": {"k": 1}}}
+    plugin._hw_telemetry.clear()
+    plugin._hw_telemetry.update({"u": {"test_a": {"k": 1}}})
     req = types.SimpleNamespace(
         config=FakeConfig({"--telm-data-folder": str(tmp_path / "telm")})
     )
@@ -454,10 +456,10 @@ def test_contexts_fixture_cleanup_and_telemetry(tmp_path, monkeypatch):
     request = FakeRequest({"--telm": True, "--emu": True}, test_name="test_telem")
     plugin.get_telemetry_data(request, {"uri": "ip:1.1.1.1"}, before_test=True)
     plugin.get_telemetry_data(request, {"uri": "ip:1.1.1.1"}, before_test=False)
-    assert plugin.pytest.hw_telemetry["ip:1.1.1.1"]["test_telem"]["before_test"] == {
+    assert plugin._hw_telemetry["ip:1.1.1.1"]["test_telem"]["before_test"] == {
         "ok": True
     }
-    assert plugin.pytest.hw_telemetry["ip:1.1.1.1"]["test_telem"]["after_test"] == {
+    assert plugin._hw_telemetry["ip:1.1.1.1"]["test_telem"]["after_test"] == {
         "ok": True
     }
 
@@ -499,8 +501,9 @@ def test_import_lookup_and_find_contexts(tmp_path, monkeypatch, capsys):
     rows = plugin.find_contexts(config, data, request)
     assert rows[0]["uri"] == "ip:1.1.1.1"
 
-    class BusyError(Exception):
-        errno = 16
+    class BusyError(OSError):
+        def __init__(self, msg):
+            super().__init__(16, msg)
 
     monkeypatch.setattr(
         plugin.iio, "Context", lambda uri: (_ for _ in ()).throw(BusyError("busy"))
@@ -509,8 +512,9 @@ def test_import_lookup_and_find_contexts(tmp_path, monkeypatch, capsys):
     assert rows == []
     assert "not reachable" in capsys.readouterr().out
 
-    class FatalError(Exception):
-        errno = 1
+    class FatalError(OSError):
+        def __init__(self, msg):
+            super().__init__(1, msg)
 
     monkeypatch.setattr(
         plugin.iio, "Context", lambda uri: (_ for _ in ()).throw(FatalError("fatal"))

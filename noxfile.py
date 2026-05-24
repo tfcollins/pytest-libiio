@@ -53,10 +53,35 @@ def format_check(session):
 def mypy(session):
     """Type-check with mypy."""
     session.install(
-        "mypy", "pytest", "pylibiio==0.23.1", "pyyaml", "paramiko", "lxml", "click"
+        "mypy",
+        "pytest",
+        "pylibiio==0.23.1",
+        "pyyaml",
+        "paramiko",
+        "lxml",
+        "click",
+        "types-PyYAML",
+        "types-paramiko",
     )
     session.install("-e", ".")
     session.run("mypy", "pytest_libiio")
+
+
+@nox.session(python="3.12")
+def ty(session):
+    """Type-check with Astral's ty."""
+    session.install(
+        "ty",
+        "pytest",
+        "pylibiio==0.23.1",
+        "pyyaml",
+        "paramiko",
+        "lxml",
+        "lxml-stubs",
+        "click",
+    )
+    session.install("-e", ".")
+    session.run("ty", "check", "pytest_libiio")
 
 
 @nox.session(python="3.9")

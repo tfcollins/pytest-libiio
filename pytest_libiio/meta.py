@@ -184,7 +184,7 @@ def get_emulated_context(ctx: iio.Context):
     xml_str = etree.tostring(
         tree, pretty_print=True, xml_declaration=True, doctype=doctype, encoding="utf-8"
     )
-    xml_str = str(xml_str, "utf-8")  # type: ignore
+    xml_str = str(xml_str, "utf-8")
     return xml_str
 
 

@@ -9,6 +9,7 @@ import socket
 import subprocess
 import time
 from shutil import which
+from typing import Optional
 
 import iio
 import pytest
@@ -20,23 +21,28 @@ from .coverage import MultiContextTracker
 
 IIO_EMU_BASE_PORT = 30431
 
+_context_table: Optional[list] = None
+_hw_telemetry: dict = {}
+_hw_telemetry_ssh_sessions: dict = {}
+
 
 class iio_emu_manager:
     def __init__(
         self,
         xml_path: str,
         auto: bool = True,
-        rx_dev: str = None,
-        tx_dev: str = None,
-        custom_port: int = None,
+        rx_dev: Optional[str] = None,
+        tx_dev: Optional[str] = None,
+        custom_port: Optional[int] = None,
     ):
         self.xml_path = xml_path
         self.rx_dev = rx_dev
         self.tx_dev = tx_dev
-        self.current_device = None
+        self.current_device: Optional[str] = None
         self.auto = auto
-        self.data_devices = None
+        self.data_devices: Optional[list] = None
         self.custom_port = custom_port
+        self.hw: Optional[dict] = None
 
         iio_emu = which("iio-emu") is None
         if iio_emu:
@@ -47,9 +53,10 @@ class iio_emu_manager:
         self.uri = f"ip:{self.local_ip}"
         if self.custom_port:
             self.uri += f":{self.custom_port}"
-        self.p = None
-        if os.getenv("IIO_EMU_URI"):
-            self.uri = os.getenv("IIO_EMU_URI")
+        self.p: Optional[subprocess.Popen] = None
+        env_uri = os.getenv("IIO_EMU_URI")
+        if env_uri:
+            self.uri = env_uri
 
     def __del__(self):
         if self.p:
@@ -288,8 +295,9 @@ def pytest_collection_modifyitems(config, items):
 
     request = Object()
     request.config = config
-    pytest._context_table = find_contexts(config, get_hw_map(request), request)
-    if not pytest._context_table:
+    global _context_table
+    _context_table = find_contexts(config, get_hw_map(request), request)
+    if not _context_table:
         return
 
     # Add xdist marker to split tests based on context
@@ -297,7 +305,7 @@ def pytest_collection_modifyitems(config, items):
         mark = item.get_closest_marker("iio_hardware")
         if hasattr(mark, "name") and mark.name == "iio_hardware":
             hw = mark.args[0]
-            for info in pytest._context_table:
+            for info in _context_table:
                 if info["hw"] == hw:
                     item.add_marker(
                         pytest.mark.xdist_group(name=f"xdist_{info['uri']}")
@@ -548,62 +556,54 @@ def _contexts(request, _iio_emu):
 @pytest.fixture(scope="session", autouse=True)
 def cleanup_ssh_sessions():
     yield
-    if hasattr(pytest, "hw_telemetry_ssh_sessions"):
-        for uri in pytest.hw_telemetry_ssh_sessions:
-            if pytest.hw_telemetry_ssh_sessions[uri]:
-                print(f"Closing SSH session for URI {uri}")
-                pytest.hw_telemetry_ssh_sessions[uri].close()
+    for uri in _hw_telemetry_ssh_sessions:
+        if _hw_telemetry_ssh_sessions[uri]:
+            print(f"Closing SSH session for URI {uri}")
+            _hw_telemetry_ssh_sessions[uri].close()
 
 
 @pytest.fixture(scope="session", autouse=True)
 def save_telemtry_logs_to_files(request):
     yield
 
-    if hasattr(pytest, "hw_telemetry"):
+    if _hw_telemetry:
         folder = request.config.getoption("--telm-data-folder")
         if not os.path.exists(folder):
             os.makedirs(folder)
-        for uri in pytest.hw_telemetry:
+        for uri in _hw_telemetry:
             print(f"Saving telemetry data for URI {uri} to {folder}")
-            for test in pytest.hw_telemetry[uri]:
+            for test in _hw_telemetry[uri]:
                 filename = f"{folder}/{test}.pkl"
                 with open(filename, "wb") as f:
-                    pickle.dump(pytest.hw_telemetry[uri][test], f)
+                    pickle.dump(_hw_telemetry[uri][test], f)
 
 
 def get_telemetry_data(request, ctx, before_test=True):
     if not request.config.getoption("--telm"):
         return
 
-    if not hasattr(pytest, "hw_telemetry"):
-        pytest.hw_telemetry = {}
-
-    if not hasattr(pytest, "hw_telemetry_ssh_sessions"):
-        pytest.hw_telemetry_ssh_sessions = {}
-
     ctx_o = iio.Context(ctx["uri"])
-    ssh_sessions = pytest.hw_telemetry_ssh_sessions
 
-    if ctx["uri"] not in ssh_sessions:
+    if ctx["uri"] not in _hw_telemetry_ssh_sessions:
         if request.config.getoption("--emu"):
-            ssh_sessions[ctx["uri"]] = None
+            _hw_telemetry_ssh_sessions[ctx["uri"]] = None
         else:
-            ssh_sessions[ctx["uri"]] = meta.get_ssh_session(ctx_o)
+            _hw_telemetry_ssh_sessions[ctx["uri"]] = meta.get_ssh_session(ctx_o)
 
-    metadata = meta.get_hardware_info(ctx_o, ssh_sessions[ctx["uri"]])
+    metadata = meta.get_hardware_info(ctx_o, _hw_telemetry_ssh_sessions[ctx["uri"]])
     msg = "before" if before_test else "after"
     print(f"\nCollecting telemetry data {msg} test for URI {ctx['uri']}")
 
-    if ctx["uri"] not in pytest.hw_telemetry:
-        pytest.hw_telemetry[ctx["uri"]] = {}
+    if ctx["uri"] not in _hw_telemetry:
+        _hw_telemetry[ctx["uri"]] = {}
 
-    if request.node.name not in pytest.hw_telemetry[ctx["uri"]]:
-        pytest.hw_telemetry[ctx["uri"]][request.node.name] = {}
+    if request.node.name not in _hw_telemetry[ctx["uri"]]:
+        _hw_telemetry[ctx["uri"]][request.node.name] = {}
 
     if before_test:
-        pytest.hw_telemetry[ctx["uri"]][request.node.name]["before_test"] = metadata
+        _hw_telemetry[ctx["uri"]][request.node.name]["before_test"] = metadata
     else:
-        pytest.hw_telemetry[ctx["uri"]][request.node.name]["after_test"] = metadata
+        _hw_telemetry[ctx["uri"]][request.node.name]["after_test"] = metadata
 
 
 def import_hw_map(filename):
@@ -693,7 +693,7 @@ def find_contexts(config, map, request):
 
         try:
             ctx = iio.Context(uri)
-        except Exception as ex:
+        except OSError as ex:
             if ex.errno == 16:
                 print(f"\nContext {uri} is not reachable: {ex}")
                 continue

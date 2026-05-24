@@ -13,13 +13,6 @@ class DummyAttr:
         self.read_called = 0
         self.writes = []
 
-    def _read_org(self):
-        self.read_called += 1
-        return "orig-read"
-
-    def _write_org(self, value):
-        self.writes.append(value)
-
 
 class DummyTracker:
     def __init__(self):
@@ -28,10 +21,10 @@ class DummyTracker:
         self.context_attr_reads_writes = {"attr": 0}
 
 
-def test_check_tracker_raises_when_unset(monkeypatch):
+def test_get_tracker_raises_when_unset(monkeypatch):
     monkeypatch.setattr(mkpatch, "coverage_tracker", None)
     with pytest.raises(RuntimeError, match="Coverage tracker is not set"):
-        mkpatch._check_tracker()
+        mkpatch._get_tracker()
 
 
 def test_read_and_write_track_channel_attributes(monkeypatch):
@@ -42,6 +35,16 @@ def test_read_and_write_track_channel_attributes(monkeypatch):
     monkeypatch.setattr(mkpatch.iio, "_c_is_output", lambda ch: False)
     monkeypatch.setattr(mkpatch.iio, "_channel_get_device", lambda ch: object())
     monkeypatch.setattr(mkpatch.iio, "_d_get_name", lambda dev: b"dev")
+
+    def fake_read(self):
+        self.read_called += 1
+        return "orig-read"
+
+    def fake_write(self, value):
+        self.writes.append(value)
+
+    monkeypatch.setattr(mkpatch, "_orig_read", fake_read)
+    monkeypatch.setattr(mkpatch, "_orig_write", fake_write)
 
     attr = DummyAttr("attr", object(), "ignored")
 
@@ -56,6 +59,9 @@ def test_read_and_write_track_device_and_context(monkeypatch):
     tracker = DummyTracker()
     mkpatch.set_coverage_tracker(tracker)
 
+    monkeypatch.setattr(mkpatch, "_orig_read", lambda self: None)
+    monkeypatch.setattr(mkpatch, "_orig_write", lambda self, value: None)
+
     attr_dev = DummyAttr("attr", None, "dev")
     mkpatch._read(attr_dev)
     mkpatch._write(attr_dev, "x")
@@ -69,10 +75,10 @@ def test_read_and_write_track_device_and_context(monkeypatch):
 
 def test_unset_monkey_patch_restores_attr_methods(monkeypatch):
     dummy_type = types.SimpleNamespace(_read="patched_read", _write="patched_write")
-    dummy_type._read_org = "orig_read"
-    dummy_type._write_org = "orig_write"
 
     monkeypatch.setattr(mkpatch, "_Attr", dummy_type)
+    monkeypatch.setattr(mkpatch, "_orig_read", "orig_read")
+    monkeypatch.setattr(mkpatch, "_orig_write", "orig_write")
     mkpatch.set_coverage_tracker(DummyTracker())
 
     mkpatch.unset_monkey_patch()
