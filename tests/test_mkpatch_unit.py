@@ -6,10 +6,10 @@ import pytest_libiio.mkpatch as mkpatch
 
 
 class DummyAttr:
-    def __init__(self, name, channel, dev_name):
+    def __init__(self, name, channel, device):
         self.name = name
         self._channel = channel
-        self._name = dev_name
+        self._device = device
         self.read_called = 0
         self.writes = []
 
@@ -43,10 +43,10 @@ def test_read_and_write_track_channel_attributes(monkeypatch):
     def fake_write(self, value):
         self.writes.append(value)
 
-    monkeypatch.setattr(mkpatch, "_orig_read", fake_read)
-    monkeypatch.setattr(mkpatch, "_orig_write", fake_write)
+    monkeypatch.setattr(mkpatch, "_orig_chan_read", fake_read)
+    monkeypatch.setattr(mkpatch, "_orig_chan_write", fake_write)
 
-    attr = DummyAttr("attr", object(), "ignored")
+    attr = DummyAttr("attr", object(), None)
 
     assert mkpatch._read(attr) == "orig-read"
     mkpatch._write(attr, "v")
@@ -59,33 +59,44 @@ def test_read_and_write_track_device_and_context(monkeypatch):
     tracker = DummyTracker()
     mkpatch.set_coverage_tracker(tracker)
 
-    monkeypatch.setattr(mkpatch, "_orig_read", lambda self: None)
-    monkeypatch.setattr(mkpatch, "_orig_write", lambda self, value: None)
+    monkeypatch.setattr(mkpatch, "_d_get_name", lambda dev: b"dev" if dev else None)
+    monkeypatch.setattr(mkpatch, "_orig_dev_read", lambda self: None)
+    monkeypatch.setattr(mkpatch, "_orig_dev_write", lambda self, value: None)
 
-    attr_dev = DummyAttr("attr", None, "dev")
+    attr_dev = DummyAttr("attr", None, object())
     mkpatch._read(attr_dev)
     mkpatch._write(attr_dev, "x")
     assert tracker.device_attr_reads_writes["dev"]["attr"] == 2
 
+    # Context-level attributes are tracked but not yet supported for I/O, so
+    # the read/write helpers raise after recording the access.
     attr_ctx = DummyAttr("attr", None, None)
-    mkpatch._read(attr_ctx)
-    mkpatch._write(attr_ctx, "x")
+    with pytest.raises(ValueError, match="Context properties not supported"):
+        mkpatch._read(attr_ctx)
+    with pytest.raises(ValueError, match="Context properties not supported"):
+        mkpatch._write(attr_ctx, "x")
     assert tracker.context_attr_reads_writes["attr"] == 2
 
 
 def test_unset_monkey_patch_restores_attr_methods(monkeypatch):
-    dummy_type = types.SimpleNamespace(_read="patched_read", _write="patched_write")
+    dummy_chan = types.SimpleNamespace(_read="patched_read", _write="patched_write")
+    dummy_dev = types.SimpleNamespace(_read="patched_read", _write="patched_write")
 
-    monkeypatch.setattr(mkpatch, "_Attr", dummy_type)
-    monkeypatch.setattr(mkpatch, "_orig_read", "orig_read")
-    monkeypatch.setattr(mkpatch, "_orig_write", "orig_write")
+    monkeypatch.setattr(mkpatch, "_CAttr", dummy_chan)
+    monkeypatch.setattr(mkpatch, "_DAttr", dummy_dev)
+    monkeypatch.setattr(mkpatch, "_orig_chan_read", "orig_chan_read")
+    monkeypatch.setattr(mkpatch, "_orig_chan_write", "orig_chan_write")
+    monkeypatch.setattr(mkpatch, "_orig_dev_read", "orig_dev_read")
+    monkeypatch.setattr(mkpatch, "_orig_dev_write", "orig_dev_write")
     mkpatch.set_coverage_tracker(DummyTracker())
 
     mkpatch.unset_monkey_patch()
 
     assert mkpatch.coverage_tracker is None
-    assert mkpatch._Attr._read == "orig_read"
-    assert mkpatch._Attr._write == "orig_write"
+    assert dummy_chan._read == "orig_chan_read"
+    assert dummy_chan._write == "orig_chan_write"
+    assert dummy_dev._read == "orig_dev_read"
+    assert dummy_dev._write == "orig_dev_write"
 
 
 def test_reset_coverage_tracker():
