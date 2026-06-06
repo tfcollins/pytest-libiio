@@ -82,16 +82,22 @@ For a worked example see [Scenario: telemetry capture](fixtures.md#scenario-tele
 
 ## Coverage tracking
 
-When **--iio-coverage** is set, pytest-libiio monkey-patches `iio.ChannelAttr`
-to record every attribute read and write performed by your tests, grouped by
-the matched hardware context. The `iio_uri` fixture installs the per-context
-tracker automatically — no per-test plumbing is required.
+When **--iio-coverage** is set, pytest-libiio monkey-patches both
+`iio.ChannelAttr` and `iio.DeviceAttr` to record every attribute read and write
+performed by your tests, grouped by the matched hardware context. Both
+device-level attributes and per-channel attributes are tracked by default. The
+`iio_uri` fixture installs the per-context tracker automatically — no per-test
+plumbing is required.
 
 After the session finishes the plugin writes:
 
-- One `<hw>_coverage.json` file per context with the raw per-attribute counts.
+- One `<hw>_coverage.json` file per context with the raw per-attribute counts,
+  split into `device_attr_reads_writes` and `channel_attr_reads_writes`
+  sections (plus `debug_attr_reads_writes` when **--iio-coverage-debug-props**
+  is set).
 - One `iio_coverage_report.md` aggregating coverage percentages across all
-  contexts.
+  contexts, with a row per system for `device_coverage`, `channel_coverage`,
+  and `total_coverage`.
 
 Both land in the directory named by **--iio-coverage-folder** (default
 `iio_coverage_results`). Pass **--iio-coverage-print-results** to also dump the

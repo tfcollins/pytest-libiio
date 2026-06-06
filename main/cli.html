@@ -508,15 +508,21 @@ drivers and tests.</p>
 </section>
 <section id="coverage-tracking">
 <h2>Coverage tracking<a class="headerlink" href="#coverage-tracking" title="Link to this heading">¶</a></h2>
-<p>When <strong>–iio-coverage</strong> is set, pytest-libiio monkey-patches <code class="docutils literal notranslate"><span class="pre">iio.ChannelAttr</span></code>
-to record every attribute read and write performed by your tests, grouped by
-the matched hardware context. The <code class="docutils literal notranslate"><span class="pre">iio_uri</span></code> fixture installs the per-context
-tracker automatically — no per-test plumbing is required.</p>
+<p>When <strong>–iio-coverage</strong> is set, pytest-libiio monkey-patches both
+<code class="docutils literal notranslate"><span class="pre">iio.ChannelAttr</span></code> and <code class="docutils literal notranslate"><span class="pre">iio.DeviceAttr</span></code> to record every attribute read and write
+performed by your tests, grouped by the matched hardware context. Both
+device-level attributes and per-channel attributes are tracked by default. The
+<code class="docutils literal notranslate"><span class="pre">iio_uri</span></code> fixture installs the per-context tracker automatically — no per-test
+plumbing is required.</p>
 <p>After the session finishes the plugin writes:</p>
 <ul class="simple">
-<li><p>One <code class="docutils literal notranslate"><span class="pre">&lt;hw&gt;_coverage.json</span></code> file per context with the raw per-attribute counts.</p></li>
+<li><p>One <code class="docutils literal notranslate"><span class="pre">&lt;hw&gt;_coverage.json</span></code> file per context with the raw per-attribute counts,
+split into <code class="docutils literal notranslate"><span class="pre">device_attr_reads_writes</span></code> and <code class="docutils literal notranslate"><span class="pre">channel_attr_reads_writes</span></code>
+sections (plus <code class="docutils literal notranslate"><span class="pre">debug_attr_reads_writes</span></code> when <strong>–iio-coverage-debug-props</strong>
+is set).</p></li>
 <li><p>One <code class="docutils literal notranslate"><span class="pre">iio_coverage_report.md</span></code> aggregating coverage percentages across all
-contexts.</p></li>
+contexts, with a row per system for <code class="docutils literal notranslate"><span class="pre">device_coverage</span></code>, <code class="docutils literal notranslate"><span class="pre">channel_coverage</span></code>,
+and <code class="docutils literal notranslate"><span class="pre">total_coverage</span></code>.</p></li>
 </ul>
 <p>Both land in the directory named by <strong>–iio-coverage-folder</strong> (default
 <code class="docutils literal notranslate"><span class="pre">iio_coverage_results</span></code>). Pass <strong>–iio-coverage-print-results</strong> to also dump the

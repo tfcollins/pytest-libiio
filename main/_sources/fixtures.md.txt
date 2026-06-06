@@ -162,17 +162,22 @@ See [Emulation](emulation.md) for details on adding new device XML files.
 When `--iio-coverage` is passed, `iio_uri` activates a per-context
 [attribute coverage tracker](https://github.com/tfcollins/pytest-libiio/blob/main/pytest_libiio/coverage.py)
 that records every IIO attribute read or written during the test session via a
-monkey-patch on `iio.ChannelAttr`. No change to your test code is required.
+monkey-patch on both `iio.ChannelAttr` and `iio.DeviceAttr`. Device-level and
+per-channel attributes are tracked by default and no change to your test code is
+required.
 
 ```bash
 pytest --emu --adi-hw-map --iio-coverage --iio-coverage-folder=cov_out
 ```
 
 After the session finishes the plugin writes one `<hw>_coverage.json` file per
-context plus an aggregated `iio_coverage_report.md` into the coverage folder
-(default `iio_coverage_results/`). Pass `--iio-coverage-print-results` to also
-dump the per-context attribute map to stdout, or `--iio-coverage-debug-props`
-to track debug attributes too.
+context — with separate `device_attr_reads_writes` and
+`channel_attr_reads_writes` sections — plus an aggregated
+`iio_coverage_report.md` that reports `device_coverage`, `channel_coverage`, and
+`total_coverage` per system, into the coverage folder (default
+`iio_coverage_results/`). Pass `--iio-coverage-print-results` to also dump the
+per-context attribute map to stdout, or `--iio-coverage-debug-props` to track
+debug attributes too.
 
 ---
 

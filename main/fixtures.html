@@ -526,15 +526,20 @@ sample rates or signal paths) can opt out with the second marker argument:</p>
 <p>When <code class="docutils literal notranslate"><span class="pre">--iio-coverage</span></code> is passed, <code class="docutils literal notranslate"><span class="pre">iio_uri</span></code> activates a per-context
 <a class="reference external" href="https://github.com/tfcollins/pytest-libiio/blob/main/pytest_libiio/coverage.py">attribute coverage tracker</a>
 that records every IIO attribute read or written during the test session via a
-monkey-patch on <code class="docutils literal notranslate"><span class="pre">iio.ChannelAttr</span></code>. No change to your test code is required.</p>
+monkey-patch on both <code class="docutils literal notranslate"><span class="pre">iio.ChannelAttr</span></code> and <code class="docutils literal notranslate"><span class="pre">iio.DeviceAttr</span></code>. Device-level and
+per-channel attributes are tracked by default and no change to your test code is
+required.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest<span class="w"> </span>--emu<span class="w"> </span>--adi-hw-map<span class="w"> </span>--iio-coverage<span class="w"> </span>--iio-coverage-folder<span class="o">=</span>cov_out
 </pre></div>
 </div>
 <p>After the session finishes the plugin writes one <code class="docutils literal notranslate"><span class="pre">&lt;hw&gt;_coverage.json</span></code> file per
-context plus an aggregated <code class="docutils literal notranslate"><span class="pre">iio_coverage_report.md</span></code> into the coverage folder
-(default <code class="docutils literal notranslate"><span class="pre">iio_coverage_results/</span></code>). Pass <code class="docutils literal notranslate"><span class="pre">--iio-coverage-print-results</span></code> to also
-dump the per-context attribute map to stdout, or <code class="docutils literal notranslate"><span class="pre">--iio-coverage-debug-props</span></code>
-to track debug attributes too.</p>
+context — with separate <code class="docutils literal notranslate"><span class="pre">device_attr_reads_writes</span></code> and
+<code class="docutils literal notranslate"><span class="pre">channel_attr_reads_writes</span></code> sections — plus an aggregated
+<code class="docutils literal notranslate"><span class="pre">iio_coverage_report.md</span></code> that reports <code class="docutils literal notranslate"><span class="pre">device_coverage</span></code>, <code class="docutils literal notranslate"><span class="pre">channel_coverage</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">total_coverage</span></code> per system, into the coverage folder (default
+<code class="docutils literal notranslate"><span class="pre">iio_coverage_results/</span></code>). Pass <code class="docutils literal notranslate"><span class="pre">--iio-coverage-print-results</span></code> to also dump the
+per-context attribute map to stdout, or <code class="docutils literal notranslate"><span class="pre">--iio-coverage-debug-props</span></code> to track
+debug attributes too.</p>
 </section>
 <hr class="docutils" />
 <section id="scenario-telemetry-capture">
