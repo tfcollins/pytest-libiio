@@ -67,7 +67,7 @@ The plugin exposes three pytest fixtures — ``iio_uri``, ``single_ctx_desc``,
 and ``context_desc`` — plus an ``iio_hardware`` marker that filters tests by
 detected hardware. The full reference and scenario walkthroughs (emulation,
 attribute coverage, telemetry, xdist) live in the
-`hosted documentation <https://tfcollins.github.io/pytest-libiio/>`_.
+`hosted documentation <https://tfcollins.github.io/pytest-libiio/main/>`_.
 
 Quickstart — get a URI for a marked board and open the context:
 
@@ -127,7 +127,7 @@ or attributes to exclude (glob patterns supported):
 
 Ignored items are dropped from both the access counts and the coverage
 denominator. See the `coverage tracking docs
-<https://tfcollins.github.io/pytest-libiio/cli.html#coverage-tracking>`_ for the
+<https://tfcollins.github.io/pytest-libiio/main/cli.html#coverage-tracking>`_ for the
 full schema.
 
 Contributing
