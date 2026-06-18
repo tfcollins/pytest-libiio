@@ -74,6 +74,8 @@ When the flag **--adi-hw-map** is used the provided map from [plugin itself is u
 
 If the flag **--hw=<hardware name>** is used the hardware map is ignored and the provided URI is defined as that hardware. This is handy if you do not want to create a custom map or are debugging. Note that **--hw** is only applicable when **--uri** is also used.
 
+A hardware entry may also carry a `blacklist:` section used to exclude specific devices, channels, or attributes from **--iio-coverage** tracking. See [Blacklisting devices, channels, and attributes](#blacklisting-devices-channels-and-attributes).
+
 ## Telemetry
 
 When the flag **--telm** is used, hardware telemetry is collected on each test. This enables a fixture that is autouse, meaning it is automatically used by all tests. The telemetry is collected in a folder defined by **--telm-data-folder=<path\>**. The folder is created if it does not exist. Telemetry data is stored in individual files that are specific to a URI. So after a test suite run there should one file for every hardware platform under test. The test files are generated at pickle files and contain different metadata. This is primarily just IIO based information. However, if the optional SSH dependency is installed, additional metadata is collected from the target hardware if it uses an IP context.
@@ -103,5 +105,48 @@ Both land in the directory named by **--iio-coverage-folder** (default
 `iio_coverage_results`). Pass **--iio-coverage-print-results** to also dump the
 per-context attribute map to stdout, or **--iio-coverage-debug-props** to
 include debug attributes in the tally.
+
+### Blacklisting devices, channels, and attributes
+
+Some attributes are noise for coverage purposes — diagnostic devices, write-only
+or unsupported attributes, or whole families no test could reasonably exercise.
+These drag down the reported percentage without adding signal. To exclude them,
+add a `blacklist:` section to the relevant hardware entry in the
+[hardware map](#hardware-maps) (works with both **--adi-hw-map** and
+**--custom-hw-map**). Blacklisted items are removed entirely: they are not
+counted when accessed and do not appear in the coverage denominator.
+
+``` yaml
+pluto:
+  - ad9361-phy
+  - cf-ad9361-lpc,2
+  - emulate:
+      - filename: pluto.xml
+  - blacklist:
+      devices:                                   # whole devices (all channels/attrs)
+        - xadc
+        - "cf-*"                                  # glob: every capture device
+      channels:                                  # whole channels (all their attrs)
+        - {device: ad9361-phy, id: voltage0}
+        - {device: ad9361-phy, id: "voltage*", direction: output}
+      attributes:
+        - {device: ad9361-phy, name: calib_mode_available}        # device-level attr
+        - {device: ad9361-phy, channel: voltage0, name: hardwaregain}  # channel attr
+        - {device: "*", channel: "*", name: raw}                  # raw on every channel
+```
+
+- **devices** — a list of device-name patterns. A match removes the device and
+  everything under it.
+- **channels** — a list of mappings with `device` and `id` (both required) and
+  an optional `direction` (`input` or `output`). A match removes the channel and
+  all its attributes.
+- **attributes** — a list of mappings with `device` and `name` (both required).
+  Omit `channel` for a device-level attribute; include `channel` (and optional
+  `direction`) for a channel attribute.
+
+Every string field is matched as a case-sensitive glob (Python's
+`fnmatch.fnmatchcase`), so `*` and `?` wildcards are supported, and an omitted
+optional field matches anything. Debug attributes (**--iio-coverage-debug-props**)
+honor whole-`devices` blacklisting only.
 
 For a worked example see [Scenario: attribute coverage](fixtures.md#scenario-attribute-coverage).

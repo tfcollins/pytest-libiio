@@ -126,6 +126,23 @@ def test_gen_markdown_table_and_filename_helpers(tmp_path):
     assert plugin.get_filename(hw_map, "pluto") == ("pluto.xml", ["d0"])
 
 
+def test_extract_blacklists():
+    hw_map = {
+        "pluto": [
+            "ad9361-phy",
+            {"emulate": [{"filename": "pluto.xml"}]},
+            {"blacklist": {"devices": ["xadc"]}},
+        ],
+        "fmcomms2": ["ad9361-phy"],
+    }
+    assert plugin.extract_blacklists(hw_map) == {"pluto": {"devices": ["xadc"]}}
+
+
+def test_extract_blacklists_handles_empty_map():
+    assert plugin.extract_blacklists(None) == {}
+    assert plugin.extract_blacklists({}) == {}
+
+
 def test_get_hw_map_variants(monkeypatch, tmp_path):
     path = tmp_path / "map.yml"
     path.write_text("pluto:\n  - ad9361-phy\n")
