@@ -134,6 +134,8 @@ def test_extract_blacklists():
             {"blacklist": {"devices": ["xadc"]}},
         ],
         "fmcomms2": ["ad9361-phy"],
+        # A malformed entry whose value is not a list is skipped defensively.
+        "weird": None,
     }
     assert plugin.extract_blacklists(hw_map) == {"pluto": {"devices": ["xadc"]}}
 
