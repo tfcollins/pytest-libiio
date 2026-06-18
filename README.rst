@@ -14,8 +14,8 @@ pytest-libiio
     :target: https://github.com/tfcollins/pytest-libiio/actions/workflows/test.yml
     :alt: See Build Status on GitHub Actions
 
-.. image:: https://coveralls.io/repos/github/tfcollins/pytest-libiio/badge.svg?branch=master
-    :target: https://coveralls.io/github/tfcollins/pytest-libiio?branch=master
+.. image:: https://coveralls.io/repos/github/tfcollins/pytest-libiio/badge.svg?branch=main
+    :target: https://coveralls.io/github/tfcollins/pytest-libiio?branch=main
     :alt: See Coverage Status on Coveralls
 
 .. image:: https://github.com/tfcollins/pytest-libiio/actions/workflows/doc.yml/badge.svg
@@ -101,6 +101,34 @@ Run against the bundled ADI hardware map so the marker names resolve:
 .. code-block:: bash
 
   pytest --adi-hw-map
+
+Track how much of each context's IIO attributes your tests exercise with
+``--iio-coverage``:
+
+.. code-block:: bash
+
+  pytest --adi-hw-map --iio-coverage
+
+This records every device- and channel-level attribute read or written, then
+writes a per-context JSON file plus an aggregate Markdown report. To keep noise
+(diagnostic devices, unsupported attributes, etc.) out of the tally, add a
+per-hardware ``ignore:`` section to the hardware map listing devices, channels,
+or attributes to exclude (glob patterns supported):
+
+.. code-block:: yaml
+
+  pluto:
+    - ad9361-phy
+    - cf-ad9361-lpc,2
+    - ignore:
+        devices: [xadc]
+        attributes:
+          - {device: ad9361-phy, name: calib_mode_available}
+
+Ignored items are dropped from both the access counts and the coverage
+denominator. See the `coverage tracking docs
+<https://tfcollins.github.io/pytest-libiio/cli.html#coverage-tracking>`_ for the
+full schema.
 
 Contributing
 ------------
