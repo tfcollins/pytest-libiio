@@ -74,7 +74,7 @@ When the flag **--adi-hw-map** is used the provided map from [plugin itself is u
 
 If the flag **--hw=<hardware name>** is used the hardware map is ignored and the provided URI is defined as that hardware. This is handy if you do not want to create a custom map or are debugging. Note that **--hw** is only applicable when **--uri** is also used.
 
-A hardware entry may also carry a `blacklist:` section used to exclude specific devices, channels, or attributes from **--iio-coverage** tracking. See [Blacklisting devices, channels, and attributes](#blacklisting-devices-channels-and-attributes).
+A hardware entry may also carry an `ignore:` section used to exclude specific devices, channels, or attributes from **--iio-coverage** tracking. See [Ignoring devices, channels, and attributes](#ignoring-devices-channels-and-attributes).
 
 ## Telemetry
 
@@ -106,14 +106,14 @@ Both land in the directory named by **--iio-coverage-folder** (default
 per-context attribute map to stdout, or **--iio-coverage-debug-props** to
 include debug attributes in the tally.
 
-### Blacklisting devices, channels, and attributes
+### Ignoring devices, channels, and attributes
 
 Some attributes are noise for coverage purposes — diagnostic devices, write-only
 or unsupported attributes, or whole families no test could reasonably exercise.
 These drag down the reported percentage without adding signal. To exclude them,
-add a `blacklist:` section to the relevant hardware entry in the
+add an `ignore:` section to the relevant hardware entry in the
 [hardware map](#hardware-maps) (works with both **--adi-hw-map** and
-**--custom-hw-map**). Blacklisted items are removed entirely: they are not
+**--custom-hw-map**). Ignored items are removed entirely: they are not
 counted when accessed and do not appear in the coverage denominator.
 
 ``` yaml
@@ -122,7 +122,7 @@ pluto:
   - cf-ad9361-lpc,2
   - emulate:
       - filename: pluto.xml
-  - blacklist:
+  - ignore:
       devices:                                   # whole devices (all channels/attrs)
         - xadc
         - "cf-*"                                  # glob: every capture device
@@ -147,6 +147,6 @@ pluto:
 Every string field is matched as a case-sensitive glob (Python's
 `fnmatch.fnmatchcase`), so `*` and `?` wildcards are supported, and an omitted
 optional field matches anything. Debug attributes (**--iio-coverage-debug-props**)
-honor whole-`devices` blacklisting only.
+honor whole-`devices` ignoring only.
 
 For a worked example see [Scenario: attribute coverage](fixtures.md#scenario-attribute-coverage).

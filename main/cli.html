@@ -500,7 +500,7 @@ drivers and tests.</p>
 <p>By default, all devices are labeled as unknown if no map exists or they are not found in the current map. If the decorator is not used, the test will not be filtered based on these criteria.</p>
 <p>When the flag <strong>–adi-hw-map</strong> is used the provided map from <a class="reference external" href="https://github.com/tfcollins/pytest-libiio/blob/master/pytest_libiio/resources/adi_hardware_map.yml">plugin itself is used</a>. Alternatively, a custom map can be used by supply the path with <strong>–custom-hw-map=&lt;path to yaml&gt;</strong>.</p>
 <p>If the flag <strong>–hw=<hardware name></strong> is used the hardware map is ignored and the provided URI is defined as that hardware. This is handy if you do not want to create a custom map or are debugging. Note that <strong>–hw</strong> is only applicable when <strong>–uri</strong> is also used.</p>
-<p>A hardware entry may also carry a <code class="docutils literal notranslate"><span class="pre">blacklist:</span></code> section used to exclude specific devices, channels, or attributes from <strong>–iio-coverage</strong> tracking. See <a class="reference internal" href="#blacklisting-devices-channels-and-attributes">Blacklisting devices, channels, and attributes</a>.</p>
+<p>A hardware entry may also carry an <code class="docutils literal notranslate"><span class="pre">ignore:</span></code> section used to exclude specific devices, channels, or attributes from <strong>–iio-coverage</strong> tracking. See <a class="reference internal" href="#ignoring-devices-channels-and-attributes">Ignoring devices, channels, and attributes</a>.</p>
 </section>
 <section id="telemetry">
 <h2>Telemetry<a class="headerlink" href="#telemetry" title="Link to this heading">¶</a></h2>
@@ -529,21 +529,21 @@ and <code class="docutils literal notranslate"><span class="pre">total_coverage<
 <code class="docutils literal notranslate"><span class="pre">iio_coverage_results</span></code>). Pass <strong>–iio-coverage-print-results</strong> to also dump the
 per-context attribute map to stdout, or <strong>–iio-coverage-debug-props</strong> to
 include debug attributes in the tally.</p>
-<section id="blacklisting-devices-channels-and-attributes">
-<h3>Blacklisting devices, channels, and attributes<a class="headerlink" href="#blacklisting-devices-channels-and-attributes" title="Link to this heading">¶</a></h3>
+<section id="ignoring-devices-channels-and-attributes">
+<h3>Ignoring devices, channels, and attributes<a class="headerlink" href="#ignoring-devices-channels-and-attributes" title="Link to this heading">¶</a></h3>
 <p>Some attributes are noise for coverage purposes — diagnostic devices, write-only
 or unsupported attributes, or whole families no test could reasonably exercise.
 These drag down the reported percentage without adding signal. To exclude them,
-add a <code class="docutils literal notranslate"><span class="pre">blacklist:</span></code> section to the relevant hardware entry in the
+add an <code class="docutils literal notranslate"><span class="pre">ignore:</span></code> section to the relevant hardware entry in the
 <a class="reference internal" href="#hardware-maps">hardware map</a> (works with both <strong>–adi-hw-map</strong> and
-<strong>–custom-hw-map</strong>). Blacklisted items are removed entirely: they are not
+<strong>–custom-hw-map</strong>). Ignored items are removed entirely: they are not
 counted when accessed and do not appear in the coverage denominator.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">pluto</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ad9361-phy</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cf-ad9361-lpc,2</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">emulate</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">filename</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pluto.xml</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">blacklist</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ignore</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">devices</span><span class="p">:</span><span class="w">                                   </span><span class="c1"># whole devices (all channels/attrs)</span>
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xadc</span>
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;cf-*&quot;</span><span class="w">                                  </span><span class="c1"># glob: every capture device</span>
@@ -569,7 +569,7 @@ Omit <code class="docutils literal notranslate"><span class="pre">channel</span>
 <p>Every string field is matched as a case-sensitive glob (Python’s
 <code class="docutils literal notranslate"><span class="pre">fnmatch.fnmatchcase</span></code>), so <code class="docutils literal notranslate"><span class="pre">*</span></code> and <code class="docutils literal notranslate"><span class="pre">?</span></code> wildcards are supported, and an omitted
 optional field matches anything. Debug attributes (<strong>–iio-coverage-debug-props</strong>)
-honor whole-<code class="docutils literal notranslate"><span class="pre">devices</span></code> blacklisting only.</p>
+honor whole-<code class="docutils literal notranslate"><span class="pre">devices</span></code> ignoring only.</p>
 <p>For a worked example see <a class="reference internal" href="fixtures.html#scenario-attribute-coverage"><span class="std std-ref">Scenario: attribute coverage</span></a>.</p>
 </section>
 </section>
@@ -636,7 +636,7 @@ honor whole-<code class="docutils literal notranslate"><span class="pre">devices
 <li><a class="reference internal" href="#hardware-maps">Hardware maps</a></li>
 <li><a class="reference internal" href="#telemetry">Telemetry</a></li>
 <li><a class="reference internal" href="#coverage-tracking">Coverage tracking</a><ul>
-<li><a class="reference internal" href="#blacklisting-devices-channels-and-attributes">Blacklisting devices, channels, and attributes</a></li>
+<li><a class="reference internal" href="#ignoring-devices-channels-and-attributes">Ignoring devices, channels, and attributes</a></li>
 </ul>
 </li>
 </ul>
