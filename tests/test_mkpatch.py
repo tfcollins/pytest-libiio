@@ -1,3 +1,4 @@
+import json
 import logging
 import time
 from pprint import pprint
@@ -111,3 +112,75 @@ def test_emulation_with_coverage(testdir, hw):
 
     # make sure that that we get a '0' exit code for the testsuite
     assert result.ret == 0
+
+
+def test_emulation_coverage_blacklist(testdir):
+    """Blacklisted devices/channels/attributes are excluded from coverage."""
+    time.sleep(sleep)
+
+    # Custom hardware map with a per-hardware blacklist section.
+    testdir.makefile(
+        ".yml",
+        custom_map="""
+pluto:
+  - ad9361-phy
+  - cf-ad9361-lpc,2
+  - emulate:
+      - filename: pluto.xml
+      - data_devices:
+          - iio:device2
+          - iio:device3
+  - blacklist:
+      devices:
+        - xadc
+      attributes:
+        - device: ad9361-phy
+          name: calib_mode_available
+        - device: ad9361-phy
+          channel: voltage0
+          name: hardwaregain
+""",
+    )
+
+    testdir.makepyfile(
+        """
+        import pytest
+        import iio
+
+        @pytest.mark.iio_hardware('pluto')
+        def test_sth(iio_uri):
+            assert iio_uri
+            ctx = iio.Context(iio_uri)
+    """
+    )
+
+    result = testdir.runpytest(
+        "--custom-hw-map=custom_map.yml",
+        "--scan-verbose",
+        "-vvv",
+        "-s",
+        "--emu",
+        "--iio-coverage",
+        "--iio-coverage-folder=iio_coverage_results_bl",
+    )
+
+    result.stdout.fnmatch_lines(["*PASSED*"])
+    result.stdout.fnmatch_lines(["*IIO coverage tracking enabled*"])
+    assert result.ret == 0
+
+    cov_file = testdir.tmpdir.join("iio_coverage_results_bl").join(
+        "pluto_coverage.json"
+    )
+    assert cov_file.exists(), "No coverage data file generated"
+    data = json.loads(cov_file.read())
+
+    dev = data["device_attr_reads_writes"]
+    # Whole device blacklisted.
+    assert "xadc" not in dev
+    # Device-level attribute blacklisted, siblings retained.
+    assert "calib_mode_available" not in dev["ad9361-phy"]
+    assert "calib_mode" in dev["ad9361-phy"]
+    # Channel attribute blacklisted, siblings retained.
+    chan = data["channel_attr_reads_writes"]["ad9361-phy"]["input"]["voltage0"]
+    assert "hardwaregain" not in chan
+    assert "gain_control_mode" in chan

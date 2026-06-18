@@ -37,13 +37,18 @@ def _read(self):
         device_name = name_raw.decode("ascii") if name_raw is not None else None
 
     tracker = _get_tracker()
+    bl = getattr(tracker, "blacklist", None)
     if channel_name and device_name:
         inout = "output" if output else "input"
-        tracker.channel_attr_reads_writes[device_name][inout][channel_name][
-            attr_name
-        ] += 1
+        if not (
+            bl and bl.attr_blacklisted(device_name, channel_name, attr_name, inout)
+        ):
+            tracker.channel_attr_reads_writes[device_name][inout][channel_name][
+                attr_name
+            ] += 1
     elif device_name:
-        tracker.device_attr_reads_writes[device_name][attr_name] += 1
+        if not (bl and bl.attr_blacklisted(device_name, None, attr_name, None)):
+            tracker.device_attr_reads_writes[device_name][attr_name] += 1
     else:
         tracker.context_attr_reads_writes[attr_name] += 1
 
@@ -74,13 +79,18 @@ def _write(self, value):
         device_name = name_raw.decode("ascii") if name_raw is not None else None
 
     tracker = _get_tracker()
+    bl = getattr(tracker, "blacklist", None)
     if channel_name and device_name:
         inout = "output" if output else "input"
-        tracker.channel_attr_reads_writes[device_name][inout][channel_name][
-            attr_name
-        ] += 1
+        if not (
+            bl and bl.attr_blacklisted(device_name, channel_name, attr_name, inout)
+        ):
+            tracker.channel_attr_reads_writes[device_name][inout][channel_name][
+                attr_name
+            ] += 1
     elif device_name:
-        tracker.device_attr_reads_writes[device_name][attr_name] += 1
+        if not (bl and bl.attr_blacklisted(device_name, None, attr_name, None)):
+            tracker.device_attr_reads_writes[device_name][attr_name] += 1
     else:
         tracker.context_attr_reads_writes[attr_name] += 1
 

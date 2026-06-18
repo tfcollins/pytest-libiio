@@ -132,6 +132,25 @@ def get_filename(map, hw):
     return fn, dd
 
 
+def extract_blacklists(map):
+    """Return ``{hardware_name: blacklist_spec}`` for entries that define one.
+
+    The blacklist is a ``blacklist:`` dict item inside a hardware entry's list,
+    alongside ``emulate:``/``ctx_attr:``. Used to exclude devices, channels, or
+    attributes from ``--iio-coverage`` tracking.
+    """
+    blacklists = {}
+    if not map:
+        return blacklists
+    for hw, items in map.items():
+        if not isinstance(items, list):
+            continue
+        for item in items:
+            if isinstance(item, dict) and "blacklist" in item:
+                blacklists[hw] = item["blacklist"]
+    return blacklists
+
+
 def handle_iio_emu(ctx, request, _iio_emu):
     if "hw" in ctx and hasattr(_iio_emu, "auto") and _iio_emu.auto:
         if _iio_emu.current_device != ctx["hw"]:
@@ -319,11 +338,18 @@ def pytest_sessionstart(session):
 
     if session.config.getoption("--iio-coverage"):
         session.config.pytest_libiio = Object()
-        session.config.pytest_libiio.coverage_tracker = MultiContextTracker()
-        session.config.pytest_libiio.coverage_tracker.do_monkey_patch()
-        session.config.pytest_libiio.coverage_tracker.track_debug_props = bool(
+        tracker = MultiContextTracker()
+        session.config.pytest_libiio.coverage_tracker = tracker
+        tracker.do_monkey_patch()
+        tracker.track_debug_props = bool(
             session.config.getoption("--iio-coverage-debug-props")
         )
+        # Load per-hardware coverage blacklists from the hardware map, if one is
+        # in use. get_hw_map only reads config options, so the session stands in
+        # for a request here.
+        hw_map = get_hw_map(session)
+        if hw_map:
+            tracker.blacklists = extract_blacklists(hw_map)
         print("IIO coverage tracking enabled")
     else:
         session.config.pytest_libiio = Object()

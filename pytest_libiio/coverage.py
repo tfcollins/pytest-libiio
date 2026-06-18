@@ -1,10 +1,91 @@
 """Coverage tracking for iio attributes using monkey patching."""
 
+import fnmatch
 import json
 import os
 from pprint import pprint
 
 import iio
+
+
+def _match(pattern, value):
+    """Case-sensitive glob match. A ``None`` pattern matches anything."""
+    if pattern is None:
+        return True
+    return fnmatch.fnmatchcase(value, pattern)
+
+
+class Blacklist:
+    """Match devices, channels, and attributes to exclude from coverage.
+
+    Built from a per-hardware ``blacklist`` mapping in the hardware map YAML::
+
+        blacklist:
+          devices: [xadc, "cf-*"]
+          channels:
+            - {device: ad9361-phy, id: voltage0}
+          attributes:
+            - {device: ad9361-phy, name: in_temp0_input}
+            - {device: ad9361-phy, channel: voltage0, name: hardwaregain}
+
+    All string fields are matched as case-sensitive globs
+    (:func:`fnmatch.fnmatchcase`). Missing optional fields match anything.
+    """
+
+    def __init__(self, spec):
+        spec = spec or {}
+        self._devices = list(spec.get("devices") or [])
+        self._channels = list(spec.get("channels") or [])
+        self._attributes = list(spec.get("attributes") or [])
+
+    def device_blacklisted(self, device):
+        """True if the whole device is excluded."""
+        return any(_match(pat, device) for pat in self._devices)
+
+    def channel_blacklisted(self, device, channel, direction):
+        """True if the whole channel (and all its attrs) is excluded."""
+        if self.device_blacklisted(device):
+            return True
+        for entry in self._channels:
+            if (
+                _match(entry.get("device"), device)
+                and _match(entry.get("id"), channel)
+                and _match(entry.get("direction"), direction)
+            ):
+                return True
+        return False
+
+    def attr_blacklisted(self, device, channel, attr, direction):
+        """True if a single attribute is excluded.
+
+        ``channel`` is ``None`` for device-level attributes; otherwise the
+        attribute belongs to the named channel.
+        """
+        if channel is None:
+            if self.device_blacklisted(device):
+                return True
+            for entry in self._attributes:
+                if "channel" in entry:
+                    continue
+                if _match(entry.get("device"), device) and _match(
+                    entry.get("name"), attr
+                ):
+                    return True
+            return False
+
+        if self.channel_blacklisted(device, channel, direction):
+            return True
+        for entry in self._attributes:
+            if "channel" not in entry:
+                continue
+            if (
+                _match(entry.get("device"), device)
+                and _match(entry.get("channel"), channel)
+                and _match(entry.get("name"), attr)
+                and _match(entry.get("direction"), direction)
+            ):
+                return True
+        return False
 
 
 class MultiContextTracker:
@@ -15,6 +96,9 @@ class MultiContextTracker:
         self.track_context_props = False
         self.track_debug_props = False
         self.results_folder = "iio_coverage_results"
+        # Per-hardware blacklist specs, keyed by hardware name. Populated from
+        # the hardware map; consulted in add_instance.
+        self.blacklists = {}
 
     def do_monkey_patch(self):
         """Apply monkey patch to iio.py."""
@@ -32,7 +116,11 @@ class MultiContextTracker:
         """
         if name not in self.trackers:
             self.trackers[name] = CoverageTracker(
-                name, uri, self.track_context_props, self.track_debug_props
+                name,
+                uri,
+                self.track_context_props,
+                self.track_debug_props,
+                blacklist=self.blacklists.get(name),
             )
         else:
             raise Exception(f"{name} already in tracker list")
@@ -56,6 +144,7 @@ class CoverageTracker:
         track_context_props=False,
         track_debug_props=False,
         results_folder=None,
+        blacklist=None,
     ):
         self.name = name
         self.context_attr_reads_writes = {}
@@ -67,6 +156,7 @@ class CoverageTracker:
         self.track_context_props = track_context_props
         self.track_debug_props = track_debug_props
         self.results_folder = results_folder or "iio_coverage_results"
+        self.blacklist = Blacklist(blacklist) if blacklist else None
         self.build_context_map()
 
     def reset(self):
@@ -77,20 +167,38 @@ class CoverageTracker:
         self.debug_attr_reads_writes.clear()
 
     def build_context_map(self):
-        """Build a map of context attributes."""
+        """Build a map of context attributes.
+
+        Entries excluded by ``self.blacklist`` are omitted entirely so they
+        never count toward coverage denominators.
+        """
+        bl = self.blacklist
         if self.track_context_props:
             self.context_attr_reads_writes = {attr: 0 for attr in self.ctx.attrs}
         for dev in self.ctx.devices:
-            self.device_attr_reads_writes[dev.name] = {attr: 0 for attr in dev.attrs}
+            if bl and bl.device_blacklisted(dev.name):
+                continue
+            self.device_attr_reads_writes[dev.name] = {
+                attr: 0
+                for attr in dev.attrs
+                if not (bl and bl.attr_blacklisted(dev.name, None, attr, None))
+            }
             for inout in ["input", "output"]:
                 for channel in dev.channels:
                     inout = "output" if channel.output else "input"
+                    if bl and bl.channel_blacklisted(dev.name, channel.id, inout):
+                        continue
                     if dev.name not in self.channel_attr_reads_writes:
                         self.channel_attr_reads_writes[dev.name] = {}
                     if inout not in self.channel_attr_reads_writes[dev.name]:
                         self.channel_attr_reads_writes[dev.name][inout] = {}
                     self.channel_attr_reads_writes[dev.name][inout][channel.id] = {
-                        attr: 0 for attr in channel.attrs
+                        attr: 0
+                        for attr in channel.attrs
+                        if not (
+                            bl
+                            and bl.attr_blacklisted(dev.name, channel.id, attr, inout)
+                        )
                     }
             if self.track_debug_props:
                 self.debug_attr_reads_writes[dev.name] = {
