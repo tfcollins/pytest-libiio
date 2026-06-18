@@ -126,23 +126,23 @@ def test_gen_markdown_table_and_filename_helpers(tmp_path):
     assert plugin.get_filename(hw_map, "pluto") == ("pluto.xml", ["d0"])
 
 
-def test_extract_blacklists():
+def test_extract_ignores():
     hw_map = {
         "pluto": [
             "ad9361-phy",
             {"emulate": [{"filename": "pluto.xml"}]},
-            {"blacklist": {"devices": ["xadc"]}},
+            {"ignore": {"devices": ["xadc"]}},
         ],
         "fmcomms2": ["ad9361-phy"],
         # A malformed entry whose value is not a list is skipped defensively.
         "weird": None,
     }
-    assert plugin.extract_blacklists(hw_map) == {"pluto": {"devices": ["xadc"]}}
+    assert plugin.extract_ignores(hw_map) == {"pluto": {"devices": ["xadc"]}}
 
 
-def test_extract_blacklists_handles_empty_map():
-    assert plugin.extract_blacklists(None) == {}
-    assert plugin.extract_blacklists({}) == {}
+def test_extract_ignores_handles_empty_map():
+    assert plugin.extract_ignores(None) == {}
+    assert plugin.extract_ignores({}) == {}
 
 
 def test_get_hw_map_variants(monkeypatch, tmp_path):

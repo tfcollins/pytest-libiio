@@ -41,30 +41,30 @@ class FakeContext:
         ]
 
 
-def test_blacklist_empty_spec_matches_nothing():
-    bl = coverage.Blacklist(None)
-    assert not bl.device_blacklisted("dev0")
-    assert not bl.channel_blacklisted("dev0", "voltage0", "input")
-    assert not bl.attr_blacklisted("dev0", None, "dev_a", None)
-    assert not bl.attr_blacklisted("dev0", "voltage0", "scale", "input")
+def test_ignore_empty_spec_matches_nothing():
+    bl = coverage.IgnoreList(None)
+    assert not bl.device_ignored("dev0")
+    assert not bl.channel_ignored("dev0", "voltage0", "input")
+    assert not bl.attr_ignored("dev0", None, "dev_a", None)
+    assert not bl.attr_ignored("dev0", "voltage0", "scale", "input")
 
-    bl = coverage.Blacklist({})
-    assert not bl.device_blacklisted("dev0")
-
-
-def test_blacklist_device_exact_and_glob():
-    bl = coverage.Blacklist({"devices": ["xadc", "cf-*"]})
-    assert bl.device_blacklisted("xadc")
-    assert bl.device_blacklisted("cf-ad9361-lpc")
-    assert not bl.device_blacklisted("ad9361-phy")
-    # A blacklisted device cascades to its attrs and channels.
-    assert bl.attr_blacklisted("xadc", None, "in_temp0_input", None)
-    assert bl.attr_blacklisted("cf-ad9361-lpc", "voltage0", "scale", "input")
-    assert bl.channel_blacklisted("cf-ad9361-lpc", "voltage0", "input")
+    bl = coverage.IgnoreList({})
+    assert not bl.device_ignored("dev0")
 
 
-def test_blacklist_channel_with_and_without_direction():
-    bl = coverage.Blacklist(
+def test_ignore_device_exact_and_glob():
+    bl = coverage.IgnoreList({"devices": ["xadc", "cf-*"]})
+    assert bl.device_ignored("xadc")
+    assert bl.device_ignored("cf-ad9361-lpc")
+    assert not bl.device_ignored("ad9361-phy")
+    # An ignored device cascades to its attrs and channels.
+    assert bl.attr_ignored("xadc", None, "in_temp0_input", None)
+    assert bl.attr_ignored("cf-ad9361-lpc", "voltage0", "scale", "input")
+    assert bl.channel_ignored("cf-ad9361-lpc", "voltage0", "input")
+
+
+def test_ignore_channel_with_and_without_direction():
+    bl = coverage.IgnoreList(
         {
             "channels": [
                 {"device": "ad9361-phy", "id": "voltage0"},
@@ -73,29 +73,29 @@ def test_blacklist_channel_with_and_without_direction():
         }
     )
     # No direction in spec -> matches either direction.
-    assert bl.channel_blacklisted("ad9361-phy", "voltage0", "input")
-    assert bl.channel_blacklisted("ad9361-phy", "voltage0", "output")
+    assert bl.channel_ignored("ad9361-phy", "voltage0", "input")
+    assert bl.channel_ignored("ad9361-phy", "voltage0", "output")
     # Direction-qualified glob entry.
-    assert bl.channel_blacklisted("ad9361-phy", "voltage1", "output")
-    assert not bl.channel_blacklisted("ad9361-phy", "voltage1", "input")
+    assert bl.channel_ignored("ad9361-phy", "voltage1", "output")
+    assert not bl.channel_ignored("ad9361-phy", "voltage1", "input")
     # Wrong device.
-    assert not bl.channel_blacklisted("cf-ad9361-lpc", "voltage0", "input")
-    # A blacklisted channel cascades to its attrs.
-    assert bl.attr_blacklisted("ad9361-phy", "voltage0", "scale", "input")
+    assert not bl.channel_ignored("cf-ad9361-lpc", "voltage0", "input")
+    # An ignored channel cascades to its attrs.
+    assert bl.attr_ignored("ad9361-phy", "voltage0", "scale", "input")
 
 
-def test_blacklist_device_level_attribute():
-    bl = coverage.Blacklist(
+def test_ignore_device_level_attribute():
+    bl = coverage.IgnoreList(
         {"attributes": [{"device": "ad9361-phy", "name": "in_temp0_input"}]}
     )
-    assert bl.attr_blacklisted("ad9361-phy", None, "in_temp0_input", None)
-    assert not bl.attr_blacklisted("ad9361-phy", None, "frequency", None)
+    assert bl.attr_ignored("ad9361-phy", None, "in_temp0_input", None)
+    assert not bl.attr_ignored("ad9361-phy", None, "frequency", None)
     # A device-level attribute entry (no channel) must not match a channel attr.
-    assert not bl.attr_blacklisted("ad9361-phy", "voltage0", "in_temp0_input", "input")
+    assert not bl.attr_ignored("ad9361-phy", "voltage0", "in_temp0_input", "input")
 
 
-def test_blacklist_channel_attribute_with_direction():
-    bl = coverage.Blacklist(
+def test_ignore_channel_attribute_with_direction():
+    bl = coverage.IgnoreList(
         {
             "attributes": [
                 {
@@ -107,23 +107,23 @@ def test_blacklist_channel_attribute_with_direction():
             ]
         }
     )
-    assert bl.attr_blacklisted("ad9361-phy", "voltage0", "hardwaregain", "output")
+    assert bl.attr_ignored("ad9361-phy", "voltage0", "hardwaregain", "output")
     # Wrong direction.
-    assert not bl.attr_blacklisted("ad9361-phy", "voltage0", "hardwaregain", "input")
+    assert not bl.attr_ignored("ad9361-phy", "voltage0", "hardwaregain", "input")
     # A channel-attr entry (has channel) must not match a device-level attr.
-    assert not bl.attr_blacklisted("ad9361-phy", None, "hardwaregain", None)
+    assert not bl.attr_ignored("ad9361-phy", None, "hardwaregain", None)
 
 
-def test_blacklist_attribute_globs_everywhere():
-    bl = coverage.Blacklist(
+def test_ignore_attribute_globs_everywhere():
+    bl = coverage.IgnoreList(
         {"attributes": [{"device": "*", "channel": "*", "name": "raw"}]}
     )
-    assert bl.attr_blacklisted("ad9361-phy", "voltage0", "raw", "input")
-    assert bl.attr_blacklisted("cf-ad9361-lpc", "voltage7", "raw", "output")
-    assert not bl.attr_blacklisted("ad9361-phy", "voltage0", "scale", "input")
+    assert bl.attr_ignored("ad9361-phy", "voltage0", "raw", "input")
+    assert bl.attr_ignored("cf-ad9361-lpc", "voltage7", "raw", "output")
+    assert not bl.attr_ignored("ad9361-phy", "voltage0", "scale", "input")
 
 
-def test_build_context_map_excludes_blacklisted(monkeypatch):
+def test_build_context_map_excludes_ignored(monkeypatch):
     monkeypatch.setattr("pytest_libiio.coverage.iio.Context", lambda uri: FakeContext())
     spec = {
         "attributes": [
@@ -132,7 +132,7 @@ def test_build_context_map_excludes_blacklisted(monkeypatch):
         ],
         "channels": [{"device": "dev0", "id": "ch_in"}],
     }
-    tracker = coverage.CoverageTracker("dut", "ip:1.2.3.4", blacklist=spec)
+    tracker = coverage.CoverageTracker("dut", "ip:1.2.3.4", ignore=spec)
 
     # Device-level attr dev_a removed, dev_b kept.
     assert "dev_a" not in tracker.device_attr_reads_writes["dev0"]
@@ -151,34 +151,34 @@ def test_build_context_map_excludes_whole_device(monkeypatch):
         "dut",
         "ip:1.2.3.4",
         track_debug_props=True,
-        blacklist={"devices": ["dev0"]},
+        ignore={"devices": ["dev0"]},
     )
     assert tracker.device_attr_reads_writes == {}
     assert tracker.channel_attr_reads_writes == {}
     assert tracker.debug_attr_reads_writes == {}
 
 
-def test_multi_context_tracker_passes_per_hw_blacklist(monkeypatch):
+def test_multi_context_tracker_passes_per_hw_ignore(monkeypatch):
     monkeypatch.setattr("pytest_libiio.coverage.iio.Context", lambda uri: FakeContext())
     mct = coverage.MultiContextTracker()
-    mct.blacklists = {"dut": {"devices": ["dev0"]}}
+    mct.ignores = {"dut": {"devices": ["dev0"]}}
 
     mct.add_instance("dut", "ip:1.2.3.4")
     assert mct.trackers["dut"].device_attr_reads_writes == {}
 
-    # A hardware name with no blacklist entry is tracked normally.
+    # A hardware name with no ignore entry is tracked normally.
     mct.add_instance("other", "ip:5.6.7.8")
     assert mct.trackers["other"].device_attr_reads_writes != {}
 
 
-def test_mkpatch_skips_blacklisted_device_attr(monkeypatch):
+def test_mkpatch_skips_ignored_device_attr(monkeypatch):
     from pytest_libiio import mkpatch
 
     monkeypatch.setattr("pytest_libiio.coverage.iio.Context", lambda uri: FakeContext())
     tracker = coverage.CoverageTracker(
         "dut",
         "ip:1.2.3.4",
-        blacklist={"attributes": [{"device": "dev0", "name": "dev_a"}]},
+        ignore={"attributes": [{"device": "dev0", "name": "dev_a"}]},
     )
     mkpatch.set_coverage_tracker(tracker)
     try:
@@ -193,27 +193,27 @@ def test_mkpatch_skips_blacklisted_device_attr(monkeypatch):
                 self.name = name
                 self._device = object()
 
-        # Blacklisted attr: original still runs, but no count is recorded and
+        # Ignored attr: original still runs, but no count is recorded and
         # the (absent) key is never indexed -> no KeyError.
         out = mkpatch._read(Attr("dev_a"))
         assert out == "val"
         assert "dev_a" not in tracker.device_attr_reads_writes["dev0"]
 
-        # Non-blacklisted attr still increments.
+        # Non-ignored attr still increments.
         mkpatch._read(Attr("dev_b"))
         assert tracker.device_attr_reads_writes["dev0"]["dev_b"] == 1
     finally:
         mkpatch.reset_coverage_tracker()
 
 
-def test_mkpatch_skips_blacklisted_channel_attr(monkeypatch):
+def test_mkpatch_skips_ignored_channel_attr(monkeypatch):
     from pytest_libiio import mkpatch
 
     monkeypatch.setattr("pytest_libiio.coverage.iio.Context", lambda uri: FakeContext())
     tracker = coverage.CoverageTracker(
         "dut",
         "ip:1.2.3.4",
-        blacklist={
+        ignore={
             "attributes": [{"device": "dev0", "channel": "ch_out", "name": "ch_b"}]
         },
     )
@@ -233,14 +233,14 @@ def test_mkpatch_skips_blacklisted_channel_attr(monkeypatch):
                 self.name = name
                 self._channel = object()
 
-        # Blacklisted channel attr: original still runs, no count, no KeyError.
+        # Ignored channel attr: original still runs, no count, no KeyError.
         mkpatch._write(Attr("ch_b"), "5")
         assert writes == ["5"]
         assert (
             "ch_b" not in tracker.channel_attr_reads_writes["dev0"]["output"]["ch_out"]
         )
 
-        # Non-blacklisted channel attr still increments.
+        # Non-ignored channel attr still increments.
         mkpatch._write(Attr("ch_c"), "6")
         assert (
             tracker.channel_attr_reads_writes["dev0"]["output"]["ch_out"]["ch_c"] == 1

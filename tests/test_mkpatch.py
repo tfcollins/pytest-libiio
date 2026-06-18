@@ -114,11 +114,11 @@ def test_emulation_with_coverage(testdir, hw):
     assert result.ret == 0
 
 
-def test_emulation_coverage_blacklist(testdir):
-    """Blacklisted devices/channels/attributes are excluded from coverage."""
+def test_emulation_coverage_ignore(testdir):
+    """Ignored devices/channels/attributes are excluded from coverage."""
     time.sleep(sleep)
 
-    # Custom hardware map with a per-hardware blacklist section.
+    # Custom hardware map with a per-hardware ignore section.
     testdir.makefile(
         ".yml",
         custom_map="""
@@ -130,7 +130,7 @@ pluto:
       - data_devices:
           - iio:device2
           - iio:device3
-  - blacklist:
+  - ignore:
       devices:
         - xadc
       attributes:
@@ -175,12 +175,12 @@ pluto:
     data = json.loads(cov_file.read())
 
     dev = data["device_attr_reads_writes"]
-    # Whole device blacklisted.
+    # Whole device ignored.
     assert "xadc" not in dev
-    # Device-level attribute blacklisted, siblings retained.
+    # Device-level attribute ignored, siblings retained.
     assert "calib_mode_available" not in dev["ad9361-phy"]
     assert "calib_mode" in dev["ad9361-phy"]
-    # Channel attribute blacklisted, siblings retained.
+    # Channel attribute ignored, siblings retained.
     chan = data["channel_attr_reads_writes"]["ad9361-phy"]["input"]["voltage0"]
     assert "hardwaregain" not in chan
     assert "gain_control_mode" in chan
